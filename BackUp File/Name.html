@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ছোটদের ফল, ফুল, মাছ, পাখি ও পশুর গ্যালারি</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;700&family=Roboto:wght@400;700&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #FFC107; /* হলুদ */
+            --secondary-color: #8BC34A; /* সবুজ */
+            --accent-color: #FF7043; /* কমলা */
+            --flower-accent-color: #EC407A; /* গোলাপী (ফুলের জন্য) */
+            --fish-accent-color: #29B6F6; /* হালকা নীল (মাছের জন্য) */
+            --bird-accent-color: #4DD0E1; /* সায়ান (পাখির জন্য) */
+            --animal-accent-color: #FFB74D; /* পীচ (পশুর জন্য) */
+            --word-game-accent-color: #7E57C2; /* বেগুনী (শব্দ খেলার জন্য) */
+            --text-color: #5D4037; /* বাদামী */
+            --bg-color: #E3F2FD; /* হালকা নীল (পটভূমি) */
+            --card-bg: #FFF9C4; /* হালকা হলুদ */
+            --font-kids: 'Comic Neue', 'Hind Siliguri', cursive;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body, h2, h3, p, button, input {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-kids);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 15px;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23AED581' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto 20px auto;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.92);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-radius: 18px;
+            border: 4px solid var(--primary-color);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #homePage { /* This is Name.html's own category selection page */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px 10px;
+            min-height: calc(100vh - 200px); 
+            flex-grow: 1; 
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFD54F' fill-opacity='0.25'%3E%3Cpath d='M12.5 28.5A12.5 12.5 0 1 0 12.5 2.5a12.5 12.5 0 0 0 0 25zm0 50A12.5 12.5 0 1 0 12.5 52.5a12.5 12.5 0 0 0 0 25zm50-50A12.5 12.5 0 1 0 62.5 2.5a12.5 12.5 0 0 0 0 25zm0 50A12.5 12.5 0 1 0 62.5 52.5a12.5 12.5 0 0 0 0 25zm-25 25A12.5 12.5 0 1 0 37.5 77.5a12.5 12.5 0 0 0 0 25zM37.5 2.5A12.5 12.5 0 1 0 37.5 27.5a12.5 12.5 0 0 0 0-25z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            background-size: 180px 180px;
+            border-radius: 15px;
+        }
+
+        .action-button {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 18px 35px;
+            font-family: var(--font-kids);
+            font-size: 1.6em;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.25s ease-in-out;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center; 
+            gap: 8px;
+            word-break: break-word;
+            white-space: normal;
+            margin: 8px; 
+        }
+        .action-button span:not(.button-text-content) { font-size: 1.4em; line-height: 1; }
+
+        .action-button:hover {
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            transform: translateY(-4px) scale(1.05);
+        }
+        .action-button:active {
+            transform: translateY(0) scale(1);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+        }
+        .animated-button { animation: pulse 2.5s infinite ease-in-out; }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+            50% { transform: scale(1.03); box-shadow: 0 10px 20px rgba(0,0,0,0.22); }
+            100% { transform: scale(1); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+        }
+        
+        #showFruitsBtn:hover { background-color: #689F38; } 
+        #showFlowersBtn { background-color: var(--flower-accent-color); }
+        #showFlowersBtn:hover { background-color: #D81B60; }
+        #showFishBtn { background-color: var(--fish-accent-color); } 
+        #showFishBtn:hover { background-color: #0288D1; }
+        #showBirdsBtn { background-color: var(--bird-accent-color); }
+        #showBirdsBtn:hover { background-color: #00ACC1; }
+        #showAnimalsBtn { background-color: var(--animal-accent-color); }
+        #showAnimalsBtn:hover { background-color: #FB8C00; }
+
+
+        #fruitGalleryPage, #flowerGalleryPage, #fishGalleryPage, #birdGalleryPage, #animalGalleryPage, #testModePage, #wordGamePage { 
+            display: none; 
+            text-align: center; 
+            padding-top: 25px; 
+            width: 100%;
+        }
+        
+        .gallery-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        .gallery-header-buttons { 
+            display: flex;
+            flex-direction: column; 
+            gap: 10px;
+        }
+
+        @media (min-width: 500px) { 
+            .gallery-header-buttons {
+                flex-direction: row; 
+            }
+        }
+        
+        #fruitGalleryPage h2, #flowerGalleryPage h2, #fishGalleryPage h2, #birdGalleryPage h2, #animalGalleryPage h2 {
+            font-family: var(--font-kids);
+            font-size: 2.2em;
+            color: var(--accent-color); 
+            overflow-wrap: break-word;
+            margin-bottom: 0;
+            flex-grow: 1;
+            text-align: left; 
+        }
+        #flowerGalleryPage h2 { color: var(--flower-accent-color); }
+        #fishGalleryPage h2 { color: var(--fish-accent-color); } 
+        #birdGalleryPage h2 { color: var(--bird-accent-color); }
+        #animalGalleryPage h2 { color: var(--animal-accent-color); }
+
+        .quiz-btn-in-gallery, .word-game-btn-in-gallery { 
+            font-size: 1.0em; 
+            padding: 10px 18px; 
+            min-width: 180px; 
+        }
+        #showFruitTestModeBtnInGallery { background-color: var(--accent-color); }
+        #showFlowerTestModeBtnInGallery { background-color: var(--flower-accent-color); }
+        #showFishTestModeBtnInGallery { background-color: var(--fish-accent-color); }
+        #showBirdTestModeBtnInGallery { background-color: var(--bird-accent-color); }
+        #showAnimalTestModeBtnInGallery { background-color: var(--animal-accent-color); }
+        
+        .word-game-btn-in-gallery { background-color: var(--word-game-accent-color); }
+        .word-game-btn-in-gallery:hover { background-color: #5E35B1; } 
+
+
+        .item-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+            padding: 10px 0;
+        }
+        .gallery-item {
+            background-color: var(--card-bg);
+            border: 3px dashed var(--secondary-color); 
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow: hidden;
+        }
+        #flowerGalleryPage .gallery-item { border-color: var(--flower-accent-color); }
+        #fishGalleryPage .gallery-item { border-color: var(--fish-accent-color); } 
+        #birdGalleryPage .gallery-item { border-color: var(--bird-accent-color); }
+        #animalGalleryPage .gallery-item { border-color: var(--animal-accent-color); }
+
+        .gallery-item:hover { transform: translateY(-8px); box-shadow: 0 6px 15px rgba(0,0,0,0.12); }
+        .gallery-item img {
+            width: 100%;
+            height: 160px;
+            object-fit: contain;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            background-color: #fff;
+            padding: 4px;
+            border: 2px solid var(--primary-color); 
+        }
+        #flowerGalleryPage .gallery-item img { border-color: var(--flower-accent-color); }
+        #fishGalleryPage .gallery-item img { border-color: var(--fish-accent-color); } 
+        #birdGalleryPage .gallery-item img { border-color: var(--bird-accent-color); }
+        #animalGalleryPage .gallery-item img { border-color: var(--animal-accent-color); }
+
+
+        .item-names {
+            margin-top: auto; padding: 6px; background-color: rgba(255,255,255,0.75);
+            border-radius: 8px; text-align: center; line-height: 1.4;
+        }
+        .item-names .single-displayed-name {
+            display: inline-block; margin: 3px; padding: 8px 12px; border-radius: 15px;
+            font-size: 1.25em; 
+            vertical-align: middle; font-weight: 700; overflow-wrap: break-word;
+            border: 2px solid transparent; 
+        }
+        .item-names .lang-bn { font-family: 'Hind Siliguri', sans-serif; background-color: #C8E6C9; color: #2E7D32; border-color: #81C784; }
+        .item-names .lang-en { font-family: 'Roboto', sans-serif; background-color: #BBDEFB; color: #0D47A1; border-color: #64B5F6; }
+
+
+        .back-button-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        .back-button-group .action-button {
+            margin: 0; 
+        }
+
+        .action-button.back-to-home { background: var(--accent-color); } /* This class is for buttons going to index.html */
+        .action-button.back-to-home:hover { background-color: #F4511E; }
+        .action-button.back-to-gallery { background: var(--secondary-color); }
+        .action-button.back-to-gallery:hover { background-color: #689F38; }
+        
+        #testModePage h2, #wordGamePage h2 { 
+             margin-bottom: 15px; 
+        }
+        
+        #quizArea, #wordGameArea { margin-top: 20px; }
+        #quizArea p:first-of-type, #wordGameArea p:first-of-type { font-size: 1.2em; margin-bottom: 10px; }
+        
+        #quizItemImage, #wordGameImage {
+            width: 180px; height: 180px; object-fit: contain; margin-bottom: 15px;
+            border: 3px solid var(--primary-color); 
+            border-radius: 12px; background-color: #fff; padding: 5px;
+        }
+        #questionPromptText, #wordGamePromptText { font-size: 1.3em; margin-bottom: 15px; color: var(--text-color); font-weight: bold; }
+        
+        #optionsContainer {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px; max-width: 700px; margin: 0 auto 15px auto;
+        }
+        .option-button {
+            background: var(--card-bg); color: var(--text-color);
+            border: 2px dashed var(--secondary-color); padding: 15px;
+            font-family: var(--font-kids); font-size: 1.2em; border-radius: 12px;
+            cursor: pointer; transition: all 0.2s ease-in-out;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.08); text-align: center;
+            word-break: break-word;
+        }
+        .option-button:hover:not(:disabled) {
+            background-color: var(--primary-color); border-color: var(--accent-color);
+            transform: scale(1.05);
+        }
+        .option-button:disabled { cursor: not-allowed; opacity: 0.7; }
+        
+        .option-button.lang-bn { font-family: 'Hind Siliguri', sans-serif; }
+        .option-button.lang-en { font-family: 'Roboto', sans-serif; }
+
+        #feedbackText, #wordGameFeedback { margin-top: 15px; font-weight: bold; font-size: 1.2em; min-height: 2em; }
+        
+        #wordGamePage h2 { color: var(--word-game-accent-color); }
+        #wordInProgressDisplay {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--text-color); 
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            background-color: #FFFDE7; 
+            border-radius: 8px;
+            border: 2px dashed var(--word-game-accent-color);
+            min-height: 50px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap; 
+        }
+        #scrambledLetterButtons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+        .letter-button {
+            background: var(--card-bg);
+            color: var(--text-color);
+            border: 2px solid var(--word-game-accent-color);
+            padding: 10px 15px;
+            font-size: 1.5em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            min-width: 45px; 
+            text-align: center;
+        }
+        .letter-button.lang-bn { font-family: 'Hind Siliguri', var(--font-kids); }
+        .letter-button.lang-en { font-family: 'Roboto', var(--font-kids); }
+
+        .letter-button:hover:not(:disabled) {
+            background-color: var(--word-game-accent-color);
+            color: white;
+            transform: scale(1.1);
+        }
+         .letter-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background-color: #E0E0E0; 
+        }
+        #wordGameControls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        #submitWordBtn, #resetWordBtn {
+            background-color: var(--word-game-accent-color);
+            color: white;
+            font-size: 1.1em;
+            padding: 10px 20px;
+        }
+        #submitWordBtn:hover, #resetWordBtn:hover {
+            background-color: #512DA8; 
+        }
+        #resetWordBtn {
+            background-color: #FF7043; 
+        }
+        #resetWordBtn:hover {
+            background-color: #E64A19; 
+        }
+
+        footer {
+            text-align: center; padding: 15px; margin-top: auto;
+            background-color: var(--secondary-color); color: white;
+            width: 100%; max-width: 1100px; border-radius: 18px;
+            border-top: 4px solid #558B2F; align-self: center; font-size: 0.95em;
+        }
+
+        #languageSelectionModal {
+            display: none; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1050; 
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+        #languageSelectionModal > div { 
+            background-color: var(--bg-color);
+            padding: 25px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+            border: 4px solid var(--primary-color);
+            max-width: 400px;
+            width: 90%;
+        }
+        #languageSelectionModal h3 {
+            font-family: var(--font-kids);
+            font-size: 2em;
+            color: var(--text-color);
+            margin-bottom: 25px;
+        }
+        #languageOptionsContainer {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        #languageOptionsContainer .action-button { 
+            width: 100%;
+            font-size: 1.3em;
+            padding: 15px 20px;
+        }
+         #cancelLanguageSelectionBtn {
+            background-color: #9E9E9E; 
+            font-size: 1.1em;
+            padding: 12px 25px;
+        }
+        #cancelLanguageSelectionBtn:hover {
+            background-color: #757575;
+        }
+
+        body[dir="rtl"] .gallery-header { flex-direction: row-reverse; }
+        body[dir="rtl"] .gallery-header h2 { text-align: right; }
+        body[dir="rtl"] .gallery-header-buttons { flex-direction: row-reverse; }
+        body[dir="rtl"] #wordGameControls { flex-direction: row-reverse; }
+        body[dir="rtl"] footer { text-align: center; }
+
+
+        @media (max-width: 768px) {
+            .gallery-header {
+                flex-direction: column;
+                align-items: center;
+            }
+             body[dir="rtl"] .gallery-header { flex-direction: column; } 
+             body[dir="rtl"] .gallery-header-buttons { flex-direction: column; }
+
+            #fruitGalleryPage h2, #flowerGalleryPage h2, #fishGalleryPage h2, #birdGalleryPage h2, #animalGalleryPage h2 {
+                text-align: center;
+                font-size: 2em;
+                margin-bottom: 10px;
+            }
+             body[dir="rtl"] .gallery-header h2 { text-align: center;} 
+
+            .quiz-btn-in-gallery, .word-game-btn-in-gallery {
+                width: auto;
+                max-width: 280px;
+                font-size: 1.0em; 
+            }
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; line-height: 1.5; }
+            .container { padding: 10px; border-width: 3px; border-radius: 12px; }
+            #homePage { min-height: calc(100vh - 160px); padding: 20px 5px; }
+            .action-button { font-size: 1.35em; padding: 16px 25px; gap: 6px; }
+            .action-button span:not(.button-text-content) { font-size: 1.25em; }
+
+            .item-grid { grid-template-columns: 1fr; gap: 12px; }
+            @media (min-width: 400px) and (max-width: 600px) {
+                .item-grid { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+            }
+             #optionsContainer { grid-template-columns: 1fr; }
+             @media (min-width: 400px) and (max-width: 600px) {
+                #optionsContainer { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+             }
+
+            .gallery-item { padding: 10px; }
+            .gallery-item img { height: 120px; }
+            .item-names .single-displayed-name { font-size: 1.1em; padding: 6px 10px; }
+            
+            #quizItemImage, #wordGameImage { width: 140px; height: 140px; }
+            .option-button { font-size: 1.1em; padding: 12px; }
+            .letter-button { font-size: 1.3em; padding: 8px 12px; min-width: 40px;}
+            #wordInProgressDisplay { font-size: 1.5em; }
+
+
+            footer { font-size: 0.85em; padding: 10px; border-radius: 12px; }
+
+            #languageSelectionModal h3 { font-size: 1.6em; margin-bottom: 20px; }
+            #languageOptionsContainer .action-button { font-size: 1.1em; padding: 12px 15px;}
+            #cancelLanguageSelectionBtn { font-size: 1.0em; padding: 10px 20px;}
+        }
+        @media (max-width: 360px) {
+            .action-button { font-size: 1.2em; padding: 12px 20px; }
+            #fruitGalleryPage h2, #flowerGalleryPage h2, #fishGalleryPage h2, #birdGalleryPage h2, #animalGalleryPage h2 { font-size: 1.8em; }
+             .quiz-btn-in-gallery, .word-game-btn-in-gallery { font-size: 0.9em; padding: 8px 12px;}
+            .gallery-item img { height: 100px; }
+            .item-names .single-displayed-name { font-size: 1em; } 
+            #quizItemImage, #wordGameImage { width: 120px; height: 120px; }
+            .option-button { font-size: 1em; }
+            .letter-button { font-size: 1.2em; padding: 6px 10px; min-width: 35px;}
+            #wordInProgressDisplay { font-size: 1.3em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="homePage"> <!-- This is Name.html's internal home page for category selection -->
+            <button id="showFruitsBtn" class="action-button animated-button">
+                <span>🍓</span> <span class="button-text-content">ফল দেখি</span> <span>🍍</span>
+            </button>
+            <button id="showFlowersBtn" class="action-button">
+                <span>🌸</span> <span class="button-text-content">ফুল দেখি</span> <span>🌷</span>
+            </button>
+            <button id="showFishBtn" class="action-button"> 
+                <span>🐠</span> <span class="button-text-content">মাছ দেখি</span> <span>🐡</span>
+            </button>
+            <button id="showBirdsBtn" class="action-button"> 
+                <span>🐦</span> <span class="button-text-content">পাখির নাম</span> <span>🕊️</span>
+            </button>
+            <button id="showAnimalsBtn" class="action-button"> 
+                <span>🐅</span> <span class="button-text-content">পশুর নাম</span> <span>🐘</span>
+            </button>
+            <!-- Button to go back to index.html -->
+            <button id="navigateToMainIndexBtn" class="action-button back-to-home" style="margin-top: 20px; background-color: #0dcaf0;"></button>
+        </div>
+
+        <div id="languageSelectionModal">
+            <div> 
+                <h3 id="languageSelectionModalTitle">ভাষা নির্বাচন করুন</h3>
+                <div id="languageOptionsContainer">
+                    <button data-lang="bn" class="action-button lang-select-btn" style="background-color: var(--secondary-color);">বাংলা</button>
+                    <button data-lang="en" class="action-button lang-select-btn" style="background-color: var(--accent-color);">English</button>
+                </div>
+                <button id="cancelLanguageSelectionBtn" class="action-button">ফিরে যাই</button>
+            </div>
+        </div>
+
+        <div id="fruitGalleryPage">
+            <div class="gallery-header" id="fruitGalleryHeader">
+                <h2 id="fruitGalleryTitle"></h2>
+                <div class="gallery-header-buttons">
+                    <button id="showFruitTestModeBtnInGallery" class="action-button quiz-btn-in-gallery"></button>
+                    <button id="showFruitWordGameBtnInGallery" class="action-button word-game-btn-in-gallery"></button>
+                </div>
+            </div>
+            <div class="item-grid" id="fruitGridContainer"></div>
+            <div class="back-button-group">
+                 <button id="backToHomeFromFruitBtn" class="action-button back-to-home"></button>
+            </div>
+        </div>
+        
+        <div id="flowerGalleryPage">
+            <div class="gallery-header" id="flowerGalleryHeader">
+                <h2 id="flowerGalleryTitle"></h2>
+                 <div class="gallery-header-buttons">
+                    <button id="showFlowerTestModeBtnInGallery" class="action-button quiz-btn-in-gallery"></button>
+                    <button id="showFlowerWordGameBtnInGallery" class="action-button word-game-btn-in-gallery"></button>
+                </div>
+            </div>
+            <div class="item-grid" id="flowerGridContainer"></div>
+             <div class="back-button-group">
+                <button id="backToHomeFromFlowerBtn" class="action-button back-to-home"></button>
+            </div>
+        </div>
+
+        <div id="fishGalleryPage"> 
+            <div class="gallery-header" id="fishGalleryHeader">
+                <h2 id="fishGalleryTitle"></h2>
+                 <div class="gallery-header-buttons">
+                    <button id="showFishTestModeBtnInGallery" class="action-button quiz-btn-in-gallery"></button>
+                    <button id="showFishWordGameBtnInGallery" class="action-button word-game-btn-in-gallery"></button>
+                </div>
+            </div>
+            <div class="item-grid" id="fishGridContainer"></div>
+            <div class="back-button-group">
+                <button id="backToHomeFromFishBtn" class="action-button back-to-home"></button>
+            </div>
+        </div>
+
+        <div id="birdGalleryPage"> 
+            <div class="gallery-header" id="birdGalleryHeader">
+                <h2 id="birdGalleryTitle"></h2>
+                 <div class="gallery-header-buttons">
+                    <button id="showBirdTestModeBtnInGallery" class="action-button quiz-btn-in-gallery"></button>
+                    <button id="showBirdWordGameBtnInGallery" class="action-button word-game-btn-in-gallery"></button>
+                </div>
+            </div>
+            <div class="item-grid" id="birdGridContainer"></div>
+            <div class="back-button-group">
+                <button id="backToHomeFromBirdBtn" class="action-button back-to-home"></button>
+            </div>
+        </div>
+
+        <div id="animalGalleryPage"> 
+            <div class="gallery-header" id="animalGalleryHeader">
+                <h2 id="animalGalleryTitle"></h2>
+                 <div class="gallery-header-buttons">
+                    <button id="showAnimalTestModeBtnInGallery" class="action-button quiz-btn-in-gallery"></button>
+                    <button id="showAnimalWordGameBtnInGallery" class="action-button word-game-btn-in-gallery"></button>
+                </div>
+            </div>
+            <div class="item-grid" id="animalGridContainer"></div>
+            <div class="back-button-group">
+                <button id="backToHomeFromAnimalBtn" class="action-button back-to-home"></button>
+            </div>
+        </div>
+
+        <div id="testModePage">
+            <h2 id="quizPageTitle"></h2>
+            <div id="quizArea" style="display: none;">
+                <p id="quizScoreLabel">তোমার স্কোর: <span id="score">0</span></p>
+                <img id="quizItemImage" src="" alt="Item Image">
+                <p id="questionPromptText"></p>
+                <div id="optionsContainer"></div>
+                <p id="feedbackText"></p>
+            </div>
+            <div class="back-button-group">
+                <button id="backToGalleryFromTestBtn" class="action-button back-to-gallery"></button>
+                <button id="backToHomeFromTestBtn" class="action-button back-to-home"></button>
+            </div>
+        </div>
+
+        <div id="wordGamePage">
+            <h2 id="wordGameTitle"></h2>
+            <div id="wordGameArea" style="display: none;">
+                <p id="wordGameScoreLabel">তোমার স্কোর: <span id="wordGameScore">0</span></p>
+                <img id="wordGameImage" src="" alt="Item Image">
+                <p id="wordGamePromptText"></p>
+                <div id="wordInProgressDisplay"></div> 
+                <div id="scrambledLetterButtons"></div>
+                <div id="wordGameControls">
+                    <button id="submitWordBtn" class="action-button"></button>
+                    <button id="resetWordBtn" class="action-button"></button>
+                </div>
+                <p id="wordGameFeedback"></p>
+            </div>
+            <div class="back-button-group">
+                 <button id="backToGalleryFromWordGameBtn" class="action-button back-to-gallery"></button>
+                 <button id="wordGameBackToHomeBtn" class="action-button back-to-home"></button>
+            </div>
+        </div>
+    </div>
+
+    <footer id="pageFooter">
+        <p></p>
+    </footer>
+
+    <script>
+        const pointsStorageKey = 'quranicLearnerPointsL2'; 
+        const BENGALI_NUMERALS_NAME_PAGE = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯']; 
+
+        function toBengaliNumeralsNamePage(numberString) {
+            if (typeof numberString !== 'string') {
+                numberString = String(numberString);
+            }
+            let bengaliString = '';
+            for (let i = 0; i < numberString.length; i++) {
+                const digit = parseInt(numberString[i]);
+                bengaliString += (isNaN(digit) || digit < 0 || digit > 9) ? numberString[i] : BENGALI_NUMERALS_NAME_PAGE[digit];
+            }
+            return bengaliString;
+        }
+
+        function loadPointsFromStorageNamePage() {
+            try {
+                const storedPoints = localStorage.getItem(pointsStorageKey);
+                let points = storedPoints ? parseInt(storedPoints, 10) : 0;
+                return isNaN(points) ? 0 : points;
+            } catch (error) {
+                console.error("Error reading global points from Name.html:", error);
+                return 0;
+            }
+        }
+
+        function savePointsToStorageNamePage(points) {
+            try {
+                localStorage.setItem(pointsStorageKey, points);
+            } catch (error) {
+                console.error("Error saving global points from Name.html:", error);
+            }
+        }
+        
+        // Data (ar property can be kept or removed, it won't be used)
+        const fruitsData = [
+            { bn: "আপেল", en: "Apple", ar: "تُفَّاح", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo/Apple.png" },
+            { bn: "কলা", en: "Banana", ar: "مَوْز", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo/Banana.png" },
+            { bn: "আম", en: "Mango", ar: "مَانْجُو", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo/Mango.png" },
+            { bn: "কমলা", en: "Orange", ar: "بُرْتُقَال", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo/Orange.png" },
+            { bn: "আঙ্গুর", en: "Grapes", ar: "عِنَب", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo/Grapes.png" },
+            { bn: "তরমুজ", en: "Watermelon", ar: "بِطِّيخ", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo/Watermelon.png" },
+            { bn: "খেজুর", en: "Dates", ar: "تَمْر", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo/Dates.png" },
+            { bn: "লেবু", en: "Lemon", ar: "لَيْمُون", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo/Lemon.png" },
+            { bn: "পেয়ারা", en: "Guava", ar: "جَوَافَة", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo/Guava.png" },
+            { bn: "আনারস", en: "Pineapple", ar: "أَنَانَاس", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo/Pineapple.png" }
+        ];
+        const flowersData = [
+            { bn: "গোলাপ", en: "Rose", ar: "وَرْدَة", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/photo-2/Rose.png" },
+            { bn: "রজনীগন্ধা", en: "Tuberose", ar: "مِسْك الرُّوم", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/photo-2/Tuberose.png" },
+            { bn: "গাঁদা", en: "Marigold", ar: "قَطِيفَة", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/photo-2/Marigold.png" },
+            { bn: "সূর্যমুখী", en: "Sunflower", ar: "دَوَّار الشَّمْس", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/photo-2/Sunflower.png" },
+            { bn: "বেলী", en: "Jasmine", ar: "فُلّ", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/photo-2/Jasmine.png" },
+            { bn: "শাপলা", en: "Lily", ar: "زَهْرَة اللُّوطُس", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/photo-2/Water%20Lily.png" },
+            { bn: "পদ্ম", en: "Lotus", ar: "زَهْرَة اللُّوطُس", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/photo-2/Lotus.png" },
+            { bn: "মোরগফুল", en: "Celosia", ar: "زَهْرَة اللُّوطُس", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/photo-2/Celosia.png" },
+            { bn: "ডালিয়া", en: "Dahlia", ar: "زَهْرَة اللُّوطُس", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/photo-2/Dahlia.png" },
+            { bn: "জিনিয়া", en: "Zinnia", ar: "زَهْرَة اللُّوطُس", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/photo-2/Zinnia.png" }
+        ];
+        const fishData = [
+            { bn: "কাতলা", en: "Catla", ar: "كَاتْلَا", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo-3/Catla.png" },
+            { bn: "ইলিশ", en: "Hilsa", ar: "هِلْسَا", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo-3/Hilsa.png" },
+            { bn: "রুই", en: "Rohu", ar: "رُوهُو", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo-3/Rohu.png" },
+            { bn: "তেলাপিয়া", en: "Tilapia", ar: "بُلْطِيّ", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo-3/Tilapia.png" },
+             { bn: "কোরাল", en: "Coral", ar: "بُلْطِيّ", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo-3/Coral%20Fish.png" },
+             { bn: "পাঙ্গাশ", en: "Pangasius", ar: "بُلْطِيّ", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo-3/Pangasius.png" },
+             { bn: "স্যালমন", en: "Salmon", ar: "بُلْطِيّ", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo-3/Salmon.png" },
+             { bn: "সিলভার কার্প", en: "Silver Carp", ar: "بُلْطِيّ", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo-3/Silver%20Carp.png" },
+             { bn: "শিং মাছ", en: "Stinging Catfish", ar: "بُلْطِيّ", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo-3/Stinging%20Catfish.png" },
+             { bn: "ডলফিন", en: "dolphin", ar: "بُلْطِيّ", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo-3/dolphin.png" }
+        ];
+        
+        const birdsData = [
+            { bn: "দোয়েল", en: "Magpie", ar: "عَقْعَق الرُوبِن", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/flawer/magpie.png" },
+            { bn: "তোতাপাখি", en: "Parrot", ar: "بَبَّغَاء", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/flawer/Parrot.png" },
+            { bn: "ময়ূর", en: "Peacock", ar: "طَاوُوس", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/flawer/Peacock.png" },
+            { bn: "কাক", en: "Crow", ar: "غُرَاب", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/flawer/Crow.png" },
+
+
+         { bn: "ঈগল", en: "Eagle", ar: "عَقْعَق الرُوبِن", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/flawer/Eagle.png" },
+            { bn: "পেঁচা", en: "Owl", ar: "بَبَّغَاء", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/flawer/Owl.png" },
+            { bn: "কবুতর", en: "Pigeon", ar: "طَاوُوس", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/flawer/Pigeon.png" },
+            { bn: "চড়ুই", en: "Sparrow", ar: "غُرَاب", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/flawer/Sparrow.png" },
+            
+            { bn: "বাজ পাখি", en: "Falcon", ar: "عَقْعَق الرُوبِن", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/flawer/Falcon.png" },
+            { bn: "তোতাপাখি", en: "Parrot", ar: "بَبَّغَاء", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/flawer/Parrot.png" },
+             
+        ];
+        const animalsData = [
+            { bn: "বাঘ", en: "Tiger", ar: "نَمِر", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo-4/Tiger.png" },
+            { bn: "সিংহ", en: "Lion", ar: "أَسَد", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo-4/Lion.png" },
+            { bn: "হাতি", en: "Elephant", ar: "فِيل", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo-4/Elephant.png" },
+            { bn: "ঘোড়া", en: "Horse", ar: "حِصَان", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo-4/Horse.png" },
+            { bn: "বিড়াল", en: "Cat", ar: "نَمِر", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo-4/Cat.png" },
+            { bn: "গরু", en: "Cow", ar: "أَسَد", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo-4/Cow.png" },
+            { bn: "কুকুর", en: "Dog", ar: "فِيل", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo-4/Dog.png" },
+            { bn: "হরিণ", en: "Deer", ar: "حِصَان", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo-4/Deer.png" }, 
+            { bn: "ছাগল", en: "Goat", ar: "فِيل", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo-4/Goat.png" },
+
+            { bn: "বানর", en: "Monkey", ar: "حِصَان", img_url: "https://raw.githubusercontent.com/life-by/Baby-app-Projict/refs/heads/main/Photo-4/Monkey.png" }                        
+        ];
+
+        const uiTranslations = {
+            bn: {
+                galleryTitlePrefix: "দেখো, ",
+                galleryTitleSuffixFruit: "টি রঙিন ফল!",
+                galleryTitleSuffixFlower: "টি রঙিন ফুল!",
+                galleryTitleSuffixFish: "টি নানান মাছ!",
+                galleryTitleSuffixBird: "টি সুন্দর পাখি!",
+                galleryTitleSuffixAnimal: "টি নানা পশু!",
+                quizButtonText: "<span>🧠</span> কুইজ খেলি <span>🎲</span>", 
+                wordGameButtonText: "<span>✍️</span> শব্দ খেলা <span>🔡</span>", 
+                backToMainIndexButtonText: "মূল মেনুতে ফিরে যান", // New text for the main index button
+                backToGalleryButtonText: "গ্যালারিতে ফিরে যাই",
+                quizPageTitle: "কুইজ খেলো!",
+                wordGamePageTitle: "শব্দ খেলা!",
+                scoreText: "তোমার স্কোর:",
+                quizPromptPrefix: "ছবিতে দেখানো ",
+                quizPromptItemTypeSuffix: { fruit: "ফলের", flower: "ফুলের", fish: "মাছের", bird: "পাখির", animal: "পশুর" }, 
+                quizPromptSuffix: " সঠিক %LANG_NAME% নামটি কী?",
+                langNameBN: "বাংলা", langNameEN: "ইংরেজি", 
+                wordGamePromptPrefix: "ছবিতে দেখানো ",
+                wordGamePromptItemTypeSuffix: { fruit: "ফলের", flower: "ফুলের", fish: "মাছের", bird: "পাখির", animal: "পশুর" }, 
+                wordGamePromptSuffix: " সঠিক %LANG_NAME% নামটি অক্ষর মিলিয়ে তৈরি করো:",
+                submitButtonText: "উত্তর দাও", resetButtonText: "মুছে ফেলি",
+                correctAnswerFeedback: "সঠিক উত্তর! 🎉", correctAnswerFeedbackWordGame: "সঠিক উত্তর! সাবাশ! 👍",
+                wrongAnswerFeedbackPrefix: "ভুল উত্তর। সঠিকটি হলো: ", wrongAnswerFeedbackWordGamePrefix: "ভুল হয়েছে। সঠিক উত্তর: ",
+                allDoneQuizPrefix: { fruit: "সব ফলের", flower: "সব ফুলের", fish: "সব মাছের", bird: "সব পাখির", animal: "সব পশুর" },
+                allDoneWordGamePrefix: { fruit: "সব ফলের", flower: "সব ফুলের", fish: "সব মাছের", bird: "সব পাখির", animal: "সব পশুর" },
+                allDoneQuizSuffix: " (%LANG_NAME%) কুইজ শেষ!",
+                allDoneWordGameSuffix: " (%LANG_NAME%) শব্দ খেলা শেষ!",
+                gameDoneScoreSuffix: "<br>তোমার মোট কুইজ স্কোর: %SCORE%. <br>\"মূল মেনুতে ফিরে যান\" ক্লিক করে হোম পেজে ফিরে নতুন খেলা শুরু করতে পারো।",
+                wordGameDoneScoreSuffix: "<br>তোমার মোট শব্দ খেলার স্কোর: %SCORE%. <br>\"মূল মেনুতে ফিরে যান\" ক্লিক করে হোম পেজে ফিরে নতুন খেলা শুরু করতে পারো।",
+                languageSelectionTitle: "ভাষা নির্বাচন করুন",
+                selectBN: "বাংলা", selectEN: "English", 
+                cancelButton: "ফিরে যাই", // This button cancels language selection and shows Name.html's home
+                alertMinItemsQuiz: "এই ভাষায় কুইজ খেলার জন্য কমপক্ষে ৩টি ভিন্ন %ITEM_TYPE_NAME% (নাম সহ) প্রয়োজন!",
+                alertMinItemWordGame: "এই ভাষায় শব্দ খেলার জন্য কমপক্ষে ১টি %ITEM_TYPE_NAME% (এক শব্দের নামসহ) প্রয়োজন!",
+                itemTypeName: { fruit: "ফল", flower: "ফুল", fish: "মাছ", bird: "পাখি", animal: "পশু" }, 
+                imageMissingTextGeneric: "ছবি নেই",
+                imageMissingAltTextGeneric: "ছবি পাওয়া যায়নি",
+                nameMissing: "নাম নেই",
+                footerText: "© ২০২৪ ছোটদের গ্যালারি। সর্বস্বত্ব সংরক্ষিত।"
+            },
+            en: { 
+                galleryTitlePrefix: "Look, ",
+                galleryTitleSuffixFruit: " colorful fruits!",
+                galleryTitleSuffixFlower: " colorful flowers!",
+                galleryTitleSuffixFish: " various fish!",
+                galleryTitleSuffixBird: " beautiful birds!",
+                galleryTitleSuffixAnimal: " various animals!",
+                quizButtonText: "<span>🧠</span> Play Quiz <span>🎲</span>", 
+                wordGameButtonText: "<span>✍️</span> Word Game <span>🔡</span>", 
+                backToMainIndexButtonText: "Back to Main Menu",
+                backToGalleryButtonText: "Back to Gallery",
+                quizPageTitle: "Play Quiz!",
+                wordGamePageTitle: "Word Game!",
+                scoreText: "Your Score:",
+                quizPromptPrefix: "What is the correct %LANG_NAME% name for the ",
+                quizPromptItemTypeSuffix: { fruit: "fruit", flower: "flower", fish: "fish", bird: "bird", animal: "animal" },
+                quizPromptSuffix: " shown in the picture?",
+                langNameBN: "Bengali", langNameEN: "English",
+                wordGamePromptPrefix: "Form the correct %LANG_NAME% name for the ",
+                wordGamePromptItemTypeSuffix: { fruit: "fruit", flower: "flower", fish: "fish", bird: "bird", animal: "animal" },
+                wordGamePromptSuffix: " shown in the picture using the letters:",
+                submitButtonText: "Submit", resetButtonText: "Reset",
+                correctAnswerFeedback: "Correct Answer! 🎉", correctAnswerFeedbackWordGame: "Correct! Well done! 👍",
+                wrongAnswerFeedbackPrefix: "Wrong. The correct one is: ", wrongAnswerFeedbackWordGamePrefix: "Incorrect. The correct one is: ",
+                allDoneQuizPrefix: { fruit: "All fruits'", flower: "All flowers'", fish: "All fish'", bird: "All birds'", animal: "All animals'" },
+                allDoneWordGamePrefix: { fruit: "All fruits'", flower: "All flowers'", fish: "All fish'", bird: "All birds'", animal: "All animals'" },
+                allDoneQuizSuffix: " (%LANG_NAME%) quiz finished!", 
+                allDoneWordGameSuffix: " (%LANG_NAME%) word game finished!",
+                gameDoneScoreSuffix: "<br>Your total quiz score: %SCORE%. <br>Click \"Back to Main Menu\" to return to the home page and start a new game.",
+                wordGameDoneScoreSuffix: "<br>Your total word game score: %SCORE%. <br>Click \"Back to Main Menu\" to return to the home page and start a new game.",
+                languageSelectionTitle: "Select Language",
+                selectBN: "বাংলা", selectEN: "English",
+                cancelButton: "Cancel",
+                alertMinItemsQuiz: "At least 3 different %ITEM_TYPE_NAME% (with names) are needed for the quiz in this language!",
+                alertMinItemWordGame: "At least 1 %ITEM_TYPE_NAME% (single-word name) is needed for the word game in this language!",
+                itemTypeName: { fruit: "fruit", flower: "flower", fish: "fish", bird: "bird", animal: "animal" },
+                imageMissingTextGeneric: "Image missing",
+                imageMissingAltTextGeneric: "Image not found",
+                nameMissing: "Name missing",
+                footerText: "© 2024 Kids' Gallery. All rights reserved."
+            }
+        };
+
+        const homePage = document.getElementById('homePage'); // Name.html's category selection page
+        const navigateToMainIndexBtn = document.getElementById('navigateToMainIndexBtn'); // Button to go to index.html
+
+        const fruitGalleryPage = document.getElementById('fruitGalleryPage');
+        const flowerGalleryPage = document.getElementById('flowerGalleryPage');
+        const fishGalleryPage = document.getElementById('fishGalleryPage'); 
+        const birdGalleryPage = document.getElementById('birdGalleryPage');
+        const animalGalleryPage = document.getElementById('animalGalleryPage');
+        const testModePage = document.getElementById('testModePage');
+        const wordGamePage = document.getElementById('wordGamePage'); 
+        
+        const showFruitsBtn = document.getElementById('showFruitsBtn');
+        const showFlowersBtn = document.getElementById('showFlowersBtn');
+        const showFishBtn = document.getElementById('showFishBtn'); 
+        const showBirdsBtn = document.getElementById('showBirdsBtn');
+        const showAnimalsBtn = document.getElementById('showAnimalsBtn');
+        
+        const allBackToHomeButtons = { // These buttons navigate to index.html
+            fruit: document.getElementById('backToHomeFromFruitBtn'),
+            flower: document.getElementById('backToHomeFromFlowerBtn'),
+            fish: document.getElementById('backToHomeFromFishBtn'),
+            bird: document.getElementById('backToHomeFromBirdBtn'),
+            animal: document.getElementById('backToHomeFromAnimalBtn'),
+            test: document.getElementById('backToHomeFromTestBtn'),
+            wordGame: document.getElementById('wordGameBackToHomeBtn')
+        };
+        const backToGalleryFromTestBtn = document.getElementById('backToGalleryFromTestBtn');
+        const backToGalleryFromWordGameBtn = document.getElementById('backToGalleryFromWordGameBtn');
+        
+        const fruitGridContainer = document.getElementById('fruitGridContainer');
+        const flowerGridContainer = document.getElementById('flowerGridContainer');
+        const fishGridContainer = document.getElementById('fishGridContainer'); 
+        const birdGridContainer = document.getElementById('birdGridContainer');
+        const animalGridContainer = document.getElementById('animalGridContainer');
+        
+        const galleryTitles = {
+            fruit: document.getElementById('fruitGalleryTitle'),
+            flower: document.getElementById('flowerGalleryTitle'),
+            fish: document.getElementById('fishGalleryTitle'),
+            bird: document.getElementById('birdGalleryTitle'),
+            animal: document.getElementById('animalGalleryTitle')
+        };
+        const galleryHeaders = {
+            fruit: document.getElementById('fruitGalleryHeader'),
+            flower: document.getElementById('flowerGalleryHeader'),
+            fish: document.getElementById('fishGalleryHeader'),
+            bird: document.getElementById('birdGalleryHeader'),
+            animal: document.getElementById('animalGalleryHeader')
+        };
+
+        const galleryQuizButtons = {
+            fruit: document.getElementById('showFruitTestModeBtnInGallery'),
+            flower: document.getElementById('showFlowerTestModeBtnInGallery'),
+            fish: document.getElementById('showFishTestModeBtnInGallery'),
+            bird: document.getElementById('showBirdTestModeBtnInGallery'),
+            animal: document.getElementById('showAnimalTestModeBtnInGallery')
+        };
+        const galleryWordGameButtons = {
+            fruit: document.getElementById('showFruitWordGameBtnInGallery'),
+            flower: document.getElementById('showFlowerWordGameBtnInGallery'),
+            fish: document.getElementById('showFishWordGameBtnInGallery'),
+            bird: document.getElementById('showBirdWordGameBtnInGallery'),
+            animal: document.getElementById('showAnimalWordGameBtnInGallery')
+        };
+
+        const quizPageTitle = document.getElementById('quizPageTitle'); 
+        const quizArea = document.getElementById('quizArea');
+        const quizScoreLabel = document.getElementById('quizScoreLabel');
+        const scoreSpan = document.getElementById('score');
+        const quizItemImage = document.getElementById('quizItemImage');
+        const questionPromptText = document.getElementById('questionPromptText');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const feedbackText = document.getElementById('feedbackText');
+        
+        const wordGameTitle = document.getElementById('wordGameTitle');
+        const wordGameArea = document.getElementById('wordGameArea');
+        const wordGameScoreLabel = document.getElementById('wordGameScoreLabel');
+        const wordGameScoreSpan = document.getElementById('wordGameScore');
+        const wordGameImage = document.getElementById('wordGameImage');
+        const wordGamePromptText = document.getElementById('wordGamePromptText');
+        const wordInProgressDisplay = document.getElementById('wordInProgressDisplay');
+        const scrambledLetterButtonsContainer = document.getElementById('scrambledLetterButtons');
+        const wordGameControls = document.getElementById('wordGameControls');
+        const submitWordBtn = document.getElementById('submitWordBtn');
+        const resetWordBtn = document.getElementById('resetWordBtn');
+        const wordGameFeedback = document.getElementById('wordGameFeedback');
+
+        const languageSelectionModal = document.getElementById('languageSelectionModal');
+        const languageSelectionModalTitle = document.getElementById('languageSelectionModalTitle');
+        const languageOptionsContainer = document.getElementById('languageOptionsContainer');
+        const cancelLanguageSelectionBtn = document.getElementById('cancelLanguageSelectionBtn');
+        const pageFooter = document.getElementById('pageFooter').querySelector('p');
+
+        let currentSelectedGalleryLanguage = 'bn'; 
+        let currentCategoryForLanguageSelection = null; 
+        let previousCategoryForGame = null; 
+
+        let currentScore = 0;
+        let currentQuizType = ''; 
+        let quizItemsData = []; 
+        let correctItem = null;
+
+        let currentWordGameScore = 0;
+        let currentWordGameType = ''; 
+        let wordGameAllItems = []; 
+        let correctWordGameItem = null; 
+        let constructedWord = ""; 
+        let availableLetters = []; 
+        
+        function getUIText(key, replacements = {}) {
+            const langPack = uiTranslations[currentSelectedGalleryLanguage] || uiTranslations['bn']; 
+            let textValue = langPack[key];
+
+            if (textValue === undefined && currentSelectedGalleryLanguage !== 'bn') { 
+                const fallbackLangPack = uiTranslations['bn']; 
+                if (fallbackLangPack) textValue = fallbackLangPack[key];
+            }
+            if (textValue === undefined) {
+                return key; 
+            }
+            
+            let text = textValue;
+
+            if (typeof text === 'object' && text !== null && replacements.item_type_key) { 
+                let tempText = text[replacements.item_type_key] || text[Object.keys(text)[0]]; 
+                 text = tempText;
+            }
+            
+            for (const placeholder in replacements) {
+                 if (typeof replacements[placeholder] === 'string' || typeof replacements[placeholder] === 'number') {
+                    text = String(text).replace(new RegExp(`%${placeholder.toUpperCase()}%`, 'g'), replacements[placeholder]);
+                 }
+            }
+            return text;
+        }
+
+        function applyRTL(element, isRTL) {
+             if (element) {
+                element.dir = isRTL ? 'rtl' : 'ltr';
+            }
+        }
+        
+        function updatePageDirection() {
+            const isRTL = currentSelectedGalleryLanguage === 'ar'; // This will be false now
+            document.documentElement.lang = currentSelectedGalleryLanguage;
+            document.body.dir = isRTL ? 'rtl' : 'ltr'; // Will default to ltr
+
+            const elementsToSetDir = [
+                galleryHeaders.fruit, galleryHeaders.flower, galleryHeaders.fish,
+                galleryHeaders.bird, galleryHeaders.animal,
+                wordGameControls,
+                quizPageTitle.parentElement, wordGameTitle.parentElement,
+                pageFooter.parentElement
+            ];
+            elementsToSetDir.forEach(el => applyRTL(el, isRTL));
+        }
+
+
+        function initializeImageErrorHandling(imageElement, itemType) {
+            imageElement.onerror = function() {
+                this.onerror = null; 
+                const itemTypeNameForPlaceholder = getUIText('itemTypeName', {item_type_key: itemType}) || 'Item';
+                let placeholderColor = "CCCCCC/777777"; 
+                if (itemType === 'fruit') placeholderColor = "FFCDD2/B71C1C"; 
+                else if (itemType === 'flower') placeholderColor = "F8BBD0/AD1457"; 
+                else if (itemType === 'fish') placeholderColor = "BBDEFB/1976D2"; 
+                else if (itemType === 'bird') placeholderColor = "B2EBF2/0097A7"; 
+                else if (itemType === 'animal') placeholderColor = "FFCCBC/E64A19"; 
+                
+                const missingText = getUIText('imageMissingTextGeneric');
+                this.src = `https://placehold.co/180x180/${placeholderColor}?text=${encodeURIComponent(itemTypeNameForPlaceholder + "\n" + missingText)}&font=Hind%20Siliguri`;
+                this.alt = `${itemTypeNameForPlaceholder} - ${getUIText('imageMissingAltTextGeneric')}`;
+            };
+        }
+        initializeImageErrorHandling(quizItemImage, 'item'); 
+        initializeImageErrorHandling(wordGameImage, 'item'); 
+        
+        function shuffleArray(array) {
+            const newArray = [...array]; 
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        function updateScoreDisplay() {
+            scoreSpan.textContent = currentSelectedGalleryLanguage === 'bn' ? toBengaliNumeralsNamePage(currentScore) : currentScore;
+        }
+        function updateWordGameScoreDisplay() { 
+            wordGameScoreSpan.textContent = currentSelectedGalleryLanguage === 'bn' ? toBengaliNumeralsNamePage(currentWordGameScore) : currentWordGameScore;
+        }
+        
+        function displayItems(itemsData, gridContainer, itemTypeForPlaceholder) {
+            gridContainer.innerHTML = '';
+            
+            itemsData.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('gallery-item');
+                
+                const img = document.createElement('img');
+                img.src = item.img_url;
+                img.alt = item[currentSelectedGalleryLanguage] || item.bn || getUIText('nameMissing'); 
+                
+                img.onerror = function() {
+                    this.onerror=null;
+                    const itemTypeName = getUIText('itemTypeName', {item_type_key: itemTypeForPlaceholder}) || 'Item';
+                    let placeholderColor = "CCCCCC/777777"; 
+                    if (itemTypeForPlaceholder === 'fruit') placeholderColor = "FFCDD2/B71C1C";
+                    else if (itemTypeForPlaceholder === 'flower') placeholderColor = "F8BBD0/AD1457";
+                    else if (itemTypeForPlaceholder === 'fish') placeholderColor = "BBDEFB/1976D2";
+                    else if (itemTypeForPlaceholder === 'bird') placeholderColor = "B2EBF2/0097A7";
+                    else if (itemTypeForPlaceholder === 'animal') placeholderColor = "FFCCBC/E64A19";
+                    
+                    const nameForPlaceholder = item[currentSelectedGalleryLanguage] || item.bn || itemTypeName;
+                    this.src=`https://placehold.co/250x180/${placeholderColor}?text=${encodeURIComponent(nameForPlaceholder + "\n" + getUIText('imageMissingTextGeneric'))}&font=Hind%20Siliguri`;
+                    this.alt = `${nameForPlaceholder} - ${getUIText('imageMissingAltTextGeneric')}`;
+                };
+                
+                const namesDiv = document.createElement('div');
+                namesDiv.classList.add('item-names');
+                
+                const nameSpan = document.createElement('span');
+                nameSpan.classList.add(`lang-${currentSelectedGalleryLanguage}`, 'single-displayed-name');
+                nameSpan.textContent = item[currentSelectedGalleryLanguage] || `(${getUIText('nameMissing')})`;
+                nameSpan.style.direction = (currentSelectedGalleryLanguage === 'ar' ? 'rtl' : 'ltr'); // Though 'ar' is removed, keep for structure
+                
+                namesDiv.appendChild(nameSpan);
+                
+                itemDiv.appendChild(img);
+                itemDiv.appendChild(namesDiv);
+                gridContainer.appendChild(itemDiv);
+            });
+        }
+
+        function showLanguageSelectionModal(category) {
+            currentCategoryForLanguageSelection = category;
+            homePage.style.display = 'none';
+            [fruitGalleryPage, flowerGalleryPage, fishGalleryPage, birdGalleryPage, animalGalleryPage, testModePage, wordGamePage].forEach(p => p.style.display = 'none');
+            
+            const initialLangForModal = 'bn';
+            languageSelectionModalTitle.textContent = uiTranslations[initialLangForModal].languageSelectionTitle;
+            cancelLanguageSelectionBtn.innerHTML = uiTranslations[initialLangForModal].cancelButton;
+            languageOptionsContainer.querySelector('[data-lang="bn"]').textContent = uiTranslations[initialLangForModal].selectBN;
+            languageOptionsContainer.querySelector('[data-lang="en"]').textContent = uiTranslations[initialLangForModal].selectEN; 
+
+            languageSelectionModal.style.display = 'flex';
+            window.scrollTo(0,0);
+        }
+
+        cancelLanguageSelectionBtn.addEventListener('click', () => {
+            languageSelectionModal.style.display = 'none';
+            // Show Name.html's own home page (category selection)
+            currentSelectedGalleryLanguage = 'bn'; 
+            updatePageDirection();
+            homePage.style.display = 'flex';
+            [fruitGalleryPage, flowerGalleryPage, fishGalleryPage, birdGalleryPage, animalGalleryPage, testModePage, wordGamePage, languageSelectionModal, quizArea, wordGameArea].forEach(el => {
+                if (el !== homePage) el.style.display = 'none';
+            });
+            currentCategoryForLanguageSelection = null;
+            previousCategoryForGame = null;
+            pageFooter.innerHTML = getUIText('footerText'); 
+            navigateToMainIndexBtn.innerHTML = getUIText('backToMainIndexButtonText'); // Update main index button text
+            window.scrollTo(0, 0);
+        });
+
+
+        languageOptionsContainer.addEventListener('click', (event) => {
+            const button = event.target.closest('.lang-select-btn');
+            if (button) {
+                currentSelectedGalleryLanguage = button.dataset.lang;
+                languageSelectionModal.style.display = 'none';
+                updatePageDirection(); 
+                proceedToGallery(currentCategoryForLanguageSelection);
+            }
+        });
+        
+        function proceedToGallery(category) {
+            // ... (rest of the function remains largely the same, as it dynamically uses currentSelectedGalleryLanguage)
+            let galleryPage, gridContainer, dataArray, titleElement, gallerySuffixKey, quizBtn, wordGameBtn, backBtnToMainIndex;
+            previousCategoryForGame = category; 
+            
+            const categoryMap = {
+                fruit: { page: fruitGalleryPage, grid: fruitGridContainer, data: fruitsData, title: galleryTitles.fruit, suffix: 'galleryTitleSuffixFruit', quiz: galleryQuizButtons.fruit, wordGame: galleryWordGameButtons.fruit, back: allBackToHomeButtons.fruit },
+                flower: { page: flowerGalleryPage, grid: flowerGridContainer, data: flowersData, title: galleryTitles.flower, suffix: 'galleryTitleSuffixFlower', quiz: galleryQuizButtons.flower, wordGame: galleryWordGameButtons.flower, back: allBackToHomeButtons.flower },
+                fish: { page: fishGalleryPage, grid: fishGridContainer, data: fishData, title: galleryTitles.fish, suffix: 'galleryTitleSuffixFish', quiz: galleryQuizButtons.fish, wordGame: galleryWordGameButtons.fish, back: allBackToHomeButtons.fish },
+                bird: { page: birdGalleryPage, grid: birdGridContainer, data: birdsData, title: galleryTitles.bird, suffix: 'galleryTitleSuffixBird', quiz: galleryQuizButtons.bird, wordGame: galleryWordGameButtons.bird, back: allBackToHomeButtons.bird },
+                animal: { page: animalGalleryPage, grid: animalGridContainer, data: animalsData, title: galleryTitles.animal, suffix: 'galleryTitleSuffixAnimal', quiz: galleryQuizButtons.animal, wordGame: galleryWordGameButtons.animal, back: allBackToHomeButtons.animal }
+            };
+
+            const current = categoryMap[category];
+            if (!current) {
+                console.error("Invalid category:", category);
+                navigateToMainIndex(); // Navigate to index.html if category is invalid
+                return;
+            }
+
+            galleryPage = current.page; gridContainer = current.grid; dataArray = current.data;
+            titleElement = current.title; gallerySuffixKey = current.suffix;
+            quizBtn = current.quiz; wordGameBtn = current.wordGame; backBtnToMainIndex = current.back;
+
+            homePage.style.display = 'none'; // Hide Name.html's category selection
+            [testModePage, wordGamePage, languageSelectionModal].forEach(p => p.style.display = 'none');
+            Object.values(categoryMap).forEach(cat => {
+                if (cat.page !== galleryPage) cat.page.style.display = 'none';
+            });
+            galleryPage.style.display = 'block';
+            
+            const numItems = dataArray.filter(item => item[currentSelectedGalleryLanguage] && item[currentSelectedGalleryLanguage].trim() !== "").length;
+            const displayedNumItems = currentSelectedGalleryLanguage === 'bn' ? toBengaliNumeralsNamePage(numItems) : numItems;
+            titleElement.innerHTML = `${getUIText('galleryTitlePrefix')}<span id="${category}Count">${displayedNumItems}</span>${getUIText(gallerySuffixKey)}`;
+            
+            quizBtn.innerHTML = getUIText('quizButtonText');
+            wordGameBtn.innerHTML = getUIText('wordGameButtonText');
+            
+            backBtnToMainIndex.innerHTML = getUIText('backToMainIndexButtonText'); 
+            pageFooter.innerHTML = getUIText('footerText');
+
+            displayItems(dataArray, gridContainer, category);
+            updatePageDirection(); 
+            window.scrollTo(0, 0);
+        }
+
+        function navigateToMainIndex() {
+            window.location.href = "../index.html";
+        }
+        
+        // Event listeners for all "back-to-home" buttons to navigate to index.html
+        Object.values(allBackToHomeButtons).forEach(btn => btn.addEventListener('click', navigateToMainIndex));
+        navigateToMainIndexBtn.addEventListener('click', navigateToMainIndex); // For the button on Name.html's home
+        
+
+        // This function now shows Name.html's own "home" (category selection)
+        function showNameAppHomePage() {
+            currentSelectedGalleryLanguage = 'bn'; 
+            updatePageDirection();
+
+            homePage.style.display = 'flex'; // Show Name.html's category selection
+            [fruitGalleryPage, flowerGalleryPage, fishGalleryPage, birdGalleryPage, animalGalleryPage, testModePage, wordGamePage, languageSelectionModal, quizArea, wordGameArea].forEach(el => {
+                if(el !== homePage) el.style.display = 'none';
+            });
+
+            currentCategoryForLanguageSelection = null;
+            previousCategoryForGame = null;
+            currentScore = 0; currentQuizType = '';
+            currentWordGameScore = 0; currentWordGameType = '';
+            
+            pageFooter.innerHTML = getUIText('footerText'); 
+            navigateToMainIndexBtn.innerHTML = getUIText('backToMainIndexButtonText');
+            window.scrollTo(0, 0);
+        }
+        
+        showFruitsBtn.addEventListener('click', () => showLanguageSelectionModal('fruit'));
+        showFlowersBtn.addEventListener('click', () => showLanguageSelectionModal('flower'));
+        showFishBtn.addEventListener('click', () => showLanguageSelectionModal('fish'));
+        showBirdsBtn.addEventListener('click', () => showLanguageSelectionModal('bird'));
+        showAnimalsBtn.addEventListener('click', () => showLanguageSelectionModal('animal'));
+        
+        backToGalleryFromTestBtn.addEventListener('click', () => {
+            if (previousCategoryForGame) proceedToGallery(previousCategoryForGame);
+            else showNameAppHomePage(); 
+        });
+        backToGalleryFromWordGameBtn.addEventListener('click', () => {
+            if (previousCategoryForGame) proceedToGallery(previousCategoryForGame);
+            else showNameAppHomePage(); 
+        });
+
+        function showQuizPageUI() { 
+            // ... (rest of the function as before)
+            [fruitGalleryPage, flowerGalleryPage, fishGalleryPage, birdGalleryPage, animalGalleryPage, homePage, wordGamePage, languageSelectionModal].forEach(p => p.style.display = 'none');
+            testModePage.style.display = 'block';
+            
+            quizPageTitle.innerHTML = getUIText('quizPageTitle');
+            allBackToHomeButtons.test.innerHTML = getUIText('backToMainIndexButtonText'); // Changed text
+            backToGalleryFromTestBtn.innerHTML = getUIText('backToGalleryButtonText');
+            quizScoreLabel.childNodes[0].nodeValue = getUIText('scoreText') + " "; 
+
+            let itemColorVar;
+            const itemType = currentQuizType;
+            initializeImageErrorHandling(quizItemImage, itemType); 
+            
+            if (itemType === 'fruit') itemColorVar = 'var(--accent-color)';
+            else if (itemType === 'flower') itemColorVar = 'var(--flower-accent-color)';
+            else if (itemType === 'fish') itemColorVar = 'var(--fish-accent-color)';
+            else if (itemType === 'bird') itemColorVar = 'var(--bird-accent-color)';
+            else if (itemType === 'animal') itemColorVar = 'var(--animal-accent-color)';
+            else itemColorVar = 'var(--accent-color)';
+
+            quizPageTitle.style.color = itemColorVar;
+            pageFooter.innerHTML = getUIText('footerText');
+            
+            quizArea.style.display = 'none'; 
+            feedbackText.textContent = '';
+            updatePageDirection();
+            window.scrollTo(0, 0);
+        }
+
+        function showWordGamePageUI() { 
+            // ... (rest of the function as before)
+             [homePage, fruitGalleryPage, flowerGalleryPage, fishGalleryPage, birdGalleryPage, animalGalleryPage, testModePage, languageSelectionModal].forEach(p => p.style.display = 'none');
+            wordGamePage.style.display = 'block';
+
+            wordGameTitle.innerHTML = getUIText('wordGamePageTitle');
+            allBackToHomeButtons.wordGame.innerHTML = getUIText('backToMainIndexButtonText'); // Changed text
+            backToGalleryFromWordGameBtn.innerHTML = getUIText('backToGalleryButtonText');
+            submitWordBtn.innerHTML = getUIText('submitButtonText');
+            resetWordBtn.innerHTML = getUIText('resetButtonText');
+            wordGameScoreLabel.childNodes[0].nodeValue = getUIText('scoreText') + " ";
+
+            const itemType = currentWordGameType;
+            initializeImageErrorHandling(wordGameImage, itemType);
+            
+            wordGameTitle.style.color = 'var(--word-game-accent-color)';
+            pageFooter.innerHTML = getUIText('footerText');
+
+            wordGameArea.style.display = 'none';
+            wordGameFeedback.textContent = '';
+            updatePageDirection();
+            window.scrollTo(0,0);
+        }
+        
+        function startMCQQuiz(quizType, dataArray) {
+            // ... (rest of the function as before)
+            currentQuizType = quizType;
+            showQuizPageUI(); 
+
+            const validDataArray = dataArray.filter(item => item[currentSelectedGalleryLanguage] && item[currentSelectedGalleryLanguage].trim() !== "");
+
+            if (validDataArray.length < 3) {
+                alert(getUIText('alertMinItemsQuiz', { ITEM_TYPE_NAME: getUIText('itemTypeName', {item_type_key: quizType}) })); 
+                proceedToGallery(previousCategoryForGame); 
+                return;
+            }
+            currentScore = 0; 
+            updateScoreDisplay();
+            quizItemsData = shuffleArray([...validDataArray]);
+            
+            quizArea.style.display = 'block';
+            loadNextMCQQuestion();
+        }
+
+        Object.keys(galleryQuizButtons).forEach(key => {
+            galleryQuizButtons[key].addEventListener('click', () => {
+                const data = key === 'fruit' ? fruitsData : key === 'flower' ? flowersData : key === 'fish' ? fishData : key === 'bird' ? birdsData : animalsData;
+                startMCQQuiz(key, data);
+            });
+        });
+
+        function loadNextMCQQuestion() {
+            // ... (rest of the function as before, but ensure langNameAR is not used)
+            feedbackText.textContent = '';
+            optionsContainer.innerHTML = '';
+            quizItemImage.src = ''; 
+            quizItemImage.alt = getUIText('imageMissingAltTextGeneric');
+
+            let itemColorVar;
+            let sourceDataForQuizOptions; 
+            const itemTypeKey = currentQuizType;
+
+            const typeMap = {
+                fruit: { color: 'var(--accent-color)', data: fruitsData },
+                flower: { color: 'var(--flower-accent-color)', data: flowersData },
+                fish: { color: 'var(--fish-accent-color)', data: fishData },
+                bird: { color: 'var(--bird-accent-color)', data: birdsData },
+                animal: { color: 'var(--animal-accent-color)', data: animalsData }
+            };
+
+            itemColorVar = typeMap[itemTypeKey] ? typeMap[itemTypeKey].color : 'var(--accent-color)';
+            sourceDataForQuizOptions = typeMap[itemTypeKey] ? typeMap[itemTypeKey].data : fruitsData;
+
+            if (quizItemsData.length === 0) {
+                const gameLangNameForFeedback = getUIText(`langName${currentSelectedGalleryLanguage.toUpperCase()}`);
+                const allDonePrefixText = getUIText('allDoneQuizPrefix', {item_type_key: currentQuizType});
+                const allDoneSuffixText = getUIText('allDoneQuizSuffix', {LANG_NAME: gameLangNameForFeedback});
+                const displayedScore = currentSelectedGalleryLanguage === 'bn' ? toBengaliNumeralsNamePage(currentScore) : currentScore;
+                const scoreSuffixText = getUIText('gameDoneScoreSuffix', {SCORE: displayedScore});
+
+
+                feedbackText.innerHTML = `${allDonePrefixText}${allDoneSuffixText} ${scoreSuffixText}`;
+                feedbackText.style.color = itemColorVar;
+                quizItemImage.style.display = 'none'; 
+                questionPromptText.textContent = ''; 
+                optionsContainer.innerHTML = '';
+                return;
+            }
+            quizItemImage.style.display = 'block'; 
+            
+            correctItem = quizItemsData.pop(); 
+
+            const validSourceForOptions = sourceDataForQuizOptions.filter(
+                item => item[currentSelectedGalleryLanguage] && item[currentSelectedGalleryLanguage].trim() !== ""
+            );
+
+            let options = [correctItem];
+            const wrongOptionCandidates = validSourceForOptions.filter(
+                item => item.en !== correctItem.en 
+            );
+            const shuffledWrongCandidates = shuffleArray(wrongOptionCandidates);
+
+            for (let i = 0; options.length < 3 && i < shuffledWrongCandidates.length; i++) {
+                 if (!options.some(opt => opt.en === shuffledWrongCandidates[i].en || opt[currentSelectedGalleryLanguage] === shuffledWrongCandidates[i][currentSelectedGalleryLanguage])) { 
+                    options.push(shuffledWrongCandidates[i]);
+                }
+            }
+            
+            let uniqueOptionsBySelectedLangName = [];
+            const seenNamesInSelectedLang = new Set();
+            for(const opt of options){
+                const nameInLang = opt[currentSelectedGalleryLanguage];
+                if(nameInLang && !seenNamesInSelectedLang.has(nameInLang)){
+                    uniqueOptionsBySelectedLangName.push(opt);
+                    seenNamesInSelectedLang.add(nameInLang);
+                } else if (!nameInLang && !seenNamesInSelectedLang.has(opt.bn)) { 
+                     uniqueOptionsBySelectedLangName.push(opt);
+                     seenNamesInSelectedLang.add(opt.bn);
+                }
+            }
+            options = uniqueOptionsBySelectedLangName;
+
+             while (options.length < Math.min(3, validSourceForOptions.length) && options.length < validSourceForOptions.length) {
+                let foundNewOption = false;
+                for (let item of shuffleArray(validSourceForOptions)) {
+                    const itemNameInLang = item[currentSelectedGalleryLanguage];
+                    if (!options.some(opt => opt.en === item.en) && 
+                        ((itemNameInLang && !seenNamesInSelectedLang.has(itemNameInLang)) || (!itemNameInLang && !seenNamesInSelectedLang.has(item.bn)))) {
+                        options.push(item);
+                        if(itemNameInLang) seenNamesInSelectedLang.add(itemNameInLang); else seenNamesInSelectedLang.add(item.bn);
+                        foundNewOption = true;
+                        if (options.length >= 3) break;
+                    }
+                }
+                if (!foundNewOption) break; 
+            }
+            
+            options = shuffleArray(options.slice(0,3));
+
+            quizItemImage.src = correctItem.img_url;
+            quizItemImage.alt = `${correctItem[currentSelectedGalleryLanguage] || correctItem.bn || getUIText('nameMissing')} - ${getUIText('imageMissingAltTextGeneric')}`;
+            quizItemImage.style.borderColor = itemColorVar;
+
+            const gameLangNameForPrompt = getUIText(`langName${currentSelectedGalleryLanguage.toUpperCase()}`);
+            const itemTypeNameForPrompt = getUIText('quizPromptItemTypeSuffix', {item_type_key: currentQuizType});
+            
+            let promptText;
+            if (currentSelectedGalleryLanguage === 'bn') {
+                 promptText = getUIText('quizPromptPrefix') + 
+                              itemTypeNameForPrompt + 
+                              getUIText('quizPromptSuffix').replace('%LANG_NAME%', gameLangNameForPrompt);
+            } else { // For EN
+                 promptText = getUIText('quizPromptPrefix', {LANG_NAME: gameLangNameForPrompt}) +
+                              itemTypeNameForPrompt +
+                              getUIText('quizPromptSuffix');
+            }
+            questionPromptText.textContent = promptText;
+
+            options.forEach(option => {
+                const optionButton = document.createElement('button');
+                optionButton.classList.add('option-button', `lang-${currentSelectedGalleryLanguage}`);
+                optionButton.textContent = option[currentSelectedGalleryLanguage] || option.bn || `(${getUIText('nameMissing')})`; 
+                optionButton.dataset.itemNameEn = option.en; 
+
+                optionButton.addEventListener('click', () => handleMCQOptionClick(optionButton, option.en === correctItem.en));
+                optionsContainer.appendChild(optionButton);
+            });
+        }
+
+        function handleMCQOptionClick(button, isCorrect) {
+            // ... (rest of the function as before, ensure points earned display is correct for bn/en)
+            const allOptionButtons = optionsContainer.querySelectorAll('.option-button');
+            allOptionButtons.forEach(btn => btn.disabled = true);
+
+            if (isCorrect) {
+                let globalPoints = loadPointsFromStorageNamePage();
+                globalPoints += 5; 
+                savePointsToStorageNamePage(globalPoints);
+                currentScore += 5; 
+                
+                let pointsEarnedDisplay;
+                if (currentSelectedGalleryLanguage === 'bn') pointsEarnedDisplay = `(+${toBengaliNumeralsNamePage('5')} পয়েন্ট)`;
+                else if (currentSelectedGalleryLanguage === 'en') pointsEarnedDisplay = `(+5 points)`;
+                
+                feedbackText.textContent = getUIText('correctAnswerFeedback') + ` ${pointsEarnedDisplay}`;
+                feedbackText.style.color = "green";
+                button.style.backgroundColor = "#C8E6C9"; 
+                button.style.borderColor = "green";
+            } else {
+                feedbackText.textContent = getUIText('wrongAnswerFeedbackPrefix') + (correctItem[currentSelectedGalleryLanguage] || correctItem.bn);
+                feedbackText.style.color = "red";
+                button.style.backgroundColor = "#FFCDD2"; 
+                button.style.borderColor = "red";
+                allOptionButtons.forEach(btn => { 
+                    if (btn.dataset.itemNameEn === correctItem.en) {
+                        btn.style.backgroundColor = "#C8E6C9";
+                        btn.style.borderColor = "green";
+                    }
+                });
+            }
+            updateScoreDisplay(); 
+
+            setTimeout(() => {
+                allOptionButtons.forEach(btn => {
+                    btn.disabled = false;
+                    btn.style.backgroundColor = ""; 
+                    btn.style.borderColor = ""; 
+                });
+                loadNextMCQQuestion();
+            }, 2500); 
+        }
+
+        function getCharacters(word) { 
+            return word ? String(word).split('') : [];
+        }
+
+        function scrambleCharacters(characters) {
+            // ... (function remains the same)
+            const newArray = [...characters];
+             if (newArray.length < 2) return newArray;
+            let original = newArray.join('');
+            let attempts = 0;
+            do { 
+                for (let i = newArray.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+                }
+                attempts++;
+            } while (newArray.join('') === original && attempts < 10 && newArray.length > 1); 
+            return newArray;
+        }
+
+        function startWordGame(gameType, dataArray) {
+            // ... (rest of the function as before)
+            currentWordGameType = gameType;
+            showWordGamePageUI(); 
+
+            const filteredData = dataArray.filter(item => 
+                item[currentSelectedGalleryLanguage] && 
+                String(item[currentSelectedGalleryLanguage]).trim().length > 0 && 
+                !String(item[currentSelectedGalleryLanguage]).includes(' ') 
+            );
+
+            if (filteredData.length < 1) {
+                alert(getUIText('alertMinItemWordGame', { ITEM_TYPE_NAME: getUIText('itemTypeName', {item_type_key: gameType}) }));
+                proceedToGallery(previousCategoryForGame);
+                return;
+            }
+            currentWordGameScore = 0; 
+            updateWordGameScoreDisplay();
+            wordGameAllItems = shuffleArray([...filteredData]); 
+
+            wordGameArea.style.display = 'block';
+            loadNextWordGameQuestion();
+        }
+
+        Object.keys(galleryWordGameButtons).forEach(key => {
+            galleryWordGameButtons[key].addEventListener('click', () => {
+                const data = key === 'fruit' ? fruitsData : key === 'flower' ? flowersData : key === 'fish' ? fishData : key === 'bird' ? birdsData : animalsData;
+                startWordGame(key, data);
+            });
+        });
+        
+        function loadNextWordGameQuestion() {
+            // ... (rest of the function as before, ensure langNameAR is not used)
+            wordGameFeedback.textContent = '';
+            wordInProgressDisplay.textContent = '';
+            constructedWord = "";
+            scrambledLetterButtonsContainer.innerHTML = '';
+            availableLetters = [];
+            submitWordBtn.disabled = false;
+            resetWordBtn.disabled = false;
+            wordGameImage.src = '';
+            wordGameImage.alt = getUIText('imageMissingAltTextGeneric');
+            wordGameImage.style.display = 'block'; 
+
+            let itemColorVar = 'var(--word-game-accent-color)'; 
+
+            if (wordGameAllItems.length === 0) {
+                const gameLangNameForFeedback = getUIText(`langName${currentSelectedGalleryLanguage.toUpperCase()}`);
+                const allDonePrefixText = getUIText('allDoneWordGamePrefix', {item_type_key: currentWordGameType});
+                const allDoneSuffixText = getUIText('allDoneWordGameSuffix', {LANG_NAME: gameLangNameForFeedback});
+                const displayedScore = currentSelectedGalleryLanguage === 'bn' ? toBengaliNumeralsNamePage(currentWordGameScore) : currentWordGameScore;
+                const scoreSuffixText = getUIText('wordGameDoneScoreSuffix', {SCORE: displayedScore});
+
+
+                wordGameFeedback.innerHTML = `${allDonePrefixText}${allDoneSuffixText} ${scoreSuffixText}`;
+                wordGameFeedback.style.color = itemColorVar;
+                wordGameImage.style.display = 'none';
+                wordInProgressDisplay.textContent = '';
+                scrambledLetterButtonsContainer.innerHTML = '';
+                wordGamePromptText.textContent = '';
+                submitWordBtn.disabled = true;
+                resetWordBtn.disabled = true;
+                return;
+            }
+
+            correctWordGameItem = wordGameAllItems.pop();
+            
+            const wordToScramble = String(correctWordGameItem[currentSelectedGalleryLanguage]); 
+            const characters = getCharacters(wordToScramble); 
+            const scrambledChars = scrambleCharacters(characters);
+
+            wordGameImage.src = correctWordGameItem.img_url;
+            wordGameImage.alt = `${correctWordGameItem[currentSelectedGalleryLanguage] || correctWordGameItem.bn || getUIText('nameMissing')} - ${getUIText('imageMissingAltTextGeneric')}`; 
+            wordGameImage.style.borderColor = itemColorVar;
+
+            wordInProgressDisplay.style.fontFamily = ""; 
+            if (currentSelectedGalleryLanguage === 'bn') wordInProgressDisplay.style.fontFamily = "'Hind Siliguri', var(--font-kids)";
+            else if (currentSelectedGalleryLanguage === 'en') wordInProgressDisplay.style.fontFamily = "'Roboto', var(--font-kids)";
+            
+            const gameLangNameForPrompt = getUIText(`langName${currentSelectedGalleryLanguage.toUpperCase()}`);
+            const itemTypeNameForPrompt = getUIText('wordGamePromptItemTypeSuffix', {item_type_key: currentWordGameType}); 
+            
+            let promptText;
+             if (currentSelectedGalleryLanguage === 'bn') {
+                 promptText = getUIText('wordGamePromptPrefix') +
+                              itemTypeNameForPrompt + 
+                              getUIText('wordGamePromptSuffix').replace('%LANG_NAME%', gameLangNameForPrompt);
+            } else { // For EN
+                 promptText = getUIText('wordGamePromptPrefix', {LANG_NAME: gameLangNameForPrompt}) +
+                              itemTypeNameForPrompt +
+                              getUIText('wordGamePromptSuffix');
+            }
+            wordGamePromptText.textContent = promptText;
+            
+            availableLetters = scrambledChars.map((char) => {
+                const letterBtn = document.createElement('button');
+                letterBtn.classList.add('letter-button', `lang-${currentSelectedGalleryLanguage}`);
+                letterBtn.textContent = char;
+                letterBtn.dataset.char = char;
+                letterBtn.onclick = () => handleLetterClick(letterBtn, char);
+                scrambledLetterButtonsContainer.appendChild(letterBtn);
+                return letterBtn;
+            });
+        }
+
+        function handleLetterClick(button, char) {
+            // ... (function remains the same)
+            constructedWord += char;
+            wordInProgressDisplay.textContent = constructedWord;
+            button.disabled = true; 
+        }
+
+        resetWordBtn.addEventListener('click', () => {
+            // ... (function remains the same)
+            constructedWord = "";
+            wordInProgressDisplay.textContent = "";
+            availableLetters.forEach(btn => btn.disabled = false);
+            wordGameFeedback.textContent = "";
+        });
+
+        submitWordBtn.addEventListener('click', function handleSubmitWord() {
+            // ... (rest of the function as before, ensure points earned display is correct for bn/en)
+            const correctAnswer = String(correctWordGameItem[currentSelectedGalleryLanguage]);
+            
+            submitWordBtn.disabled = true;
+            resetWordBtn.disabled = true;
+            availableLetters.forEach(btn => btn.disabled = true); 
+
+            if (constructedWord === correctAnswer) {
+                let globalPoints = loadPointsFromStorageNamePage();
+                globalPoints += 10; 
+                savePointsToStorageNamePage(globalPoints);
+                currentWordGameScore += 10; 
+                
+                let pointsEarnedDisplay;
+                if (currentSelectedGalleryLanguage === 'bn') pointsEarnedDisplay = `(+${toBengaliNumeralsNamePage('10')} পয়েন্ট)`;
+                else if (currentSelectedGalleryLanguage === 'en') pointsEarnedDisplay = `(+10 points)`;
+
+                wordGameFeedback.textContent = getUIText('correctAnswerFeedbackWordGame') + ` ${pointsEarnedDisplay}`; 
+                wordGameFeedback.style.color = "green";
+            } else {
+                wordGameFeedback.textContent = getUIText('wrongAnswerFeedbackWordGamePrefix') + correctAnswer;
+                wordGameFeedback.style.color = "red";
+            }
+            updateWordGameScoreDisplay(); 
+
+            setTimeout(() => {
+                loadNextWordGameQuestion();
+            }, 2500);
+        });
+
+        // Initialize the Name.html app's own home page
+        showNameAppHomePage(); 
+    </script>
+</body>
+</html>
