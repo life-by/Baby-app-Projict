@@ -1,0 +1,1898 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আমাদের গোপন জগৎ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
+    
+    <style>
+        /* বেসিক থিম - আগের মতোই */
+        body, html {
+            margin: 0;
+            padding: 0;
+            background: #0a0002;
+            color: #e8c37d;
+            font-family: 'Tiro Bangla', serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: radial-gradient(circle at center, #380511 0%, #0a0002 80%);
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            color: #f7d699;
+            text-shadow: 0 0 10px rgba(247, 214, 153, 0.4);
+        }
+
+        /* লগইন স্ক্রিন - আগের মতো */
+        #login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 0, 2, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .pin-input {
+            background: transparent;
+            border: 2px solid #8f2135;
+            color: #f7d699;
+            font-size: 24px;
+            text-align: center;
+            padding: 10px;
+            border-radius: 10px;
+            width: 150px;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+            outline: none;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #701121, #4a0410);
+            color: #f7d699;
+            border: 1px solid #a62d43;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 15px rgba(112, 17, 33, 0.5);
+            font-family: 'Tiro Bangla', serif;
+        }
+
+        .btn:hover {
+            background: linear-gradient(45deg, #a62d43, #701121);
+            box-shadow: 0 0 25px rgba(166, 45, 67, 0.8);
+        }
+
+        .btn-small {
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+
+        /* ব্যাকআপ সেকশনের স্টাইল */
+        .backup-section {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(166, 45, 67, 0.2);
+            border-radius: 10px;
+            border: 2px solid #ff6b81;
+        }
+
+        .backup-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .backup-btn {
+            flex: 1;
+            background: linear-gradient(45deg, #2a5a2a, #1a3a1a);
+            border: 1px solid #4cd137;
+            color: #4cd137;
+        }
+
+        .restore-btn {
+            flex: 1;
+            background: linear-gradient(45deg, #5a2a5a, #3a1a3a);
+            border: 1px solid #d437d4;
+            color: #d437d4;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .backup-info {
+            font-size: 12px;
+            color: #a37c43;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        /* র‍্যান্ডম বাটনের স্টাইল */
+        .random-btn {
+            background: linear-gradient(45deg, #4a1a2a, #2a0a15);
+            border: 1px solid #ff6b81;
+            color: #ffb84d;
+            margin-top: 15px;
+            width: 100%;
+            font-size: 16px;
+            letter-spacing: 1px;
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px #ff6b81; }
+            50% { box-shadow: 0 0 20px #ff6b81; }
+            100% { box-shadow: 0 0 5px #ff6b81; }
+        }
+
+        .random-btn:hover {
+            background: linear-gradient(45deg, #6a2a3a, #4a1a25);
+            transform: scale(1.02);
+        }
+
+        /* ইমেজ বক্সের জন্য স্টাইল */
+        .image-box {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            border: 1px dashed #ff6b81;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .secret-image {
+            max-width: 100%;
+            max-height: 80vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            border: 2px solid #ff6b81;
+            box-shadow: 0 0 20px rgba(255, 107, 129, 0.3);
+            margin-bottom: 10px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .image-note {
+            color: #a37c43;
+            font-size: 12px;
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        .image-link-input {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid #8f2135;
+            color: #f7d699;
+            padding: 8px;
+            border-radius: 5px;
+            font-family: 'Tiro Bangla', serif;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        /* ইমেজ লিস্ট স্টাইল */
+        .image-list {
+            max-height: 200px;
+            overflow-y: auto;
+            margin: 10px 0;
+            padding: 5px;
+        }
+
+        .image-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px;
+            background: rgba(0,0,0,0.3);
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+
+        .image-list-item span {
+            font-size: 12px;
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .image-list-item button {
+            background: transparent;
+            border: 1px solid #a62d43;
+            color: #f7d699;
+            padding: 2px 8px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 11px;
+            margin-left: 3px;
+        }
+
+        .image-list-item button:hover {
+            background: #a62d43;
+        }
+
+        #main-dashboard {
+            display: none;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .card {
+            background: rgba(43, 6, 13, 0.6);
+            border: 1px solid #5e1121;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5), 0 5px 15px rgba(0,0,0,0.8);
+            text-align: center;
+        }
+
+        /* মুড বাটন - আগের মতো */
+        .mood-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .mood-btn {
+            flex: 1;
+            padding: 10px;
+            background: transparent;
+            border: 1px solid #8f2135;
+            color: #e8c37d;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .mood-btn:hover, .mood-btn.active {
+            background: #8f2135;
+            color: white;
+        }
+
+        /* রুলেট ডিসপ্লে - আগের মতো */
+        #roulette-result {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #ff6b81;
+            min-height: 30px;
+            text-shadow: 0 0 10px rgba(255, 107, 129, 0.5);
+        }
+
+        /* সেটিংস বাটন */
+        .settings-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4a0410;
+            border: 1px solid #a62d43;
+            color: #f7d699;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 90;
+            box-shadow: 0 0 20px rgba(166, 45, 67, 0.5);
+            transition: 0.3s;
+        }
+
+        .settings-btn:hover {
+            transform: rotate(90deg);
+            background: #a62d43;
+        }
+
+        /* সেটিংস প্যানেল */
+        #settings-panel {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 90%;
+            max-width: 400px;
+            height: 100vh;
+            background: rgba(20, 3, 7, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            transition: 0.4s ease-in-out;
+            padding: 70px 20px 20px;
+            box-sizing: border-box;
+            border-left: 2px solid #a62d43;
+            overflow-y: auto;
+        }
+
+        #settings-panel.active {
+            right: 0;
+        }
+
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            color: #f7d699;
+        }
+
+        .close-btn {
+            font-size: 30px;
+            cursor: pointer;
+            color: #a62d43;
+        }
+
+        .settings-section {
+            margin-bottom: 30px;
+            padding: 15px;
+            background: rgba(74, 4, 16, 0.3);
+            border-radius: 10px;
+            border: 1px solid #5e1121;
+        }
+
+        .settings-section h4 {
+            color: #ff6b81;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #5e1121;
+            padding-bottom: 5px;
+        }
+
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: rgba(0,0,0,0.3);
+            margin-bottom: 8px;
+            border-radius: 5px;
+        }
+
+        .settings-item-actions button {
+            background: transparent;
+            border: 1px solid #a62d43;
+            color: #f7d699;
+            padding: 3px 10px;
+            border-radius: 3px;
+            margin-left: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .settings-item-actions button:hover {
+            background: #a62d43;
+        }
+
+        .add-form {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .add-form input, .add-form select, .add-form textarea {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid #8f2135;
+            color: #f7d699;
+            padding: 8px;
+            border-radius: 5px;
+            font-family: 'Tiro Bangla', serif;
+        }
+
+        .add-form textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 150;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* ক্যারেক্টর সেকশন স্টাইল - আগের মতো */
+        .category-tabs {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            gap: 10px;
+        }
+
+        .category-tab {
+            flex: 1;
+            padding: 10px;
+            background: transparent;
+            border: 1px solid #8f2135;
+            color: #e8c37d;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Tiro Bangla', serif;
+            transition: 0.3s;
+        }
+
+        .category-tab.active {
+            background: #8f2135;
+            color: white;
+            box-shadow: 0 0 20px rgba(143, 33, 53, 0.5);
+        }
+
+        .character-list {
+            margin: 15px 0;
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 5px;
+        }
+
+        .character-item {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid #5e1121;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .character-info {
+            text-align: left;
+        }
+
+        .character-name {
+            color: #f7d699;
+            font-weight: bold;
+        }
+
+        .character-desc {
+            color: #a37c43;
+            font-size: 12px;
+            font-style: italic;
+        }
+
+        .play-btn {
+            background: #4a0410;
+            border: 1px solid #a62d43;
+            color: #f7d699;
+            padding: 5px 15px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        .play-btn:hover {
+            background: #a62d43;
+            transform: scale(1.05);
+        }
+
+        #active-character {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(166, 45, 67, 0.2);
+            border-radius: 10px;
+            color: #ffb84d;
+            font-style: italic;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            max-height: 100px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        /* নতুন সেকশন: ভিডিও, গল্প, টিপস বাটন */
+        .new-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .option-btn {
+            background: linear-gradient(45deg, #2a1a3a, #1a0a2a);
+            border: 1px solid #b380ff;
+            color: #d9b3ff;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 15px rgba(179, 128, 255, 0.3);
+        }
+
+        .option-btn:hover {
+            background: linear-gradient(45deg, #3a2a4a, #2a1a3a);
+            box-shadow: 0 0 25px rgba(179, 128, 255, 0.7);
+            transform: scale(1.02);
+        }
+
+        /* আলাদা পেইজের জন্য স্টাইল */
+        .feature-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0002;
+            z-index: 300;
+            display: none;
+            overflow-y: auto;
+        }
+
+        .feature-content {
+            background: rgba(43, 6, 13, 0.95);
+            border: 2px solid #b380ff;
+            border-radius: 20px;
+            padding: 30px 20px;
+            max-width: 600px;
+            width: 90%;
+            margin: 30px auto;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(179, 128, 255, 0.3);
+        }
+
+        .feature-content h2 {
+            color: #d9b3ff;
+            margin-bottom: 20px;
+        }
+
+        .feature-content iframe {
+            width: 100%;
+            height: 350px;
+            border-radius: 15px;
+            border: 2px solid #b380ff;
+            margin-bottom: 20px;
+        }
+
+        .feature-text {
+            background: rgba(0,0,0,0.4);
+            padding: 20px;
+            border-radius: 15px;
+            color: #ffd700;
+            font-size: 18px;
+            line-height: 1.8;
+            text-align: left;
+            border-left: 5px solid #b380ff;
+            margin-bottom: 20px;
+            max-height: 50vh;
+            overflow-y: auto;
+        }
+
+        .feature-btn-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .feature-btn {
+            background: linear-gradient(45deg, #4a2a5a, #2a1a3a);
+            border: 1px solid #b380ff;
+            color: #d9b3ff;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.3s;
+            flex: 1;
+            min-width: 140px;
+        }
+
+        .feature-btn:hover {
+            background: linear-gradient(45deg, #5a3a6a, #3a2a4a);
+            box-shadow: 0 0 20px #b380ff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- লগইন স্ক্রিন - আগের মতো -->
+    <div id="login-screen">
+        <h2>আমাদের গোপন জগৎ</h2>
+        <p style="color: #a37c43; margin-bottom: 20px;">প্রবেশ করতে পিন কোড দিন</p>
+        <input type="password" id="pinCode" class="pin-input" maxlength="4" placeholder="••••">
+        <button class="btn" onclick="checkPin()">প্রবেশ করুন</button>
+        <p id="error-msg" style="color: red; display: none; margin-top: 10px;">ভুল পিন! আবার চেষ্টা করুন।</p>
+    </div>
+
+    <!-- সেটিংস বাটন -->
+    <div class="settings-btn" onclick="toggleSettings()">⚙️</div>
+
+    <!-- ওভারলে -->
+    <div class="overlay" id="overlay" onclick="toggleSettings()"></div>
+
+    <!-- সেটিংস প্যানেল -->
+    <div id="settings-panel">
+        <div class="settings-header">
+            <h3>সেটিংস</h3>
+            <span class="close-btn" onclick="toggleSettings()">&times;</span>
+        </div>
+
+        <!-- ব্যাকআপ ও রিস্টোর সেকশন -->
+        <div class="backup-section">
+            <h4 style="color: #ff6b81; margin-top: 0;">💾 ডাটা ব্যাকআপ ও রিস্টোর</h4>
+            <div class="backup-buttons">
+                <button class="btn backup-btn" onclick="downloadBackup()">📥 ডাউনলোড ব্যাকআপ</button>
+                <button class="btn restore-btn" onclick="document.getElementById('restore-file').click()">📤 রিস্টোর ব্যাকআপ</button>
+            </div>
+            <input type="file" id="restore-file" class="file-input" accept=".json" onchange="restoreBackup(event)">
+            <p class="backup-info">ব্যাকআপ ফাইলে সব ডাটা থাকবে: মুড, ক্যারেক্টার, রুলেট অ্যাকশন, ছবির লিংক, ভিডিও, গল্প, টিপস</p>
+        </div>
+
+        <!-- মুড মেসেজ এডিট -->
+        <div class="settings-section">
+            <h4>🌸 মুড মেসেজ</h4>
+            <div id="mood-settings">
+                <!-- ডায়নামিকভাবে দেখাবে -->
+            </div>
+            <div class="add-form">
+                <input type="text" id="new-mood-name" placeholder="মুড নাম (যেমন: রোমান্টিক)">
+                <input type="text" id="new-mood-message" placeholder="মেসেজ (যেমন: নরম ও আদুরে...)">
+                <button class="btn-small" onclick="addMood()">নতুন মুড যোগ করো</button>
+            </div>
+        </div>
+
+        <!-- রুলেট অ্যাকশন এডিট -->
+        <div class="settings-section">
+            <h4>🎯 ফোরপ্লে রুলেট অ্যাকশন</h4>
+            <div id="roulette-settings">
+                <!-- ডায়নামিকভাবে দেখাবে -->
+            </div>
+            <div class="add-form">
+                <input type="text" id="new-action" placeholder="নতুন অ্যাকশন (যেমন: চোখ বেঁধে স্পর্শ)">
+                <button class="btn-small" onclick="addRouletteAction()">নতুন অ্যাকশন যোগ করো</button>
+            </div>
+        </div>
+
+        <!-- ক্যারেক্টর এডিট -->
+        <div class="settings-section">
+            <h4>🎭 ক্যারেক্টর</h4>
+            <select id="character-category-select" onchange="loadCharacterSettings()">
+                <option value="ma">মা</option>
+                <option value="bhabi">ভাবি</option>
+                <option value="bon">বোন</option>
+            </select>
+            <div id="character-settings" style="margin-top: 15px;">
+                <!-- ডায়নামিকভাবে দেখাবে -->
+            </div>
+            <div class="add-form">
+                <input type="text" id="new-character-name" placeholder="নাম (যেমন: রিয়ার মা)">
+                <input type="text" id="new-character-desc" placeholder="ডেসক্রিপশন (যেমন: স্নেহ করে)">
+                <button class="btn-small" onclick="addCharacterFromSettings()">নতুন ক্যারেক্টর যোগ করো</button>
+            </div>
+        </div>
+
+        <!-- র্যান্ডম ইমেজ সেটিংস -->
+        <div class="settings-section">
+            <h4>🖼️ র্যান্ডম ছবির লিস্ট</h4>
+            <p style="color: #a37c43; font-size: 12px;">এখানে যতগুলো ছবির লিংক দেবে, র্যান্ডমভাবে সেগুলো দেখাবে</p>
+            
+            <!-- ছবির লিস্ট দেখানোর জায়গা -->
+            <div id="image-list-container" class="image-list">
+                <!-- ডায়নামিকভাবে দেখাবে -->
+            </div>
+            
+            <div class="add-form">
+                <input type="text" id="new-image-link" class="image-link-input" placeholder="নতুন ছবির লিংক দিন (https://...)" value="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80">
+                <button class="btn-small" onclick="addImageLink()">ছবি যোগ করো</button>
+            </div>
+        </div>
+
+        <!-- নতুন: ভিডিও লিংক লিস্ট সেটিংস - Google Drive সাপোর্ট সহ -->
+        <div class="settings-section">
+            <h4>🎬 ভিডিও লিংক লিস্ট (Google Drive)</h4>
+            <p style="color: #a37c43; font-size: 12px;">Google Drive ভিডিওর জন্য /preview লিংক ব্যবহার করুন</p>
+            <div id="video-list-container" class="image-list">
+                <!-- ডায়নামিকভাবে দেখাবে -->
+            </div>
+            <div class="add-form">
+                <input type="text" id="new-video-link" placeholder="নতুন ভিডিও লিংক (https://drive.google.com/file/d/.../preview)" value="https://drive.google.com/file/d/1A2B3C4D5E6F7G8H9I0J/preview">
+                <button class="btn-small" onclick="addVideoLink()">ভিডিও যোগ করো</button>
+            </div>
+        </div>
+
+        <!-- নতুন: গল্প লিস্ট সেটিংস -->
+        <div class="settings-section">
+            <h4>📖 গল্প লিস্ট</h4>
+            <div id="story-list-container" class="image-list">
+                <!-- ডায়নামিকভাবে দেখাবে -->
+            </div>
+            <div class="add-form">
+                <textarea id="new-story" placeholder="নতুন গল্প লিখুন..."></textarea>
+                <button class="btn-small" onclick="addStory()">গল্প যোগ করো</button>
+            </div>
+        </div>
+
+        <!-- নতুন: টিপস লিস্ট সেটিংস -->
+        <div class="settings-section">
+            <h4>💡 টিপস লিস্ট</h4>
+            <div id="tip-list-container" class="image-list">
+                <!-- ডায়নামিকভাবে দেখাবে -->
+            </div>
+            <div class="add-form">
+                <textarea id="new-tip" placeholder="নতুন টিপস লিখুন..."></textarea>
+                <button class="btn-small" onclick="addTip()">টিপস যোগ করো</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- মূল অ্যাপ্লিকেশন (ড্যাশবোর্ড) -->
+    <div class="app-container" id="main-dashboard">
+        <h1>আমাদের একান্ত রাত</h1>
+        <p style="text-align: center; color: #a37c43; font-style: italic; margin-bottom: 30px;">"প্রতিটি স্পর্শে নতুন শিহরণ..."</p>
+
+        <!-- সেকশন ১: মুড ইনডিকেটর -->
+        <div class="card">
+            <h3>আজ রাতের মুড কেমন?</h3>
+            <div class="mood-buttons" id="mood-buttons-container">
+                <!-- ডায়নামিকভাবে মুড বাটন দেখাবে -->
+            </div>
+            <p id="mood-msg" style="margin-top: 15px; color: #ffb84d; font-style: italic;"></p>
+        </div>
+
+        <!-- সেকশন ২: রোলপ্লে ক্যারেক্টর -->
+        <div class="card">
+            <h3>🎭 আজ কে হবে আমার বউ?</h3>
+            
+            <div class="category-tabs">
+                <button class="category-tab active" onclick="switchCategory(this, 'ma')">মা</button>
+                <button class="category-tab" onclick="switchCategory(this, 'bhabi')">ভাবি</button>
+                <button class="category-tab" onclick="switchCategory(this, 'bon')">বোন</button>
+            </div>
+
+            <div id="character-list" class="character-list"></div>
+            
+            <!-- র‍্যান্ডম ক্যারেক্টার বাটন -->
+            <button class="btn random-btn" onclick="selectRandomCharacter()">
+                🎲 এলোমেলো ক্যারেক্টার চয়েস 🎲
+            </button>
+            
+            <div id="active-character"></div>
+        </div>
+
+        <!-- সেকশন ৩: ইনটিমেসি রুলেট -->
+        <div class="card">
+            <h3>ফোরপ্লে রুলেট</h3>
+            <p style="font-size: 14px; color: #a37c43;">খেলা শুরু করতে স্পিন করুন। যা আসবে, তা-ই করতে হবে!</p>
+            <div id="roulette-result">...</div>
+            <button class="btn" onclick="spinRoulette()">স্পিন করুন</button>
+        </div>
+
+        <!-- সেকশন ৪: র্যান্ডম ছবি বাক্স -->
+        <div class="card">
+            <h3>🖼️ র্যান্ডম ছবি বাক্স</h3>
+            <p style="font-size: 14px; color: #a37c43;">নিচের বাটন চাপলে এলোমেলো একটি গোপন ছবি দেখাবে...</p>
+            
+            <!-- ছবি দেখানোর জায়গা -->
+            <div id="random-image-box" class="image-box">
+                <button class="btn" onclick="showRandomImage()">🎲 র্যান্ডম ছবি দেখাও 🎲</button>
+            </div>
+            
+            <p class="image-note">* প্রতিবার বাটন চাপলে নতুন ছবি আসবে</p>
+        </div>
+
+        <!-- নতুন সেকশন: ভিডিও, গল্প, টিপস বাটন -->
+        <div class="card new-options">
+            <h3>✨ আরও কিছু মজা</h3>
+            <button class="option-btn" onclick="openFeaturePage('video')">🎬 এলোমেলো ভিডিও</button>
+            <button class="option-btn" onclick="openFeaturePage('story')">📖 এলোমেলো গল্প</button>
+            <button class="option-btn" onclick="openFeaturePage('tip')">💡 এলোমেলো টিপস</button>
+        </div>
+    </div>
+
+    <!-- ভিডিও পেইজ (Google Drive সাপোর্ট সহ) -->
+    <div id="video-page" class="feature-page">
+        <div class="feature-content">
+            <h2>🎬 এলোমেলো ভিডিও</h2>
+            <div id="video-container">
+                <p>লোড হচ্ছে...</p>
+            </div>
+            <div class="feature-btn-group">
+                <button class="feature-btn" onclick="refreshRandomVideo()">🎲 আরেকটি ভিডিও</button>
+                <button class="feature-btn" onclick="goBackToDashboard()">🔙 ফিরে যান</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- গল্প পেইজ -->
+    <div id="story-page" class="feature-page">
+        <div class="feature-content">
+            <h2>📖 এলোমেলো গল্প</h2>
+            <div id="story-container" class="feature-text">
+                লোড হচ্ছে...
+            </div>
+            <div class="feature-btn-group">
+                <button class="feature-btn" onclick="refreshRandomStory()">📖 আরেকটি গল্প</button>
+                <button class="feature-btn" onclick="goBackToDashboard()">🔙 ফিরে যান</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- টিপস পেইজ -->
+    <div id="tip-page" class="feature-page">
+        <div class="feature-content">
+            <h2>💡 এলোমেলো টিপস</h2>
+            <div id="tip-container" class="feature-text">
+                লোড হচ্ছে...
+            </div>
+            <div class="feature-btn-group">
+                <button class="feature-btn" onclick="refreshRandomTip()">💡 আরেকটি টিপস</button>
+                <button class="feature-btn" onclick="goBackToDashboard()">🔙 ফিরে যান</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== লোকাল স্টোরেজ ফাংশন =====
+        function saveToLocalStorage() {
+            const allData = {
+                moodMessages: moodMessages,
+                rouletteActions: rouletteActions,
+                characters: characters,
+                imageLinks: imageLinks,
+                videoLinks: videoLinks,
+                storyList: storyList,
+                tipList: tipList
+            };
+            localStorage.setItem('goponJogotData', JSON.stringify(allData));
+        }
+
+        function loadFromLocalStorage() {
+            const savedData = localStorage.getItem('goponJogotData');
+            if (savedData) {
+                try {
+                    const data = JSON.parse(savedData);
+                    moodMessages = data.moodMessages || moodMessages;
+                    rouletteActions = data.rouletteActions || rouletteActions;
+                    characters = data.characters || characters;
+                    imageLinks = data.imageLinks || imageLinks;
+                    videoLinks = data.videoLinks || videoLinks;
+                    storyList = data.storyList || storyList;
+                    tipList = data.tipList || tipList;
+                } catch (e) {
+                    console.error('লোকাল স্টোরেজ থেকে ডাটা লোড করতে সমস্যা:', e);
+                }
+            }
+        }
+
+        // ===== ডিফল্ট ডাটা =====
+        let moodMessages = [
+            { name: '🌸 রোমান্টিক', message: 'নরম ও আদুরে... আজ রাতে শুধু গভীর ভালোবাসা ও ধীরগতির স্পর্শ।' },
+            { name: '🔥 প্যাশনেট', message: 'তীব্র ও বন্য... আজ রাতে কোনো বাধা নেই, শুধু উদ্দামতা!' },
+            { name: '🎭 ফ্যান্টাসি', message: 'রোলপ্লে টাইম... আজ আমরা অচেনা দুজন, নতুন কোনো ফ্যান্টাসি!' }
+        ];
+
+        let rouletteActions = [
+            "চোখ বেঁধে শরীরের সব জায়গায় আলতো স্পর্শ 🤫",
+            "১০ মিনিট একটানা সেন্সুয়াল বডি মাসাজ 💆‍♀️",
+            "বরফের টুকরো দিয়ে গলায় ও বুকে খেলা 🧊",
+            "পরস্পরের ঠোঁটে চোখ বন্ধ করে ৫ মিনিটের ফ্রেঞ্চ কিস 💋",
+            "দেয়ালে চেপে ধরে গাঢ় চুম্বন 🔥",
+            "হাতে হাত লক করে কানে কানে ফিসফিসানি",
+            "আজ রাতের কন্ট্রোল সম্পূর্ণ পার্টনারের হাতে 👑",
+            "ধীরগতির ফোরপ্লে, কোনো তাড়াহুড়ো নেই ⏳"
+        ];
+
+        let characters = {
+            ma: [
+  { name: 'লাইজু', desc: 'পরের টা' },
+  { name: 'লিলি', desc: 'পরের টা' },
+  { name: 'মনো', desc: 'পরের টা' },
+  { name: 'রাবেয়ার শাশুরী', desc: 'পরের টা' },
+  { name: 'তন্নির মা', desc: 'পরের টা' },
+  { name: 'নিপা খালা', desc: 'পরের টা' },
+  { name: 'আসমা খালা', desc: 'পরের টা' },
+  { name: 'নাজমা খালা', desc: 'পরের টা' },
+  { name: 'মাহিন খালা', desc: 'পরের টা' },
+  { name: 'কহিন খালা', desc: 'পরের টা' },
+  { name: 'নারগিস খালা', desc: 'পরের টা' },
+  { name: 'ভাবির মা', desc: 'পরের টা' },
+  { name: 'রানার শাশুরি', desc: 'পরের টা' },
+  { name: 'জুয়েলের মা', desc: 'পরের টা' },
+  { name: 'জুয়েলের মামি', desc: 'পরের টা' },
+  { name: 'ছনিয়া কাকি', desc: 'পরের টা' },
+  { name: 'হেলেনার মা', desc: 'পরের টা' },
+  { name: 'লাখির মা', desc: 'পরের টা' },
+  { name: 'লিমার মা', desc: 'পরের টা' }
+            ],
+            bhabi: [
+ { name: 'দোলা', desc: 'পরের টা' },
+  { name: 'রুকাইয়া', desc: 'পরের টা' },
+  { name: 'সোহানের বউ', desc: 'পরের টা' },
+  { name: 'হেলেনা', desc: 'পরের টা' },
+  { name: 'ফারজানা', desc: 'পরের টা' },
+  { name: 'রুবি', desc: 'পরের টা' },
+  { name: 'মিম', desc: 'পরের টা' },
+  { name: 'লাকি', desc: 'পরের টা' },
+  { name: 'তন্নি', desc: 'পরের টা' },
+  { name: 'ইভা', desc: 'পরের টা' },
+  { name: 'ইমনের বউ', desc: 'পরের টা' },
+  { name: 'রেনু', desc: 'পরের টা' },
+  { name: 'হাসি', desc: 'পরের টা' }
+            ],
+            bon: [
+  { name: 'রাবেয়া', desc: 'পরের টা' },
+  { name: 'সাদিয়া', desc: 'পরের টা' },
+  { name: 'চাদনী', desc: 'পরের টা' },
+  { name: 'ফাহিমা', desc: 'পরের টা' },
+  { name: 'লিমা', desc: 'পরের টা' },
+  { name: 'আসিয়া', desc: 'পরের টা' },
+  { name: 'নিলা', desc: 'পরের টা' },
+  { name: 'নিপা', desc: 'পরের টা' },
+  { name: 'বন্যা', desc: 'পরের টা' },
+  { name: 'নিরবের মাইয়া', desc: 'পরের টা' },
+  { name: 'শেফালি', desc: 'পরের টা' },
+  { name: 'আনিকা', desc: 'পরের টা' },
+  { name: 'রিনি', desc: 'পরের টা' },
+  { name: 'জিনিয়া', desc: 'পরের টা' },
+  { name: 'সাহানা', desc: 'পরের টা' },
+  { name: 'রানি', desc: 'পরের টা' },
+  { name: 'হেলেনার বুন', desc: 'পরের টা' },
+  { name: 'মিম', desc: 'পরের টা' },
+  { name: 'রেনু', desc: 'পরের টা' },
+  { name: 'রিয়া', desc: 'পরের টা' },
+  { name: 'ববি', desc: 'পরের টা' },
+  { name: 'ছাাক', desc: 'পরের টা' },
+  { name: 'ছাবা', desc: 'পরের টা' }
+            ]
+        };
+
+        // র্যান্ডম ছবির জন্য লিংক লিস্ট
+        let imageLinks = [
+            "Image/1.jpg",
+    "Image/2.jpg",
+    "Image/3.jpg",
+    "Image/4.jpg",
+    "Image/5.jpg",
+    "Image/6.jpg",
+    "Image/7.jpg",
+    "Image/8.jpg",
+    "Image/9.jpg",
+    "Image/10.jpg",
+    "Image/11.jpg",
+    "Image/12.jpg",
+    "Image/13.jpg",
+    "Image/14.jpg",
+    "Image/15.jpg",
+    "Image/16.jpg",
+    "Image/17.jpg",
+    "Image/18.jpg",
+    "Image/19.jpg",
+    "Image/20.jpg",
+    "Image/21.jpg",
+    "Image/22.jpg",
+    "Image/23.jpg",
+    "Image/24.jpg",
+    "Image/25.jpg",
+    "Image/26.jpg",
+    "Image/27.jpg",
+    "Image/28.jpg",
+    "Image/29.jpg",
+    "Image/29.jpg",
+    "Image/30.jpg",
+    "Image/31.jpg",
+    "Image/32.jpg",
+    "Image/33.jpg",
+    "Image/34.jpg",
+    "Image/35.jpg"
+        ];
+
+        // ভিডিও লিংক লিস্ট - Google Drive ফরম্যাটে আপডেট করা হয়েছে
+let videoLinks = [
+    "https://drive.google.com/file/d/1GiZDAB05rryt1_PEQTlE90-I6PmvWX52/preview",
+    "https://drive.google.com/file/d/1uOCDfS0heCKCmHau1OsklBZaQrHfRqpG/preview",
+    "https://drive.google.com/file/d/1WN9FYAy5MNlxr4KvOGyIZ7TWjpg51ahJ/preview",
+    "https://drive.google.com/file/d/15w8P02OViZjuKw5yG5OvLtBc7sS3fxLo/preview",
+    "https://drive.google.com/file/d/1QgMmXCgSuDNfPFqWwrlBjZlf830c8OiQ/preview",
+    "https://drive.google.com/file/d/1rqEXOSIENOEOOjv0UIx7Nqkn5-lX9Zr4/preview",
+    "https://drive.google.com/file/d/1-AaX4dSr9iVBWizkv_SgUepYslRxkmyE/preview",
+    "https://drive.google.com/file/d/1VsNCHTaokWn0RvwL_p4G47gBa68wZJRt/preview",
+    "https://drive.google.com/file/d/1GPuZDb4td31Ta7p9bx38DaHUYPAKvzIz/preview",
+    "https://drive.google.com/file/d/1sDMd7-DGAO2kxxt8bkWTKrghayieDyI6/preview",
+    "https://drive.google.com/file/d/1doyp1WZw4qKRLDf9XDkz22w9j7_WNqib/preview",
+    "https://drive.google.com/file/d/10n58djDQTCD5_95JEqogdNjJL523-iaa/preview",
+    "https://drive.google.com/file/d/13IWUaA_IvIynAyNk8-5suO_zNsLuC6Rd/preview",
+    "https://drive.google.com/file/d/1S1PsU6NiRuaARkGv34ffVi172NePIrVW/preview",
+    "https://drive.google.com/file/d/1YQjIaKFve2-5x9xoFQSoBkutZKb9vW2p/preview",
+    "https://drive.google.com/file/d/13AhOvRcd8pxdu9I5E2UnYZ49dMPHTZut/preview",
+    "https://drive.google.com/file/d/16AqF2BLeqQrfVEUxAse3nRJ0qaS7ATtS/preview",
+    "https://drive.google.com/file/d/1y_24OF0BmtTux6Zwkh4dHk8qPgPcfcyY/preview",
+    "https://drive.google.com/file/d/1fl-0Aw7QidNCCSydQEPA88mqpHfLbJ9q/preview",
+    "https://drive.google.com/file/d/10lNOKAQPo5OC3b7xgGmcJhd0iwBTPAj4/preview",
+    "https://drive.google.com/file/d/1OlElBB987FnywVzHXZD59Ahf_yzGh1Vj/preview",
+    "https://drive.google.com/file/d/1VDSWLrlncY6q7IxorM2n3cCIuiCmds4-/preview",
+    "https://drive.google.com/file/d/1go7nxbM2PxEngA4f_7DDpU99DidCSBs9/preview",
+    "https://drive.google.com/file/d/1WyrQMFCmVP1fQ3BIuLhRHIz4NyXM_iJt/preview",
+    "https://drive.google.com/file/d/1xBvLvvHX4pLB78FOoXgVsqEdYlo41raO/preview",
+    "https://drive.google.com/file/d/1PU1hB6ditZys0vOzP8TAUPFnwtZ3AJ9D/preview",
+    "https://drive.google.com/file/d/1pOsxxB4IYTYEIGr6fppC3nK5Y2GloYYg/preview",
+    "https://drive.google.com/file/d/1jDD3gJlu6u56E7x_dEWr2sC8MmdBUc-V/preview",
+    "https://drive.google.com/file/d/14sKpCjOkWdU2JZAjTRY6WamjUZ4qEakS/preview",
+    "https://drive.google.com/file/d/1DOyGDNfFnc-d6SF0iZnvSECNeh6ZSQeB/preview",
+    "https://drive.google.com/file/d/1yea3JhVC5B7f5e9eaKCfqoOKR2jVvvdb/preview",
+    "https://drive.google.com/file/d/10kcl9rk3XxeAfVgEWXzyzkNCKLLJkuhw/preview",
+    "https://drive.google.com/file/d/1zU6OjFyQxh6l1QXM_SCDSjClw0NBqROa/preview",
+    "https://drive.google.com/file/d/1Qo14D3h9RTUY-IfqPCs2ELrc3g8kN7xn/preview",
+    "https://drive.google.com/file/d/16Q6yIztOyexWQIGfJp_rIOjD5XNv5BBl/preview",
+    "https://drive.google.com/file/d/1qnkefmEyE6scmF4TDeHDH39MBsAvRMAB/preview",
+    "https://drive.google.com/file/d/185A0UHwlsAj_1AirvjeOBjxBKJratLew/preview",
+    "https://drive.google.com/file/d/1Bi40t0HbfP6VfY_AOOfbxbbIDOPcRHWF/preview",
+    "https://drive.google.com/file/d/1XCgzvAw1pbGQ2lP_YcJUexHyJXmldFiA/preview",
+    "https://drive.google.com/file/d/1T2AlGv21o5F1AlTkr2hHKVkQharkZkg4/preview",
+    "https://drive.google.com/file/d/1XciaforBhkfT3-wqRN5yF1H6bkjgLe1f/preview",
+    "https://drive.google.com/file/d/1Q-cS3O3PbfXZPtwdxcmXj5aOn9mUebOb/preview",
+    "https://drive.google.com/file/d/1jhytgZvvMduWfnBHFJPZQOCbPlPM8HBL/preview",
+    "https://drive.google.com/file/d/1JoXyuhQ8fLCV_covKrCDC4VGe6ohHBbH/preview",
+    "https://drive.google.com/file/d/1kpnjxr6mPT3bcwRuuds9uYr6ZJp8izI6/preview",
+    "https://drive.google.com/file/d/1QbruCSbK8tjpa3NrnSz203kZi-XRx3DY/preview",
+    "https://drive.google.com/file/d/1gmMHmRjL7Z_0DuNWITWeELrDfu_2dmUS/preview",
+    "https://drive.google.com/file/d/1PM79FO1KonyaEohcTVMdI5YFopJED0WB/preview",
+    "https://drive.google.com/file/d/1NPumU74ml8UpVWy2OnOEBx1DgH3UHES4/preview"
+];
+
+        // গল্প লিস্ট
+        let storyList = [
+            "বাইরে বৃষ্টি পড়ছে। জানালার কাচে ফোঁটা ফোঁটা পানি গড়িয়ে নামছে। ঘরের ভেতরে শুধু টেবিল ল্যাম্পের হলুদ আলো আর রাবিতার গায়ের হালকা গন্ধ। তানজিম বিছানায় হেলান দিয়ে বসে আছে, শার্টের প্রথম দুইটা বোতাম খোলা। রাবিতা সদ্য গোসল করে এসেছে—চুল এখনো ভেজা, লাল শাড়ির আঁচলটা কাঁধ থেকে পড়ে গিয়ে তার কোমরের ভাঁজটা খোলা।\nতানজিম চোখ তুলে তাকালো।\n“আজকে তোমাকে দেখে মনে হচ্ছে আমি আবার প্রথমবার তোমাকে দেখলাম।”\nরাবিতা লাজুক হাসলো, কিন্তু চোখে দুষ্টুমি।\n“তোমার এই কথাগুলো শুনতে শুনতে আমার শরীর গরম হয়ে যায়, জানো?”\nতানজিম হাত বাড়িয়ে রাবিতাকে কাছে টেনে নিল। তার কোলে বসিয়ে দিল নিজের উরুর ওপর। রাবিতার ভেজা চুল থেকে পানির ফোঁটা তানজিমের গলায় পড়লো—ঠান্ডা, কিন্তু তার শরীরে আগুন জ্বলে উঠলো।\nতানজিম আলতো করে রাবিতার ঘাড়ে ঠোঁট ছোঁয়ালো।\n“তোমার গন্ধটা আমাকে পাগল করে দেয়… এই গন্ধটা শুধু আমার জন্য।”\nরাবিতা চোখ বন্ধ করে মাথা পেছনে হেলিয়ে দিল। তার হাত তানজিমের বুকের ওপর দিয়ে নিচের দিকে নামতে লাগলো। শার্টের বাকি বোতামগুলো একে একে খুলে ফেলল। তানজিমের উষ্ণ বুকের স্পর্শে রাবিতার আঙুল কাঁপছে।\n“তানজিম…” রাবিতা ফিসফিস করে বলল, “আজ আমাকে খুব আস্তে আস্তে… অনেকক্ষণ ধরে ভালোবাসো। আমি তোমার সবটা অনুভব করতে চাই।”\nতানজিম রাবিতার শাড়ির আঁচলটা ধীরে ধীরে সরিয়ে দিল। তার নরম স্তনের ওপর ঠোঁট রাখলো—আলতো চুমু, তারপর জিভের ডগা দিয়ে বৃত্ত আঁকতে লাগলো। রাবিতা ছটফট করে উঠলো, তার কোমর নিজে থেকেই তানজিমের দিকে এগিয়ে যাচ্ছে।\nতানজিম হাত নামিয়ে রাবিতার পেটের নিচে, শাড়ির কুঁচির ভেতর দিয়ে ঢুকিয়ে দিল। রাবিতা ইতিমধ্যে ভিজে গেছে—খুব বেশি। তানজিমের আঙুল যেই তার সবচেয়ে স্পর্শকাতর জায়গায় ছুঁলো, রাবিতা একটা দীর্ঘশ্বাস ছেড়ে তানজিমের কাঁধে মুখ গুঁজে দিল।\n“আহ্… তানজিম… আরো… প্লিজ…”\nতানজিম আর দেরি করল না। রাবিতাকে বিছানায় শুইয়ে দিয়ে তার ওপরে উঠে এল। ধীরে ধীরে নিজেকে তার ভেতরে ঢুকিয়ে দিল—একদম গভীরে, একদম আস্তে। রাবিতার চোখে পানি চলে এসেছে—ভালোবাসা আর উত্তেজনার মিশেল।\nদুজনে একসাথে নড়াচড়া করতে লাগলো। কখনো খুব আস্তে, কখনো একটু জোরে। তানজিম রাবিতার কানের কাছে ফিসফিস করছে—\n“তুমি আমার সব… আমার রাবিতা… আমি তোমাকে ছাড়া কিছুই না…”\nরাবিতা তানজিমের পিঠ আঁচড়ে ধরল, তার পা দিয়ে তানজিমের কোমর জড়িয়ে ধরল আরও শক্ত করে।\n“আমি তোমার… শুধু তোমার… আরো জোরে… আমাকে তোমার করে নাও…”\nশেষের দিকে দুজনের শ্বাস একসাথে দ্রুত হয়ে গেল। রাবিতা প্রথমে কেঁপে উঠল—তার শরীর টানটান হয়ে গেল, তারপর একটা দীর্ঘ “আহ্‌হ্‌হ…” শব্দ করে তানজিমের বুকে মুখ গুঁজে দিল। তানজিমও আর ধরে রাখতে পারল না—রাবিতার ভেতরেই নিজেকে ছেড়ে দিল, দুজনে একসাথে চরম সুখের ঢেউয়ে ভেসে গেল।\nপরে দুজনে জড়াজড়ি করে শুয়ে রইল। বাইরে বৃষ্টি থামেনি। রাবিতা তানজিমের বুকে মাথা রেখে আলতো করে বলল—\n“আবার করো… কাল রাতেও।”\nতানজিম হেসে তার কপালে চুমু খেলো।\n“প্রত্যেক রাতেই, আমার রাবিতা।",
+    "রাত তখন প্রায় ৮:৪৫। খুলনার এই পুরনো অফিস বিল্ডিংয়ে লিফটটা সবসময়ই একটু খারাপ। তানজিম আর রাবিতা দুজনেই ওভারটাইম করে বেরোচ্ছিল। রাবিতা আজ একটা টাইট কালো পেন্সিল স্কার্ট পরেছে, উপরে সাদা শার্ট—প্রথম দুটো বোতাম খোলা, যাতে তার কলারবোন আর একটু গভীর ক্লিভেজ দেখা যায়। তানজিমের চোখ বারবার সেদিকে চলে যাচ্ছিল।\nলিফটে ঢুকতেই দরজা বন্ধ হয়ে গেল। আলোটা একটু মৃদু, ফ্লুরোসেন্ট টিউবটা মাঝে মাঝে ফ্লিকার করছে। তানজিম বোতাম টিপল—জি-এর জন্য। লিফটটা উঠতে শুরু করল, কিন্তু মাঝপথে একটা ঝাঁকুনি দিয়ে থেমে গেল। আলো নিভে গেল, তারপর ইমার্জেন্সি লাইটের লালচে আলো জ্বলে উঠল।\n“আরে! কী হলো?” রাবিতা চমকে উঠে তানজিমের হাত ধরে ফেলল।\nতানজিম ইমার্জেন্সি বোতাম টিপল। কোনো সাড়া নেই। ফোনের নেটওয়ার্কও নেই—লিফটের ভেতরে সিগন্যাল জিরো।\n“আটকে গেলাম মনে হয়।” তানজিম একটা দীর্ঘশ্বাস ফেলল, কিন্তু তার চোখে একটা দুষ্টু চমক খেলে গেল। “কেউ আসতে অন্তত ৩০-৪০ মিনিট লাগবে।”\nরাবিতা দেওয়ালে হেলান দিয়ে দাঁড়াল। তার শ্বাস একটু দ্রুত। “এখন কী করব? ভয় লাগছে…”\nতানজিম কাছে এগিয়ে এল। তার হাত রাবিতার কোমরে রাখল, আলতো করে। “ভয়ের কী আছে? আমি তো আছি।” তার আঙুলগুলো স্কার্টের ওপর দিয়ে নিচের দিকে নামতে লাগল। “আর এই সুযোগটা… কখনো আসবে না।”\nরাবিতা চোখ তুলে তাকাল। তার চোখে ভয়ের সাথে মিশে গেছে একটা অন্যরকম আগুন। “তানজিম… এখানে? লিফটে? যদি কেউ এসে পড়ে?”\n“তাহলে আরও মজা।” তানজিম তার কানের কাছে ফিসফিস করল। “ক্যামেরা আছে জানি। কিন্তু আজ রাতে ওটা আমাদের জন্যই চালু। কেউ দেখলে দেখুক।”\nরাবিতার গাল লাল হয়ে গেল। কিন্তু সে সরে গেল না। বরং নিজের হাত তানজিমের শার্টের কলারে রাখল, আস্তে আস্তে টেনে নামাল। “তুমি পাগল হয়ে গেছ…”\nতানজিম হাসল। তার ঠোঁট রাবিতার ঠোঁটে ছুঁইয়ে দিল—প্রথমে আলতো, তারপর গভীর। রাবিতা চোখ বন্ধ করে তার গলা জড়িয়ে ধরল। লিফটের ছোট জায়গায় দুজনের শরীর ঘেঁষাঘেঁষি। তানজিমের হাত রাবিতার স্কার্টের নিচে ঢুকে গেল। তার আঙুল প্যান্টির ওপর দিয়ে চাপ দিতেই রাবিতা একটা ছোট্ট “আহ্…” করে উঠল।\n“ইতিমধ্যে ভিজে গেছ?” তানজিম দুষ্টু হাসি দিয়ে বলল।\nরাবিতা লজ্জায় মুখ নামাল, কিন্তু তার কোমর নিজে থেকেই তানজিমের হাতের দিকে এগিয়ে যাচ্ছে। “তোমার কারণে…”\nতানজিম হাঁটু গেড়ে বসে পড়ল। রাবিতার স্কার্টটা কোমর পর্যন্ত তুলে দিল। তার মুখ রাবিতার উরুর ভেতরে ঢুকে গেল। প্রথমে আলতো চুমু, তারপর জিভ দিয়ে ধীরে ধীরে লেখা শুরু করল। রাবিতা দেওয়ালে হাত রেখে দাঁড়িয়ে রইল, তার পা কাঁপছে। লিফটের লাল আলোয় তার মুখটা দেখাচ্ছে যেন কোনো স্বপ্নের দৃশ্য।\n“তানজিম… আহ্… থামো না…” রাবিতা ফিসফিস করে বলল। তার একটা হাত তানজিমের চুলে ঢুকে গেছে, চেপে ধরছে।\nতানজিম উঠে দাঁড়াল। তার প্যান্টের জিপার খুলে ফেলল। রাবিতা চোখ নামিয়ে দেখল—তানজিম ইতিমধ্যে পুরোপুরি শক্ত হয়ে গেছে। সে হাত বাড়িয়ে ধরল, আস্তে আস্তে উপর-নিচ করতে লাগল। তানজিমের শ্বাস ভারী হয়ে গেল।\n“ঘুরে দাঁড়াও।” তানজিমের গলা কর্কশ।\nরাবিতা ঘুরে দেওয়ালের দিকে মুখ করে দাঁড়াল। হাত দুটো দেওয়ালে রাখল। তানজিম তার স্কার্টটা আরও উপরে তুলে দিল, প্যান্টিটা এক টানে নামিয়ে দিল হাঁটু পর্যন্ত। তারপর পেছন থেকে আস্তে আস্তে ঢুকিয়ে দিল।\nরাবিতা একটা দীর্ঘশ্বাস ছেড়ে মাথা পেছনে হেলিয়ে দিল। “আহ্… গভীরে… আরও…”\nতানজিম ধীরে ধীরে শুরু করল। প্রতিটা ধাক্কায় লিফটটা একটু একটু কাঁপছে—যেন লিফট নিজেও তাদের সাথে তাল মিলিয়ে নড়ছে। রাবিতার শ্বাস দ্রুত, তার বুক ওঠানামা করছে। তানজিম এক হাতে তার স্তন চেপে ধরল শার্টের ওপর দিয়ে, অন্য হাত নিচে নামিয়ে তার ক্লিটোরিসে আঙুল ঘুরাতে লাগল।\n“দেখো… ক্যামেরাটা আমাদের দেখছে।” তানজিম কানে ফিসফিস করল। “কাল সিকিউরিটি গার্ড দেখবে। ভাববে—এই মেয়েটা কতটা খারাপ…”\nরাবিতা হাসল, কিন্তু হাসিটা মিশে গেল একটা মোহনীয় শীৎকারে। “তাহলে… আরও জোরে করো… যেন ভালো করে দেখতে পায়…”\nতানজিম গতি বাড়াল। লিফটের দেওয়ালে রাবিতার হাতের আঙুল চেপে যাচ্ছে। তার শরীর টানটান। তানজিমের প্রতিটা ধাক্কায় তার শরীর সামনে-পেছনে দুলছে। ঘামে দুজনের শরীর ভিজে গেছে। লাল আলোয় তাদের ছায়া দেওয়ালে নাচছে।\nহঠাৎ লিফটটা আরেকটা ঝাঁকুনি দিল। আলোটা এক সেকেন্ডের জন্য পুরো জ্বলে উঠল, তারপর আবার লাল। রাবিতা ভয়ে চমকে উঠল, কিন্তু তানজিম থামল না—বরং আরও জোরে।\n“যদি এখনই চালু হয়ে যায়?” রাবিতা ফিসফিস করল।\n“তাহলে আমরা থামব না।” তানজিম বলল। “তুমি আমার ওপর বসবে, আমি তোমাকে জড়িয়ে ধরব। সবাই দেখুক।”\nএই কথায় রাবিতার শরীরে একটা ঢেউ খেলে গেল। সে আর ধরে রাখতে পারল না। তার শরীর কেঁপে উঠল, পা দুর্বল হয়ে এল। “তানজিম… আমি… আসছি…”\nতানজিমও আর থামতে পারল না। সে রাবিতার কোমর শক্ত করে ধরে শেষ কয়েকটা জোরালো ধাক্কা দিল। দুজনেই একসাথে চরমে পৌঁছাল। রাবিতা দেওয়ালে মাথা রেখে কাঁপতে লাগল, তানজিম তার পেছনে ঝুঁকে পড়ল। দুজনের শ্বাস মিলে গেল।\nকয়েক মিনিট পর লিফটটা আবার ঝাঁকুনি দিয়ে চলতে শুরু করল। আলো ফিরে এল। রাবিতা তাড়াতাড়ি স্কার্ট ঠিক করল, প্যান্টি টেনে পরল। তানজিমও জিপার বন্ধ করল। দরজা খুলতেই বাইরে দুজন সিকিউরিটি গার্ড দাঁড়িয়ে।\n“স্যার-ম্যাম, ঠিক আছে তো?” একজন জিজ্ঞেস করল।\nরাবিতা লাজুক হাসল। “হ্যাঁ… ঠিক আছে।”\nতানজিম তার হাত ধরে বেরিয়ে এল। বাইরে বাতাস লাগতেই রাবিতা তার কানে ফিসফিস করল—\n“কাল আবার ওভারটাইম করব?”\nতানজিম হেসে বলল, “প্রত্যেকদিন।”",
+    "কক্সবাজারের একটা লাক্সারি রিসোর্ট। সমুদ্রের ঢেউয়ের শব্দ দূর থেকে ভেসে আসছে। তানজিম আর রাবিতা দুজনেই ক্লান্ত, কিন্তু খুশি। আজ তাদের অ্যানিভার্সারি। তানজিম রিসেপশনে কী কার্ড নিয়ে এসেছে—রুম ১২০৭। রাবিতা বলল, “আজ রাতটা আমাদের। কোনো ফোন, কোনো ওয়ার্ক—শুধু আমরা দুজন।”\nলিফটে উঠে ১২তলায়। করিডরটা শান্ত, লাল কার্পেট, হলুদ আলো। তানজিম কার্ড সোয়াইপ করল। দরজা খুলে গেল। ভেতরে অন্ধকার, কিন্তু মৃদু নীল আলো জ্বলছে—যেন রুমটা রেডি।\n“ওয়াও… এটা তো আমাদের বুক করা স্যুটের চেয়ে বড়!” রাবিতা অবাক হয়ে বলল।\nভেতরে ঢুকতেই চোখ ধাঁধিয়ে গেল। বিশাল কিং সাইজ বেড, সিল্কের সাদা চাদর, চারপাশে গোলাপের পাপড়ি ছড়ানো। এক কোণে বড় জ্যাকুজি টব, গরম পানি ইতিমধ্যে ভরা, বাবলস উঠছে। জানালা থেকে সমুদ্র দেখা যায়, বারান্দায় একটা ছোট প্রাইভেট পুল। রুমটা প্রেসিডেন্সিয়াল স্যুট লেভেলের—যেটা তারা বুক করেনি।\nতানজিম হাসল। “মনে হয় রিসেপশন ভুল করেছে। কিন্তু… আমরা কি চলে যাব?”\nরাবিতা দরজা লক করে দিল। তার চোখে দুষ্টুমি। “না। আজ রাতে এটা আমাদের। যদি কেউ আসে, তাহলে বলব—ভুল হয়েছে। কিন্তু এখন… এটা আমাদের ফ্যান্টাসি।”\nতানজিম রাবিতাকে কাছে টেনে নিল। তার ঠোঁটে চুমু খেল। রাবিতার লাল সালোয়ার কামিজটা আস্তে আস্তে খুলতে লাগল। রাবিতা হাত তুলে সাহায্য করল। তার নিচে কালো লেসের ব্রা আর প্যান্টি—যেটা তানজিমের জন্য স্পেশাল কিনেছে।\n“তুমি আজ খুব হট লাগছ…” তানজিম ফিসফিস করল। তার হাত রাবিতার পিঠে বুলিয়ে দিল, তারপর ব্রার হুক খুলে ফেলল। রাবিতার স্তন দুটো মুক্ত হয়ে গেল—নরম, উষ্ণ। তানজিম মুখ নামিয়ে একটায় চুমু খেল, জিভ দিয়ে বৃত্ত আঁকতে লাগল। রাবিতা চোখ বন্ধ করে মাথা পেছনে হেলিয়ে দিল। “আহ্… তানজিম…”\nতারা বেডের দিকে এগোল। রাবিতা তানজিমের শার্ট খুলে ফেলল, তার বুকে চুমু দিতে লাগল। তানজিমের হাত নিচে নামল, রাবিতার সালোয়ারের দড়ি খুলে দিল। সালোয়ারটা পড়ে গেল। রাবিতা এখন শুধু প্যান্টিতে। তানজিম তাকে বেডে শুইয়ে দিল। গোলাপের পাপড়িগুলো তার শরীরে লেগে গেল।\n“এই রুমটা যেন আমাদের জন্যই তৈরি…” রাবিতা বলল।\nতানজিম তার প্যান্টি আস্তে নামিয়ে দিল। রাবিতা ইতিমধ্যে ভিজে গেছে—খুব। তানজিমের আঙুল তার ভেতরে ঢুকতেই রাবিতা ছটফট করে উঠল। “প্লিজ… আর দেরি করো না…”\nতানজিম নিজের প্যান্ট খুলল। তার লিঙ্গ শক্ত, প্রস্তুত। সে রাবিতার পা দুটো ফাঁক করে নিল, তারপর ধীরে ধীরে ঢুকিয়ে দিল। রাবিতা একটা দীর্ঘ “আহ্‌হ্…” করে উঠল। দুজনে একসাথে নড়াচড়া শুরু করল। প্রতিটা ধাক্কায় বেডটা কাঁপছে, গোলাপের পাপড়ি উড়ছে।\nহঠাৎ দরজায় নক।\nদুজনেই থমকে গেল। তানজিম রাবিতার ওপর ঝুঁকে রইল, তার ভেতরেই।\n“হ্যালো? এটা আমার রুম!” বাইরে থেকে একটা পুরুষের গলা।\nরাবিতার চোখ বড় বড়। কিন্তু তার শরীর থামছে না—নিজে থেকেই কোমর নড়ছে। তানজিম ফিসফিস করল, “চুপ… যদি দরজা খোলে, তাহলে দেখুক।”\nনক আবার হল। “আমি রিসেপশন থেকে বলছি—ভুল হয়েছে। এটা ১২০৮ না, ১২০৭।”\nতানজিম হাসল। সে আস্তে আস্তে নড়তে লাগল—খুব আস্তে, যাতে শব্দ না হয়। রাবিতা কামড়ে ধরল নিজের ঠোঁট, চোখে ভয় আর উত্তেজনা। বাইরের লোকটা আরেকবার নক করে চলে গেল।\n“ও চলে গেছে…” রাবিতা শ্বাস ছেড়ে বলল।\nতানজিম গতি বাড়াল। “তাহলে এখন পুরোটা… তোমাকে ভরে দিব।”\nরাবিতা পা দিয়ে তানজিমের কোমর জড়িয়ে ধরল। “জোরে… আমাকে তোমার করে নাও…”\nতারা পজিশন চেঞ্জ করল। রাবিতা উপরে উঠল। সে তানজিমের ওপর বসে নিজেকে নামিয়ে নিল। তার বুক লাফাচ্ছে, চুল ছড়িয়ে পড়ছে। তানজিম তার কোমর ধরে নিচ থেকে ধাক্কা দিচ্ছে। রাবিতা চোখ বন্ধ করে চিৎকার করে উঠল—“আহ্… তানজিম… আমি… আসছি!”\nতার শরীর কেঁপে উঠল। তানজিমও আর ধরে রাখতে পারল না। সে রাবিতার ভেতরেই ছেড়ে দিল। দুজনে একসাথে চরম সুখে ভেসে গেল।\nপরে তারা জ্যাকুজিতে ঢুকল। গরম পানি, বাবলস। রাবিতা তানজিমের বুকে মাথা রাখল। “যদি সত্যিই কেউ ঢুকে পড়ত?”\nতানজিম হেসে বলল, “তাহলে আরও মজা হতো। কিন্তু এটা আমাদের সিক্রেট।”\nরাবিতা চোখ তুলে তাকাল। “কাল আবার ভুল রুমে যাব?”\nতানজিম তার কপালে চুমু খেল। “প্রত্যেক অ্যানিভার্সারিতে।”\nরাতটা শেষ হল সমুদ্রের শব্দে, দুজনের জড়াজড়িতে। সকালে রিসেপশন থেকে ফোন এল—সরি ফর দ্য মিসটেক। কিন্তু তারা দুজনেই হাসল। ভুলটা ছিল সবচেয়ে সুন্দর ভুল।",
+    "কক্সবাজারের সমুদ্র সৈকত। রাত প্রায় ১১:৩০। চাঁদের আলোয় সমুদ্র ঝকঝক করছে। দূরে দূরে কয়েকটা বনফায়ার জ্বলছে, কিছু কাপল হাসছে-গান গাইছে। কিন্তু সৈকতের এই অংশটা একটু নির্জন—পেছনে পাহাড়ি ঝোপ, সামনে শুধু ঢেউ আর অন্ধকার।\nতানজিম আর রাবিতা হাত ধরে হাঁটছে। রাবিতা পরেছে একটা হালকা সাদা সুতির ফ্রক—যেটা হাঁটু পর্যন্ত, কিন্তু সমুদ্রের ছাটে ভিজে গিয়ে তার শরীরে লেপটে আছে। নিচের কালো লেসের প্যান্টি আর ব্রা-র আউটলাইন স্পষ্ট। তানজিমের চোখ বারবার সেদিকে চলে যাচ্ছে।\n“ঠান্ডা লাগছে না তোমার?” তানজিম জিজ্ঞেস করল, কিন্তু তার গলায় অন্য সুর।\nরাবিতা হাসল। “লাগছে… কিন্তু তোমার কাছে থাকলে গরম হয়ে যায়।” সে তানজিমের কাছে আরও সেঁটে এল। তার ভেজা শরীর তানজিমের গায়ে ঠেকছে।\nতানজিম আর দেরি করল না। সে রাবিতাকে টেনে নিয়ে একটা বড় শুকনো নৌকার আড়ালে নিয়ে গেল। সেখানে বালুর ওপর নরম। দূরে লোকজন আছে—তাদের ছায়া দেখা যাচ্ছে, কিন্তু এত দূর যে চিৎকার না করলে শোনা যাবে না।\n“এখানে কেউ দেখে ফেলতে পারে…” রাবিতা ফিসফিস করে বলল। কিন্তু তার চোখে ভয় নয়—উত্তেজনা।\n“দেখুক।” তানজিম তার ঠোঁটে চুমু খেল। প্রথমে আলতো, তারপর গভীর। তার হাত রাবিতার ফ্রকের নিচে ঢুকে গেল। ফ্রকটা কোমর পর্যন্ত তুলে দিল। বালুর ওপর রাবিতা শুয়ে পড়ল। তানজিম তার উরুর ভেতর মুখ নামাল। সমুদ্রের ঢেউয়ের শব্দে ঢাকা পড়ছে রাবিতার ছোট ছোট শীৎকার।\n“তানজিম… আহ্… জিভ দিয়ে… আরও…” রাবিতা তার চুলে হাত চেপে ধরল।\nতানজিমের জিভ তার সবচেয়ে স্পর্শকাতর জায়গায় ঘুরছে। রাবিতা পা ফাঁক করে দিয়েছে, কোমর উঠছে-নামছে। দূরে একটা কাপল হেঁটে যাচ্ছে—তাদের টর্চের আলো একবার এদিকে এল। রাবিতা ভয়ে কেঁপে উঠল, কিন্তু তানজিম থামল না। বরং আরও জোরে চুষতে লাগল।\n“ওরা দেখছে… প্লিজ… থামো না…” রাবিতা ফিসফিস করে বলল। তার শরীর আরও ভিজে গেল।\nতানজিম উঠে দাঁড়াল। তার শর্টস খুলে ফেলল। রাবিতা দেখল—তানজিম পুরোপুরি শক্ত, প্রস্তুত। সে রাবিতার ফ্রকটা এক টানে মাথার ওপর তুলে ফেলল। এখন রাবিতা শুধু ব্রা আর প্যান্টিতে, বালুর ওপর শুয়ে। তানজিম তার ব্রা খুলে দিল। দুটো স্তন চাঁদের আলোয় চকচক করছে।\nসে রাবিতার প্যান্টিটাও নামিয়ে দিল। তারপর নিজেকে রাবিতার ওপর নামিয়ে আনল। প্রথমে আস্তে আস্তে ঢুকিয়ে দিল। রাবিতা একটা দীর্ঘশ্বাস ছেড়ে তানজিমের পিঠ আঁচড়ে ধরল।\n“আহ্… গভীরে… পুরোটা…”\nতানজিম ধীরে ধীরে নড়তে লাগল। প্রতিটা ধাক্কায় বালুতে তাদের শরীরের দাগ পড়ছে। ঢেউয়ের শব্দ, দূরের হাসি, বাতাস—সব মিলিয়ে একটা অদ্ভুত উত্তেজনা। হঠাৎ দূর থেকে একটা টর্চের আলো তাদের দিকে এল। কেউ একজন হেঁটে আসছে।\nরাবিতা চোখ বড় করে বলল, “তানজিম… কেউ আসছে…”\nতানজিম থামল না। বরং আরও জোরে ধাক্কা দিতে লাগল। “চুপ… শুয়ে থাকো। দেখুক যদি দেখে।”\nআলোটা আরও কাছে এল। রাবিতার হৃদয় দুরু দুরু করছে। কিন্তু তার শরীর থামছে না—নিজে থেকে কোমর তুলে তুলে নিচ্ছে। তানজিম তার একটা স্তন মুখে নিয়ে চুষছে, অন্য হাতে ক্লিটোরিসে আঙুল ঘুরাচ্ছে।\nআলোটা থেমে গেল। কেউ একজন দাঁড়িয়ে দেখছে। রাবিতা চোখ বন্ধ করে ফেলল, কিন্তু তার শরীর কেঁপে উঠল। “আমি… আসছি… আহ্‌হ্‌হ…”\nতার শরীর টানটান হয়ে গেল। তানজিমও আর ধরে রাখতে পারল না। সে রাবিতার ভেতরেই ছেড়ে দিল—গরম, পুরোটা। দুজনে একসাথে কেঁপে উঠল।\nআলোটা আস্তে আস্তে সরে গেল। লোকটা চলে গেছে।\nরাবিতা হাঁপাতে হাঁপাতে তানজিমের বুকে মাথা রাখল। “ও দেখেছে… আমরা… আমরা এখনো নড়ছি…”\nতানজিম হেসে তার কপালে চুমু খেল। “দেখুক। তুমি তো আরও গরম হয়ে গিয়েছিলে।”\nরাবিতা লজ্জায়-উত্তেজনায় হাসল। “আবার… কাল রাতেও এখানে আসব। কিন্তু এবার আরও কাছে লোক থাকবে।”\nতানজিম তার কানে ফিসফিস করল, “প্রত্যেক রাতে। তোমাকে সবার সামনে আমার করে নেব।”\nদুজনে জড়াজড়ি করে বালুর ওপর শুয়ে রইল। সমুদ্রের ঢেউ তাদের পায়ে এসে লাগছে। চাঁদের আলোয় তাদের শরীর এখনো জ্বলছে।",
+    "রাত ১১:৪৫। খুলনার বাসায় ঘরের আলোটা শুধু একটা লাল মোমবাতি আর টেবিল ল্যাম্পের হালকা হলুদ আলো। বাইরে বৃষ্টি পড়ছে। তানজিম বিছানায় হেলান দিয়ে বসে আছে—শার্ট খোলা, চোখে দুষ্টু হাসি। রাবিতা তার সামনে দাঁড়িয়ে, পরনে একটা লাল ট্রান্সপারেন্ট নাইটি যেটা তার শরীরের প্রতিটা ভাঁজ দেখাচ্ছে।\nরাবিতা লজ্জায়-উত্তেজনায় গাল লাল করে বলল,\n“তানজিম… আজ রাতে শুধু তোমার কথা মানব। যা বলবে তাই করব। কোনো প্রশ্ন নয়, কোনো না-না নয়। পুরোটা তোমার।”\nতানজিমের চোখ জ্বলে উঠল। সে আস্তে করে বলল,\n“প্রথম কথা—নাইটিটা খুলে ফেলো। খুব আস্তে আস্তে। আর আমার চোখ থেকে চোখ সরাবে না।”\nরাবিতা নাইটির স্ট্র্যাপ দুটো আঙুল দিয়ে ধরল। চোখে চোখ রেখে খুব ধীরে নামাতে লাগল। নাইটিটা তার বুকের ওপর দিয়ে নেমে কোমরে আটকে গেল। তার কালো লেসের ব্রা আর প্যান্টি বেরিয়ে পড়ল। তানজিম দেখছে, তার শ্বাস ভারী হয়ে যাচ্ছে।\n“ব্রাটাও খোলো। কিন্তু হাত দিয়ে স্তন দুটো ঢেকে রাখবে না। দেখাতে হবে।”\nরাবিতা পেছনে হাত দিয়ে হুক খুলল। ব্রা খসে পড়ল। তার দুটো স্তন মুক্ত হয়ে উঠে দাঁড়াল—নরম, গোলাপি বোঁটা শক্ত হয়ে আছে। রাবিতা লজ্জায় চোখ নামাতে গিয়েও সামলে নিল। তানজিমের চোখে চোখ রেখে দাঁড়িয়ে রইল।\nতানজিম হাসল।\n“এবার প্যান্টিটা খোলো। তারপর বিছানায় উঠে হাঁটু গেড়ে বসো। পা ফাঁক করে।”\nরাবিতা প্যান্টিটা নামিয়ে ফেলল। এখন সে পুরোপুরি নগ্ন। বিছানায় উঠে হাঁটু গেড়ে বসল। পা দুটো ফাঁক করে দিল। তার ভেজা ফাঁকটা স্পষ্ট দেখা যাচ্ছে। তানজিম উঠে তার সামনে দাঁড়াল।\n“এখন তোমার আঙুল দিয়ে নিজেকে ছোঁয়াও। খুব আস্তে। কিন্তু চোখ আমার দিকে। আর বলো—‘আমি তোমার দাসী’।”\nরাবিতা লজ্জায় কাঁপছে, কিন্তু হাত নামিয়ে দিল। তার আঙুল নিজের ভেজা জায়গায় ঘুরতে লাগল। চোখ তানজিমের চোখে। ফিসফিস করে বলল,\n“আমি… তোমার দাসী…”\nতানজিমের গলা গম্ভীর।\n“জোরে বলো। আর আঙুল ঢোকাও। দুটো আঙুল।”\nরাবিতা চোখ বড় করে দুটো আঙুল ভেতরে ঢুকিয়ে দিল। “আমি তোমার দাসী… আহ্… তানজিম…”\nতানজিম এবার নিজের প্যান্ট খুলল। তার লিঙ্গ শক্ত হয়ে বেরিয়ে এল।\n“এখন আমার কাছে এসো। মুখ দিয়ে নাও। পুরোটা। গভীরে।”\nরাবিতা হামাগুড়ি দিয়ে এগিয়ে এল। তানজিমের সামনে মুখ নামাল। প্রথমে জিভ দিয়ে ডগায় চুমু খেল, তারপর ধীরে ধীরে মুখের ভেতর নিয়ে নিল। তানজিম তার চুল ধরে আস্তে আস্তে ঠেলতে লাগল। রাবিতার চোখে পানি এসে গেছে, কিন্তু সে থামছে না।\n“ভালো… এবার উঠে দাঁড়াও। বিছানার হেডবোর্ড ধরে সামনে ঝুঁকে থাকো।”\nরাবিতা উঠে দাঁড়াল। হেডবোর্ড ধরে সামনে ঝুঁকল। তার পেছনটা পুরোপুরি তানজিমের সামনে। তানজিম পেছন থেকে তার কোমর ধরল।\n“এবার বলো—‘আমাকে জোরে নাও’।”\nরাবিতা কাঁপা গলায় বলল, “আমাকে… জোরে নাও…”\nতানজিম এক ধাক্কায় পুরোটা ঢুকিয়ে দিল। রাবিতা চিৎকার করে উঠল—“আহ্‌হ্‌হ্…!” তানজিম থামল না। জোরে জোরে ধাক্কা দিতে লাগল। প্রতিটা ধাক্কায় রাবিতার স্তন দুলছে, হাতের আঙুল হেডবোর্ডে চেপে যাচ্ছে।\n“এবার পজিশন চেঞ্জ। চিত হয়ে শোয়ো। পা দুটো কাঁধের ওপর তুলে ধরো।”\nরাবিতা শুয়ে পড়ল। পা দুটো নিজের কাঁধের ওপর তুলে ধরল। তার শরীর প্রায় ভাঁজ হয়ে গেছে। তানজিম আবার ঢুকল—এবার আরও গভীরে। রাবিতা আর কথা বলতে পারছে না, শুধু “আহ্… আহ্…” করে যাচ্ছে।\nতানজিম তার কানে ফিসফিস করল,\n“এখন বলো—‘আমাকে ভরে দাও’। আর আমি যখন বলব, তখনই তুমি চরমে যাবে।”\nরাবিতা কাঁদো কাঁদো গলায় বলল, “আমাকে… ভরে দাও… প্লিজ…”\nতানজিম গতি বাড়াল। ঘামে দুজনের শরীর ভিজে গেছে। রাবিতার শরীর কাঁপছে। তানজিম হঠাৎ বলল,\n“এখন! চরমে যাও!”\nরাবিতার শরীর টানটান হয়ে গেল। সে চিৎকার করে উঠল—“তানজিম… আমি… আসছি… আহ্‌হ্‌হ্‌হ্‌!” তার ভেতরটা কেঁপে কেঁপে উঠল। তানজিমও আর ধরে রাখতে পারল না। সে রাবিতার ভেতরেই পুরোটা ছেড়ে দিল—গরম, ঘন। দুজনে একসাথে কেঁপে উঠল।\nকয়েক মিনিট পর তানজিম রাবিতাকে জড়িয়ে ধরল। রাবিতা তার বুকে মাথা রেখে হাঁপাতে হাঁপাতে বলল,\n“তুমি… যা বলেছ… সব করেছি… কিন্তু এখনো শেষ হয়নি, না?”\nতানজিম তার কপালে চুমু খেল।\n“না। এখনো অনেক কিছু বাকি। কারণ তুমি বলেছিলে—শুধু আমার কথা।”\nরাবিতা চোখ বন্ধ করে হাসল।\n“তাহলে… পরের কমান্ড দাও… আমি তোমার দাসী… আজ সারা রাত।”\nবৃষ্টির শব্দে ঢাকা পড়ল তাদের দুজনের ফিসফিসানি। রাতটা এখনো অনেক লম্বা। আর রাবিতা প্রতিটা কথা মানতে প্রস্তুত।",
+    "রাত ১১:২০। খুলনার বাসায় ঘরের আলোটা একদম নিভিয়ে দিয়েছে তানজিম। শুধু একটা ছোট্ট নাইট ল্যাম্প জ্বলছে—হালকা গোলাপি আলোয় পুরো রুমটা রোমান্টিক আর দুষ্টু হয়ে আছে। বিছানায় দুটো বালিশ পাশাপাশি। তানজিম শুধু একটা বক্সার পরে হেলান দিয়ে বসে আছে। তার চোখে পুরোদস্তুর শয়তানি হাসি।\nরাবিতা বাথরুম থেকে বেরিয়ে এল। পরনে একটা সাদা ট্রান্সপারেন্ট নাইটি—নিচে কিছুই নেই। সে হাসতে হাসতে বলল,\n“তানজিম… আজ একটা নতুন চ্যালেঞ্জ! দুজনেই পুরো নগ্ন হয়ে বিছানায় শুয়ে থাকব। একজন আরেকজনকে টিকলি করবে। যে প্রথম হাসবে বা শব্দ করবে সে হারবে। হারা লোককে ৩০ মিনিট পুরোপুরি জিতা লোকের কথা মানতে হবে—কোনো না-না নেই, কোনো লজ্জা নেই! রেডি?”\nতানজিমের চোখ চকচক করে উঠল। “ডিল! কিন্তু মনে রেখো—আমি হাসি চেপে রাখতে খুব পারি। তুমি তো একটু আঙুল ছোঁয়ালেই হেসে ফেলো!”\nদুজনেই নাইটি আর বক্সার খুলে ফেলল। পুরোপুরি নগ্ন। রাবিতা লজ্জায় হাত দিয়ে বুক ঢাকতে গিয়েও সরিয়ে নিল। তানজিম তার হাত ধরে বিছানায় শুইয়ে দিল। দুজনে পাশাপাশি চিত হয়ে শুয়ে পড়ল।\n“শুরু!” রাবিতা বলল।\nতানজিম প্রথমে আস্তে আস্তে তার পেটে আঙুল বুলিয়ে দিল। হালকা হালকা। রাবিতা ঠোঁট কামড়ে রাখল। তার পেট কুঁচকে গেল, কিন্তু হাসল না। তারপর তানজিম তার কোমরের দুই পাশে আঙুল চালাতে লাগল—যেখানে সবচেয়ে টিকলি লাগে।\nরাবিতা ছটফট করে উঠল। “আহ্… না… থামো…!” কিন্তু শব্দ করেছে! তানজিম হেসে উঠল। “ওহো! তুমি তো এরই মধ্যে শব্দ করে ফেলেছ! কিন্তু চ্যালেঞ্জ তো এখনো চলছে।”\nরাবিতা রাগ করে তার পায়ের তলায় আঙুল চালিয়ে দিল। তানজিমের পা কুঁচকে গেল। সে দাঁতে দাঁত চেপে রাখল। কিন্তু রাবিতা এবার তার কুঁচকির কাছে আঙুল নিয়ে গেল—খুব আলতো করে। তানজিমের শরীর কেঁপে উঠল। “হাহাহা… না রাবিতা…!” —তানজিম হেসে ফেলল!\nরাবিতা বিজয়ীর হাসি দিয়ে চিৎকার করে উঠল। “হারলে! তুমি হারলে! এখন আমি জিতেছি! ৩০ মিনিট তুমি আমার দাস!”\nতানজিম হাসতে হাসতে বলল, “ঠিক আছে… কিন্তু তুমি যা বলবে তাই করব।”\nরাবিতা উঠে বসল। তার নগ্ন শরীর গোলাপি আলোয় চকচক করছে। “প্রথম কমান্ড—চিত হয়ে শোয়ো। হাত দুটো মাথার ওপর তুলে ধরো। আর চোখ বন্ধ করো।”\nতানজিম শুয়ে পড়ল। রাবিতা তার ওপর উঠে বসল। প্রথমে তার বুকে হালকা টিকলি দিল—আঙুল দিয়ে বৃত্ত আঁকছে। তানজিম ছটফট করছে, কিন্তু হাসছে না। তারপর রাবিতা নিচে নেমে তার পেটে, কোমরে, উরুতে টিকলি দিতে লাগল। তানজিমের লিঙ্গ ইতিমধ্যে শক্ত হয়ে উঠেছে।\nরাবিতা দুষ্টু হাসি দিয়ে বলল, “এবার… তোমার সবচেয়ে টিকলি লাগে এখানে!” সে তার আঙুল দিয়ে তানজিমের লিঙ্গের ডগায় হালকা হালকা টিকলি দিতে লাগল। তানজিম আর থাকতে পারল না—“হাহাহা… রাবিতা… প্লিজ… আহ্‌হ্‌!”\nরাবিতা হাসতে হাসতে বলল, “দেখো! তোমার লিঙ্গটাও টিকলি সহ্য করতে পারছে না! এখন আমার আসল খেলা শুরু।”\nসে নিচে মুখ নামাল। প্রথমে জিভ দিয়ে লিঙ্গের ডগায় টিকলির মতো আলতো আলতো চাটতে লাগল। তারপর পুরোটা মুখে নিয়ে চুষতে শুরু করল। তানজিমের শ্বাস দ্রুত হয়ে গেল। “রাবিতা… আহ্… খুব ভালো…”\nরাবিতা মুখ তুলে বলল, “এখন কমান্ড—আমাকে টিকলি দাও। কিন্তু যেখানে টিকলি দিবে সেখানে চুমু খেতে হবে!”\nতানজিম উঠে বসল। সে রাবিতাকে চিত করে শুইয়ে দিল। প্রথমে তার পেটে টিকলি দিতে দিতে চুমু খেল। তারপর বুকে—দুটো স্তনের বোঁটায় টিকলি দিয়ে জিভ দিয়ে চুষতে লাগল। রাবিতা ছটফট করছে, হাসছে আর “আহ্… তানজিম…” করে যাচ্ছে।\nতানজিম নিচে নামল। তার পায়ের তলায় টিকলি দিয়ে চুমু, উরুর ভেতরে টিকলি দিয়ে চুমু। শেষে তার ভেজা ফাঁকে আঙুল দিয়ে হালকা টিকলির মতো ঘুরিয়ে ঘুরিয়ে আঙুল ঢোকাতে লাগল। রাবিতা আর হাসি চাপতে পারছে না—হাসছে, কাঁদছে, ছটফট করছে। “আমি… হেরে গেলাম… আহ্… আর পারছি না…”\nতানজিম হেসে বলল, “এবার আমি জিতলাম! এখন ৩০ মিনিট তুমি আমার!”\nরাবিতা হাঁপাতে হাঁপাতে বলল, “ঠিক আছে… যা বলবে…”\nতানজিম তার চোখে একটা কালো স্কার্ফ বেঁধে দিল (blindfold)। “এখন তুমি শুধু অনুভব করো।”\nসে রাবিতাকে কুকুরের মতো করে দাঁড় করাল (doggy style)। পেছন থেকে আস্তে আস্তে ঢুকিয়ে দিল। রাবিতা “আহ্‌হ্‌হ্…” করে উঠল। তানজিম তার কোমর ধরে জোরে জোরে ধাক্কা দিতে লাগল। প্রতিটা ধাক্কায় রাবিতার স্তন দুলছে, হাসি আর শীৎকার মিশে যাচ্ছে।\n“এবার reverse cowgirl!” তানজিম বলল। রাবিতা তার ওপর পেছন ফিরে বসল। তানজিম নিচ থেকে ধাক্কা দিচ্ছে, রাবিতা নিজে উঠছে-নামছে। তার হাত তানজিমের উরুতে—টিকলির মতো আঙুল চালাচ্ছে। দুজনেই হাসছে আর “আহ্… আহ্…” করে যাচ্ছে।\nতানজিম আয়নার সামনে নিয়ে গেল। রাবিতাকে সামনে ঝুঁকিয়ে দাঁড় করিয়ে পেছন থেকে আবার ঢুকাল। “দেখো আয়নায়—কতটা সুন্দর লাগছে তোমাকে!”\nরাবিতা blindfold খুলে আয়নায় নিজেকে দেখছে—তার শরীর ঘামে ভিজে, চোখে উত্তেজনা। তানজিম তার স্তন চেপে ধরে জোরে জোরে নড়ছে।\nশেষ ৫ মিনিটে তানজিম বলল, “এবার মুখে নাও।”\nরাবিতা হাঁটু গেড়ে বসল। তানজিমের লিঙ্গ মুখে নিয়ে চুষতে লাগল। তানজিম তার চুল ধরে আস্তে আস্তে ঠেলছে। রাবিতা চোখে চোখ রেখে বলল, “আমি তোমার… সব… দাও…”\nতানজিম আর ধরে রাখতে পারল না। সে রাবিতার মুখেই ছেড়ে দিল। রাবিতা সব গিলে নিল। তারপর দুজনে হাসতে হাসতে বিছানায় পড়ে গেল।\nরাবিতা তানজিমের বুকে মাথা রেখে বলল, “এই চ্যালেঞ্জটা… সবচেয়ে মজার ছিল! আমি আবার হারতে চাই কাল রাতে!”\nতানজিম তার কপালে চুমু খেয়ে হাসল, “প্রত্যেক রাতে। কিন্তু পরেরবার আমি জিতব—আর তোমাকে আরও পাগল করে দিব!”",
+    "কলেজের শেষ ক্লাস শেষ হয়ে গেছে। সবাই বেরিয়ে গেছে, কিন্তু রাহুল (ছাত্র) ইচ্ছে করে পিছনে থেকে গেল। তার চোখ সবসময় ম্যাডাম সোনালির দিকে। সোনালি ম্যাডাম — বয়স ৩২/৩৩, ফিগারটা এমন যে ক্লাসের সব ছেলের মাথা ঘুরে যায়। আজ পরেছে লাল শাড়ি, টাইট ব্লাউজ — বুকের উপরের অংশটা একটু খোলা, আর শাড়ির আঁচলটা কাঁধ থেকে সরে গিয়ে তার নরম কোমর দেখা যাচ্ছে।\n“রাহুল, তুমি এখনো কেন?” সোনালি ম্যাডাম ডেস্কে বসে থেকে জিজ্ঞেস করলেন, চোখে একটা দুষ্টু হাসি।\n“ম্যাডাম, আজকের টপিকটা ভালো করে বুঝিনি। একটু এক্সট্রা ক্লাস নেবেন?” রাহুল বলল, কিন্তু তার চোখ ম্যাডামের বুকের দিকে।\nসোনালি হাসলেন। “আচ্ছা, আয়। দরজাটা লক করে দে।”\nরাহুল দরজা লক করল। ক্লাসরুমটা এখন শুধু তাদের দুজনের। সোনালি উঠে দাঁড়ালেন, শাড়ির আঁচলটা ঠিক করতে গিয়ে ইচ্ছে করে আরও খুলে দিলেন। রাহুলের নিঃশ্বাস ভারী হয়ে গেল।\n“কোন টপিক বুঝতে পারোনি?” ম্যাডাম কাছে এসে দাঁড়ালেন। তার পারফিউমের গন্ধ রাহুলের নাকে লাগছে।\n“ম্যাডাম… আপনার শরীরের… মানে… ফিজিওলজির ক্লাসটা।” রাহুল লজ্জা পেয়ে বলল।\nসোনালি হেসে উঠলেন। “ওহ, তাই? তাহলে হাত দিয়ে দেখাই ভালো। থিওরি তো অনেক পড়েছিস।”\nতিনি রাহুলের হাত ধরে নিজের কোমরে রাখলেন। রাহুলের আঙুল কাঁপছে। সোনালির কোমরটা নরম, গরম। রাহুল আস্তে আস্তে হাত বোলাতে লাগল। সোনালি চোখ বন্ধ করে একটা দীর্ঘশ্বাস ফেললেন।\n“আরও উপরে… দেখ, এখানে কী আছে।” তিনি রাহুলের হাতটা নিজের বুকের দিকে নিয়ে গেলেন। ব্লাউজের উপর দিয়ে রাহুল অনুভব করল — নরম, ভারী, গরম। সোনালির নিপল দুটো শক্ত হয়ে উঠেছে।\n“ম্যাডাম… এটা… ঠিক না…” রাহুল ফিসফিস করে বলল, কিন্তু তার হাত থামছে না।\n“চুপ কর। আজ থেকে এটা আমাদের গোপন পাঠ। কেউ জানবে না।” সোনালি রাহুলের ঠোঁটে আঙুল রেখে বললেন। তারপর ধীরে ধীরে নিজের ব্লাউজের হুক খুলতে লাগলেন। একটা, দুটো… তিনটে হুক খোলার পর ব্লাউজটা খুলে পড়ল। কালো লেসের ব্রা — বুক দুটো যেন ফেটে বেরোচ্ছে।\nরাহুল আর থাকতে পারল না। সে ম্যাডামকে জড়িয়ে ধরল, ঠোঁট দিয়ে তার গলায় চুমু দিতে লাগল। সোনালি মাথা পিছনে ফেলে আহ করে উঠলেন। তার হাত রাহুলের প্যান্টের উপর দিয়ে তার শক্ত হয়ে ওঠা জিনিসটা ধরল।\n“উফ… এত বড়? তুই তো ছেলে নয়, পুরুষ!” সোনালি দুষ্টু হাসলেন।\nতিনি রাহুলকে ডেস্কের উপর বসালেন। তারপর নিজে হাঁটু গেড়ে বসলেন। রাহুলের প্যান্ট খুলে তার শক্ত লিঙ্গটা বের করলেন। মুখে নিয়ে আস্তে আস্তে চুষতে লাগলেন। রাহুলের চোখ বন্ধ, মুখ থেকে আহ… উফ… বেরোচ্ছে। সোনালির জিভ ঘুরছে, চুষছে, চাটছে — পুরোটা ভিজে গেছে।\n“ম্যাডাম… আমি… আর পারছি না…” রাহুল কাঁপা গলায় বলল।\nসোনালি উঠে দাঁড়ালেন। শাড়িটা তুলে, প্যান্টি খুলে ফেললেন। তারপর ডেস্কে উঠে বসলেন, পা দুটো ফাঁক করে। “আয়… এবার তুই আমাকে পড়া।”\nরাহুল তার মধ্যে ঢুকে পড়ল। সোনালি চিৎকার করে উঠলেন — “আহহহ… ধীরে… উফফ…” কিন্তু তার হাত রাহুলের পিঠে নখ দিয়ে আঁচড় কাটছে। রাহুল ধীরে ধীরে ঠাপ দিতে লাগল, তারপর গতি বাড়াল। ক্লাসরুমে শুধু থপ থপ শব্দ আর আহ… উফ… শোনা যাচ্ছে।\nসোনালি রাহুলকে জড়িয়ে ধরে বললেন, “জোরে… আরও জোরে… আমাকে তোর করে দে!”\nশেষে দুজনেই একসাথে ক্লাইম্যাক্সে পৌঁছাল। সোনালির শরীর কাঁপছে, রাহুল তার ভিতরে সব ছেড়ে দিল। দুজনে হাঁপাতে হাঁপাতে একে অপরকে জড়িয়ে ধরল।\n“এটা আমাদের গোপন ক্লাস… প্রতি সপ্তাহে হবে। বুঝলি?” সোনালি ফিসফিস করে বললেন।\nরাহুল মাথা নাড়ল। “হ্যাঁ, ম্যাডাম… আমি আপনার ছাত্র… চিরকাল।",
+    "বাড়িটা বড়, কিন্তু বাবা-মা সারাদিন অফিসে। আর আমি, রাকিব, ২২ বছরের ছেলে — কলেজ শেষ করে বাড়িতে বসে গেম খেলি বা মোবাইল ঘাঁটি। গত ছয় মাস ধরে আমাদের নতুন কাজের মেয়ে এসেছে — নাম রিয়া। বয়স ১৯, গ্রামের মেয়ে, গায়ের রঙ শ্যামলা কিন্তু শরীরটা যেন আগুন। লম্বা চুল, বড় বড় চোখ, আর সেই টাইট সালোয়ার-কামিজে তার দুধ দুটো ফেটে বেরোচ্ছে, পাছাটা গোল গোল — দেখলেই ধোন খাড়া হয়ে যায়।\nপ্রথম দিন থেকেই রিয়া আমার সাথে দুষ্টুমি করে। ঘর ঝাড়তে গিয়ে ইচ্ছে করে আমার সামনে ঝুঁকে পড়ে, যাতে তার গভীর নেকলাইন দিয়ে দুধ দেখা যায়। আমি চোখ সরাতে পারি না। একদিন রান্নাঘরে গিয়ে দেখি রিয়া বাসন মাজছে, তার কামিজের আঁচল সরে গিয়ে পেট আর নাভি দেখা যাচ্ছে। আমি পিছন থেকে গিয়ে বললাম, “রিয়া, তোমার কাজ ভালো হচ্ছে না।”\nসে মুখ ফিরিয়ে দুষ্টু হাসল, “কেন দাদাবাবু? কী খারাপ হচ্ছে?”\nআমি তার কাছে গিয়ে দাঁড়ালাম। তার পারফিউমের গন্ধে মাথা ঘুরে গেল। “তুমি সারাদিন আমাকে টিজ করো।”\nরিয়া চোখ নামিয়ে বলল, “আমি তো কিছু করি না… দাদাবাবু নিজেই দেখেন।”\nআমি আর থাকতে পারলাম না। তার কোমর ধরে পিছন থেকে জড়িয়ে ধরলাম। রিয়া একটু কেঁপে উঠল কিন্তু সরল না। আমার হাত তার পেটে বোলাতে লাগল, তারপর উপরে উঠে দুধের উপর। কামিজের উপর দিয়ে টিপলাম — নরম, ভারী, গরম। রিয়ার নিপল শক্ত হয়ে গেছে।\n“দাদাবাবু… কেউ দেখে ফেললে?” রিয়া ফিসফিস করে বলল, কিন্তু তার হাত আমার প্যান্টের উপর চলে গেল। আমার ধোনটা ইতিমধ্যে পুরো খাড়া।\n“কেউ নেই। বাড়ি খালি।” আমি তার কানে বললাম।\nরিয়া ঘুরে আমার দিকে তাকাল। চোখে লজ্জা আর লোভ মিশে। সে নিজেই আমার ঠোঁটে চুমু দিল। তার জিভ আমার মুখে ঢুকে গেল। আমি তার কামিজটা উপরে তুলে দিলাম। ব্রা ছাড়া — তার দুধ দুটো লাফিয়ে বেরিয়ে এল। গাঢ় বাদামী নিপল, শক্ত। আমি একটা মুখে নিয়ে চুষতে লাগলাম। রিয়া আহ করে উঠল, “আহহ… দাদাবাবু… চুষুন জোরে…”\nআমি অন্য হাত দিয়ে তার সালোয়ারের ফিতা খুললাম। সালোয়ার পড়ে গেল। প্যান্টি ভিজে চুপচুপে। আমি হাত ঢুকিয়ে তার গুদে আঙুল দিলাম। গরম, ভেজা, টাইট। রিয়া কাঁপতে লাগল।\n“দাদাবাবু… আমার গুদে… আঙুল দিন আরও…” সে কাঁপা গলায় বলল।\nআমি তাকে কাউন্টারে বসালাম, পা ফাঁক করে। প্যান্টি সরিয়ে তার গুদ চাটতে লাগলাম। রিয়ার রস মিষ্টি, গরম। সে আমার চুল ধরে চেপে ধরল, “আহহ… চাটুন… আমি পাগল হয়ে যাচ্ছি…”\nআমি উঠে প্যান্ট খুললাম। আমার ৭ ইঞ্চি ধোন বেরিয়ে এল, শক্ত। রিয়া দেখে চোখ বড় করে বলল, “এত বড়… আমার গুদ ফেটে যাবে…”\nআমি তার পা তুলে কাঁধে রাখলাম। ধোনের মাথা তার গুদে ঠেকালাম। ধীরে ধীরে ঢোকালাম। রিয়া চিৎকার করে উঠল, “আহহহ… ধীরে… উফফ…” কিন্তু তার হাত আমার পিঠে নখ দিয়ে আঁচড় কাটছে।\nপুরোটা ঢুকে গেল। আমি ঠাপ দিতে লাগলাম — ধীরে, তারপর জোরে। রান্নাঘরে থপ থপ শব্দ, রিয়ার আহ… উফ… শোনা যাচ্ছে। “জোরে দাদাবাবু… চুদুন আমাকে… আমি আপনার মাগী…”\nআমি তার দুধ চটকাতে চটকাতে ঠাপালাম। রিয়া ক্লাইম্যাক্সে পৌঁছে গেল — তার গুদ কাঁপতে লাগল, রস বেরিয়ে এল। আমি আর থামলাম না। জোরে জোরে ঠাপ দিয়ে তার ভিতরে সব ছেড়ে দিলাম। গরম মাল তার গুদে ভরে গেল।\nদুজনে হাঁপাতে হাঁপাতে একে অপরকে জড়িয়ে ধরলাম। রিয়া ফিসফিস করে বলল, “দাদাবাবু… এটা আমাদের গোপন খেলা… প্রতিদিন হবে। আমি আপনার জন্য অপেক্ষা করব।”\nআমি হাসলাম। “হ্যাঁ, রিয়া… তুমি এখন আমার।",
+    "রাহুলের বয়স ৩৫। চাকরি করে একটা বড় কোম্পানিতে, মাসে ভালো টাকা আসে। বিয়ে হয়েছিল মেঘার সাথে আট বছর আগে। মেঘা ৩২ বছরের, ফর্সা, লম্বা চুল, ভারী দুধ আর গোল পাছা। সংসার সামলায় চুপচাপ, কিন্তু রাতে বিছানায় সে রাহুলকে যা দিত, তাতে রাহুল কখনো অভিযোগ করেনি। কিন্তু দুই বছর আগে রাহুলের জীবনে এল রিয়া। ২৪ বছরের যুবতী, শ্যামলা গায়ের রং, টাইট শরীর, ছোট ছোট দুধ আর টান টান পোঁদ। রিয়া ছিল রাহুলের অফিসের জুনিয়র। এক রাতে পার্টিতে মদের নেশায় দুজনের শরীর মিশে গেল। তারপর আর ফিরতে পারল না। রাহুল মেঘাকে সব খুলে বলল। অবাক হয়ে দেখল, মেঘা রাগ করল না। বরং বলল, “তুমি যদি সুখী হও, আমি রাজি। কিন্তু আমাকে কখনো ছেড়ো না।”\nএভাবেই রাহুলের দুই বউ হল। দুজনেই এক বাড়িতে থাকে। বাইরে সবাই জানে রিয়া হল “দূর সম্পর্কের বোন”। কিন্তু ঘরের ভিতরে তিনজনের একটা গোপন জগৎ চলত। রাহুল দুজনকেই সমান ভালোবাসত, আর দুজনেই রাহুলকে চাইত। কখনো একা একা, কখনো দুজন একসাথে। আজকের রাতটা ছিল তেমনই একটা রাত।\nসন্ধ্যা সাতটা। বাড়ির সব লাইট কমানো। মেঘা রান্নাঘরে খাবার গরম করছে। তার পরনে হালকা নীল নাইটি, যেটা তার ভারী দুধের উপর টান টান হয়ে আছে। রিয়া বসার ঘরে সোফায় শুয়ে আছে, পরনে শুধু একটা কালো লেসের ব্রা আর প্যান্টি। তার ছোট দুধ দুটো ব্রার ভিতর থেকে উঁকি মারছে। রাহুল অফিস থেকে ফিরে দরজা খুলতেই দুজনেই তার দিকে তাকাল।\n“আজ দেরি করলে কেন জান?” মেঘা রান্নাঘর থেকে বলল, গলায় আদুরে অভিমান।\nরিয়া হেসে উঠল, “কারণ উনি জানেন আজ আমরা দুজন অপেক্ষা করছি।”\nরাহুল হাসল। জামা খুলে সোফায় বসল। রিয়া তৎক্ষণাৎ তার কোলে উঠে বসল। তার নরম পোঁদ রাহুলের কোলে চেপে বসল। “দাদা… আজ আমাকে আগে চোদো। মেঘা দিদি তো সারাদিন পায়।”\nমেঘা রান্নাঘর থেকে বেরিয়ে এল। তার চোখে দুষ্টু হাসি। “না রে ছোট, আজ আমি আগে নেব। তুই দেখবি কীভাবে তোর দাদা আমাকে চোদে।”\nরাহুল দুজনকেই টেনে নিল। তিনজন একসাথে সোফায়। রাহুল প্রথমে মেঘার নাইটি উপরে তুলে দিল। মেঘার বড় বড় দুধ দুটো লাফিয়ে বেরিয়ে এল। রাহুল একটা দুধ মুখে নিয়ে জোরে চুষতে লাগল। মেঘা আহ করে মাথা পিছনে ফেলল। “আহহ… জোরে চোষো… আমার দুধ তোমার… উফফ…”\nরিয়া পাশে বসে দেখছিল। তার হাত নিজের প্যান্টির ভিতরে ঢুকে গেছে। সে আঙুল দিয়ে নিজের গুদ চুলকাচ্ছে। “দাদা… আমারটাও চাই…”\nরাহুল অন্য হাত দিয়ে রিয়ার ব্রা খুলে দিল। রিয়ার ছোট শক্ত দুধ দুটো বেরিয়ে এল। সে রিয়ার নিপল টিপতে টিপতে মেঘার দুধ চুষছিল। দুজনেরই নিঃশ্বাস ভারী। মেঘা রাহুলের প্যান্টের চেন খুলে তার শক্ত ৮ ইঞ্চি ধোন বের করল। “উফ… আজ তোমার ধোন আরও মোটা লাগছে।”\nরিয়া নিচে নেমে মুখ দিয়ে ধোন চুষতে শুরু করল। তার ছোট মুখে ধোন ঢুকছে আর বেরোচ্ছে। চুপ চুপ শব্দ হচ্ছে। মেঘা রাহুলের ঠোঁটে চুমু খাচ্ছে, জিভ জড়িয়ে। রাহুলের এক হাত মেঘার গুদে, অন্য হাত রিয়ার মাথায়।\n“চলো বিছানায়।” রাহুল বলল।\nতিনজন শোবার ঘরে গেল। বড় বিছানা। লাইট কম। মেঘা শুয়ে পড়ল, পা ফাঁক করে। তার গুদ ভিজে চকচক করছে। রাহুল তার উপর উঠল। ধোনের মাথা গুদে ঠেকিয়ে এক ঠাপে পুরো ঢুকিয়ে দিল। “আহহহহ… জোরে… চোদো আমাকে… তোমার প্রথম বউকে…” মেঘা চিৎকার করে উঠল।\nরাহুল জোরে জোরে ঠাপাতে লাগল। থপ থপ থপ শব্দে ঘর ভরে গেল। রিয়া পাশে বসে মেঘার দুধ চুষছে আর নিজের গুদে আঙুল দিচ্ছে। “দিদি… তোমার গুদ দেখে আমারও চোদা লাগছে…”\nরাহুল ১০ মিনিট ধরে মেঘাকে চোদল। মেঘা দুবার জোরে অর্গাজম করল। তার গুদ থেকে রস বেরিয়ে বিছানা ভিজে গেল। তারপর রাহুল রিয়াকে টেনে নিল। রিয়াকে কুকুরের মতো করে বসাল। তার পোঁদ উঁচু করে। রিয়ার গুদ ছোট, টাইট। রাহুল ধোন ঢোকাতেই রিয়া কেঁদে উঠল, “আহহ… দাদা… ফেটে যাবে… জোরে চোদো… আমাকে তোমার দ্বিতীয় বউকে রাফ করে চোদো…”\nরাহুল তার চুল ধরে পিছন থেকে জোরে ঠাপাতে লাগল। প্রত্যেক ঠাপে রিয়ার পোঁদ লাল হয়ে যাচ্ছে। মেঘা নিচে শুয়ে রিয়ার গুদ চাটছে আর রাহুলের ডিম চুষছে। তিনজনের শরীর একসাথে মিশে আছে।\n“আমি আর পারছি না…” রিয়া চিৎকার করল। তার শরীর কাঁপতে লাগল। রাহুল তার ভিতরে গরম মাল ঢেলে দিল। কিন্তু থামল না। সে মেঘাকে আবার টেনে নিল। এবার দুজন বউকে পাশাপাশি শুইয়ে দিল। দুজনের গুদ একসাথে। রাহুল একবার মেঘার গুদে ঢুকছে, একবার রিয়ার। দুজনেই আহ উফ করছে।\n“দাদা… আমাদের দুজনকেই একসাথে ভরে দাও…” মেঘা বলল।\nরাহুল দুজনের গুদে পর্যায়ক্রমে ঠাপ দিতে লাগল। ঘরে শুধু চোদার শব্দ, দুধ চটকানোর শব্দ, চুমুর শব্দ। রিয়া মেঘার দুধ চুষছে, মেঘা রিয়ার নিপল টিপছে। রাহুল শেষে দুজনের মুখের সামনে ধোন বের করল। দুজন বউ মিলে ধোন চুষতে লাগল। জিভে জিভ লাগছে, ধোন চুষছে। রাহুল আর থাকতে পারল না। দুজনের মুখে, দুধে, গুদে গরম মাল ছড়িয়ে দিল।\nতিনজনে হাঁপাতে হাঁপাতে জড়াজড়ি করে শুয়ে পড়ল। মেঘা রাহুলের বুকে মাথা রেখে বলল, “তুমি আমাদের স্বামী… দুজনেরই।”\nরিয়া অন্যদিক থেকে জড়িয়ে বলল, “আর প্রতি রাতে এমন চোদন চাই।”\nরাহুল হাসল। “তোমরা দুজনেই আমার। এক স্বামী, দুই বউ… এই তিনজনের রাজত্ব চলবে চিরকাল।”\nরাত আরও গভীর হল। তিনজন আবার শুরু করল। এবার রিয়া মেঘার গুদ চাটছে, রাহুল রিয়ার পোঁদে ঢুকছে। মেঘা রাহুলের ঠোঁট চুষছে। তিনজনের শরীর এক হয়ে গেল। কোনো লজ্জা নেই, শুধু আগুন। শুধু সুখ।"
+        ];
+
+        // টিপস লিস্ট
+        let tipList = [
+             "প্রিয় রাবিতা, আয়নার সামনে সম্পূর্ণ নগ্ন হয়ে দাঁড়াও। দুধ দুটো চেপে টিপে দেখো, নিপল ঘুরিয়ে ঘুরিয়ে আদর করো। আঙুল নামিয়ে গুদে ঢোকাও। চোখ বন্ধ করে ভাবো তানজিম তোমাকে দেখছে। তারপর তাকে ডেকে বলো, “আমি তোমার জন্য গরম হয়ে গেছি”।",
+    "প্রিয় রাবিতা, একটা কাগজে লেখো: “তানজিম, আজ রাতে আমার গুদ তোমার ধোনের জন্য কাঁপছে। আমাকে রাফ করে চোদো, দুধ চুষে খাও, পেছন থেকে ঠাপাও। আমি তোমার মাগী।” কাগজটা তার বালিশের নিচে রেখে দাও। সে পড়ে তোমাকে জড়িয়ে ধরবে।",
+    "প্রিয় রাবিতা, বিছানায় শুয়ে চোখ বন্ধ করো। নিজের দুধ চুষতে চুষতে আঙুল গুদে ঢোকাও। জোরে জোরে না, খুব আস্তে আস্তে ঘোরাও। তানজিমের নাম নিয়ে কাঁপো। যতক্ষণ না তোমার গুদ থেকে রস বেরোয়। তারপর বলো, “আমি তোমার জন্য প্রস্তুত”।",
+    "প্রিয় রাবিতা, লাল নাইটি পরে দরজায় দাঁড়িয়ে থাকো। তানজিম ফিরলেই নাইটি খুলে ফেলো। তার সামনে হাঁটু গেড়ে বসে তার ধোন বের করে মুখে নাও। চুষতে চুষতে বলো, “আজ আমি তোমার সেক্সি বউ, চোদো আমাকে”। সে পাগল হয়ে যাবে।",
+    "প্রিয় রাবিতা, গোসলের সময় তানজিমকে ডেকে নাও। দুজনে একসাথে সাবান মাখাও। সে তোমার গুদে সাবান ঢুকাক, তুমি তার ধোন চেপে ধরো। ভেজা শরীরে চুমু খেতে খেতে বলো, “এখানেই চোদো আমাকে”। গোসল শেষে বিছানায় রাফ চোদন শুরু হবে।",
+    "প্রিয় রাবিতা, সেক্সি গান চালিয়ে শুধু প্যান্টি পরে নাচো। দুধ লাফাতে লাফাতে ঘুরো। তানজিমকে ডেকে দেখাও। নাচতে নাচতে তার কোলে উঠে বসো। তার ধোন গুদে ঘষো। বলো, “আমার শরীর তোমার জন্য নাচছে, চোদো এখনই”।",
+    "প্রিয় রাবিতা, তার সামনে ব্রা খুলে দুধ দুটো দেখিয়ে বলো, “এই দুধ শুধু তোমার। চুষে খাও, কামড়াও”। তার মুখে দুধ ঢুকিয়ে দাও। নিপল কামড়াতে দাও। এক হাতে তার ধোন চেপে ধরো। দেখবে সে জোরে চুষে তোমাকে পাগল করে দেবে।",
+    "প্রিয় রাবিতা, চোদার সময় চুপ থেকো না। জোরে জোরে বলো, “তানজিম, আমার গুদ ফাটিয়ে দাও। তোমার ধোন আরও গভীরে ঢোকাও। আমি তোমার মাগী। জোরে ঠাপাও”। এই ডার্টি কথায় তোমার উত্তেজনা দ্বিগুণ হবে আর সে আরও রাফ হয়ে যাবে।",
+    "প্রিয় রাবিতা, তার ফোনে সেলফি পাঠাও। শুধু দুধ দেখিয়ে লেখো: “রাতে এই দুধ তোমার মুখে থাকবে। গুদ তোমার ধোনের জন্য ভিজে আছে। চলে এসো, চোদো আমাকে”। সে অফিস থেকে ফিরে তোমাকে ছিঁড়ে ফেলবে।",
+    "প্রিয় রাবিতা, তার হাত ধরে নিজের গুদে রাখো। বলো, “আজ তোমার আঙুল দিয়ে আমাকে জোরে চোদো। তিনটা আঙুল ঢোকাও। আমি কাঁপছি”। তারপর তার ধোন চুষতে চুষতে বলো, “এখন তোমার ধোন চাই”।",
+    "প্রিয় রাবিতা, রান্নাঘরে তার পিছন থেকে জড়িয়ে ধরো। কানে ফিসফিস করে বলো, “আজ রাতে তোমাকে আমি পেছন থেকে চোদব। পোঁদ উঁচু করে দাঁড়াব। জোরে ঠাপাও”। তার হাত তোমার দুধে রাখো।",
+    "প্রিয় রাবিতা, লম্বা আয়নার সামনে দাঁড়িয়ে তাকে পেছন থেকে চুমু খেতে বলো। নিজের শরীর দেখিয়ে বলো, “দেখো আমার গুদ কত ভিজে আছে। এখানে তোমার ধোন চাই”। সে আয়নায় দেখতে দেখতে চোদবে।",
+    "প্রিয় রাবিতা, তার বুকে লাল লিপস্টিকের ছাপ দাও। বলো, “এটা আমার চুমুর দাগ। রাতে তোমার ধোনে আরও অনেক ছাপ দেব। চুষব, চোদব”। তারপর তার ঠোঁট কামড়ে চুমু খাও।",
+    "প্রিয় রাবিতা, চোখে কালো কাপড় বেঁধে তাকে বলো, “আজ আমি অন্ধ। শুধু অনুভব করব। তোমার ধোন আমার গুদে ঢোকাও। জোরে চোদো। আমি শুধু আহ উফ করব”। এতে উত্তেজনা বহুগুণ বাড়বে।",
+    "প্রিয় রাবিতা, তার সামনে হাঁটু গেড়ে বসে ধোন চুষতে চুষতে বলো, “আমার মুখ তোমার ধোনের জন্য তৈরি। গলায় ঢোকাও। তারপর গুদে চোদো। আমি তোমার সেক্সি মাগী”। চোখে চোখ রেখে চুষো।",
+    "প্রিয় রাবিতা, ছাদে বা বারান্দায় তাকে নিয়ে যাও। দেওয়ালে হেলান দিয়ে পা ফাঁক করো। বলো, “এখানে দাঁড়িয়ে চোদো আমাকে। কেউ দেখলে আরও মজা। তোমার ধোন এখনই চাই”।",
+    "প্রিয় রাবিতা, বিছানায় শুয়ে পা ফাঁক করে বলো, “তানজিম, আমার গুদ চাটো। জিভ ঢুকিয়ে চুষো। তারপর ধোন ঢুকিয়ে জোরে ঠাপাও। আমি তোমার রস খেতে চাই”।",
+    "প্রিয় রাবিতা, তার কোলে বসে ধোন গুদে ঘষো। বলো, “আজ আমি উপরে বসে চোদব। তোমার ধোন আমার গুদে পুরো ঢুকিয়ে নেব। দুধ লাফাব। জোরে চোদো”।",
+    "প্রিয় রাবিতা, রাতে তার কানে ফিসফিস করে বলো, “আমার পোঁদেও চোদো আজ। আঙুল দিয়ে প্রস্তুত করো। তারপর ধোন ঢোকাও। আমি তোমার সবকিছু চাই”। এতে সে পাগল হয়ে যাবে।",
+    "প্রিয় রাবিতা, সকালে ঘুম থেকে উঠে তার ধোন মুখে নাও। চুষতে চুষতে বলো, “আজ সারাদিন আমার গুদ তোমার জন্য ভিজে থাকবে। রাতে এসে চোদো। আমি তোমারই”। সারাদিন সে তোমার কথা ভাববে।",
+    "প্রিয় রাবিতা, দেবর-ভাবি ফ্যান্টাসি করো। তানজিমকে দেবর ভাবো। তার সামনে প্যান্টি খুলে বলো, “দেবর, ভাবির গুদ তোমার জন্য ভিজে আছে। ভাইয়ের বউকে লুকিয়ে চোদো”। সে তোমাকে পেছন থেকে ঠাপাবে, নিষিদ্ধ উত্তেজনায় তুমি পাগল হয়ে যাবে।",
+    "প্রিয় রাবিতা, বস-সেক্রেটারি নিষিদ্ধ অফিস খেলা। তানজিমকে বস ভাবো। টেবিলে হেলান দিয়ে বলো, “স্যার, চাকরি রাখতে গুদ দিচ্ছি। ধোন ঢোকান, জোরে ঠাপান”। সে তোমাকে টেবিলে চোদবে।"
+        ];
+
+        let currentCategory = 'ma';
+
+        // ===== লোকাল স্টোরেজ থেকে ডাটা লোড =====
+        loadFromLocalStorage();
+
+        // ===== লগইন ফাংশন =====
+        function checkPin() {
+            const pin = document.getElementById('pinCode').value;
+            if(pin === "1234") {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('main-dashboard').style.display = 'block';
+                loadAllData();
+            } else {
+                document.getElementById('error-msg').style.display = 'block';
+            }
+        }
+
+        // ===== সব ডাটা লোড করা =====
+        function loadAllData() {
+            loadMoodButtons();
+            loadCharacters();
+            loadSettingsData();
+            loadImageList();
+            loadVideoList();
+            loadStoryList();
+            loadTipList();
+        }
+
+        // ===== মুড বাটন লোড করা =====
+        function loadMoodButtons() {
+            const container = document.getElementById('mood-buttons-container');
+            let html = '';
+            moodMessages.forEach((mood, index) => {
+                html += `<button class="mood-btn" onclick="setMood(this, '${mood.message}')">${mood.name}</button>`;
+            });
+            container.innerHTML = html;
+        }
+
+        // ===== মুড সেট করা =====
+        function setMood(btn, message) {
+            let buttons = document.querySelectorAll('.mood-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('mood-msg').innerText = message;
+        }
+
+        // ===== রুলেট স্পিন =====
+        function spinRoulette() {
+            let resultDiv = document.getElementById('roulette-result');
+            let count = 0;
+            let speed = 50;
+            
+            let spinInterval = setInterval(() => {
+                let randomAction = rouletteActions[Math.floor(Math.random() * rouletteActions.length)];
+                resultDiv.innerText = randomAction;
+                count++;
+                
+                if(count > 20) {
+                    clearInterval(spinInterval);
+                    let finalAction = rouletteActions[Math.floor(Math.random() * rouletteActions.length)];
+                    resultDiv.innerHTML = `<span style="color: #ff3838; font-size: 26px;">${finalAction}</span>`;
+                }
+            }, speed);
+        }
+
+        // ===== র্যান্ডম ছবি দেখানো =====
+        function showRandomImage() {
+            const imageBox = document.getElementById('random-image-box');
+            
+            if(imageLinks.length === 0) {
+                imageBox.innerHTML = `
+                    <p style="color: #ff6b81;">কোনো ছবি নেই! প্রথমে সেটিংস থেকে ছবি যোগ করুন।</p>
+                    <button class="btn" onclick="showRandomImage()">🎲 আবার চেষ্টা করো 🎲</button>
+                `;
+                return;
+            }
+            
+            const randomIndex = Math.floor(Math.random() * imageLinks.length);
+            const randomImage = imageLinks[randomIndex];
+            
+            let count = 0;
+            let speed = 50;
+            
+            let spinInterval = setInterval(() => {
+                imageBox.innerHTML = `<p style="color: #ff6b81;">ছবি খুঁজছে... 🎲</p>`;
+                count++;
+                
+                if(count > 10) {
+                    clearInterval(spinInterval);
+                    imageBox.innerHTML = `
+                        <img src="${randomImage}" alt="র্যান্ডম ছবি" class="secret-image" onerror="this.src='https://via.placeholder.com/300x200?text=ছবি+লোড+হয়নি'">
+                        <button class="btn btn-small" onclick="showRandomImage()">🎲 আরেকটি ছবি দেখাও 🎲</button>
+                    `;
+                    
+                    if (navigator.vibrate) navigator.vibrate(100);
+                }
+            }, speed);
+        }
+
+        // ===== ছবির লিংক যোগ করা =====
+        function addImageLink() {
+            const newLink = document.getElementById('new-image-link').value.trim();
+            if(newLink) {
+                imageLinks.push(newLink);
+                document.getElementById('new-image-link').value = '';
+                loadImageList();
+                saveToLocalStorage();
+                alert('✅ নতুন ছবির লিংক যোগ হয়েছে!');
+            } else {
+                alert('❌ একটি বৈধ লিংক দিন');
+            }
+        }
+
+        // ===== ছবির লিংক ডিলিট করা =====
+        function deleteImageLink(index) {
+            if(confirm('এই ছবির লিংক ডিলিট করবেন?')) {
+                imageLinks.splice(index, 1);
+                loadImageList();
+                saveToLocalStorage();
+            }
+        }
+
+        // ===== ছবির লিস্ট লোড করা =====
+        function loadImageList() {
+            const container = document.getElementById('image-list-container');
+            if(imageLinks.length === 0) {
+                container.innerHTML = '<p style="color: #a37c43;">কোনো ছবি নেই। উপরে ছবি যোগ করুন।</p>';
+                return;
+            }
+            
+            let html = '';
+            imageLinks.forEach((link, index) => {
+                const shortLink = link.length > 30 ? link.substring(0, 30) + '...' : link;
+                html += `
+                    <div class="image-list-item">
+                        <span title="${link}">🖼️ ${shortLink}</span>
+                        <div>
+                            <button onclick="deleteImageLink(${index})">ডিলিট</button>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        // ===== ভিডিও লিংক ফাংশন (Google Drive সাপোর্ট সহ) =====
+        function loadVideoList() {
+            const container = document.getElementById('video-list-container');
+            if(videoLinks.length === 0) {
+                container.innerHTML = '<p style="color: #a37c43;">কোনো ভিডিও নেই। নতুন ভিডিও যোগ করুন।</p>';
+                return;
+            }
+            
+            let html = '';
+            videoLinks.forEach((link, index) => {
+                const shortLink = link.length > 30 ? link.substring(0, 30) + '...' : link;
+                html += `
+                    <div class="image-list-item">
+                        <span title="${link}">🎬 ${shortLink}</span>
+                        <div>
+                            <button onclick="editVideoLink(${index})">এডিট</button>
+                            <button onclick="deleteVideoLink(${index})">ডিলিট</button>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function addVideoLink() {
+            const newLink = document.getElementById('new-video-link').value.trim();
+            if(newLink) {
+                videoLinks.push(newLink);
+                document.getElementById('new-video-link').value = '';
+                loadVideoList();
+                saveToLocalStorage();
+                alert('✅ নতুন ভিডিও লিংক যোগ হয়েছে!');
+            } else {
+                alert('❌ একটি বৈধ লিংক দিন');
+            }
+        }
+
+        function editVideoLink(index) {
+            const newLink = prompt('নতুন ভিডিও লিংক দিন:', videoLinks[index]);
+            if(newLink) {
+                videoLinks[index] = newLink;
+                loadVideoList();
+                saveToLocalStorage();
+            }
+        }
+
+        function deleteVideoLink(index) {
+            if(confirm('এই ভিডিও লিংক ডিলিট করবেন?')) {
+                videoLinks.splice(index, 1);
+                loadVideoList();
+                saveToLocalStorage();
+            }
+        }
+
+        // ===== গল্প ফাংশন =====
+        function loadStoryList() {
+            const container = document.getElementById('story-list-container');
+            if(storyList.length === 0) {
+                container.innerHTML = '<p style="color: #a37c43;">কোনো গল্প নেই। নতুন গল্প যোগ করুন।</p>';
+                return;
+            }
+            
+            let html = '';
+            storyList.forEach((story, index) => {
+                const shortStory = story.length > 30 ? story.substring(0, 30) + '...' : story;
+                html += `
+                    <div class="image-list-item">
+                        <span title="${story}">📖 ${shortStory}</span>
+                        <div>
+                            <button onclick="editStory(${index})">এডিট</button>
+                            <button onclick="deleteStory(${index})">ডিলিট</button>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function addStory() {
+            const newStory = document.getElementById('new-story').value.trim();
+            if(newStory) {
+                storyList.push(newStory);
+                document.getElementById('new-story').value = '';
+                loadStoryList();
+                saveToLocalStorage();
+                alert('✅ নতুন গল্প যোগ হয়েছে!');
+            } else {
+                alert('❌ একটি গল্প লিখুন');
+            }
+        }
+
+        function editStory(index) {
+            const newStory = prompt('গল্প এডিট করুন:', storyList[index]);
+            if(newStory) {
+                storyList[index] = newStory;
+                loadStoryList();
+                saveToLocalStorage();
+            }
+        }
+
+        function deleteStory(index) {
+            if(confirm('এই গল্প ডিলিট করবেন?')) {
+                storyList.splice(index, 1);
+                loadStoryList();
+                saveToLocalStorage();
+            }
+        }
+
+        // ===== টিপস ফাংশন =====
+        function loadTipList() {
+            const container = document.getElementById('tip-list-container');
+            if(tipList.length === 0) {
+                container.innerHTML = '<p style="color: #a37c43;">কোনো টিপস নেই। নতুন টিপস যোগ করুন।</p>';
+                return;
+            }
+            
+            let html = '';
+            tipList.forEach((tip, index) => {
+                const shortTip = tip.length > 30 ? tip.substring(0, 30) + '...' : tip;
+                html += `
+                    <div class="image-list-item">
+                        <span title="${tip}">💡 ${shortTip}</span>
+                        <div>
+                            <button onclick="editTip(${index})">এডিট</button>
+                            <button onclick="deleteTip(${index})">ডিলিট</button>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function addTip() {
+            const newTip = document.getElementById('new-tip').value.trim();
+            if(newTip) {
+                tipList.push(newTip);
+                document.getElementById('new-tip').value = '';
+                loadTipList();
+                saveToLocalStorage();
+                alert('✅ নতুন টিপস যোগ হয়েছে!');
+            } else {
+                alert('❌ একটি টিপস লিখুন');
+            }
+        }
+
+        function editTip(index) {
+            const newTip = prompt('টিপস এডিট করুন:', tipList[index]);
+            if(newTip) {
+                tipList[index] = newTip;
+                loadTipList();
+                saveToLocalStorage();
+            }
+        }
+
+        function deleteTip(index) {
+            if(confirm('এই টিপস ডিলিট করবেন?')) {
+                tipList.splice(index, 1);
+                loadTipList();
+                saveToLocalStorage();
+            }
+        }
+
+        // ===== ব্যাকআপ ডাউনলোড =====
+        function downloadBackup() {
+            const backupData = {
+                moodMessages: moodMessages,
+                rouletteActions: rouletteActions,
+                characters: characters,
+                imageLinks: imageLinks,
+                videoLinks: videoLinks,
+                storyList: storyList,
+                tipList: tipList,
+                backupDate: new Date().toISOString(),
+                version: "1.0"
+            };
+            
+            const jsonString = JSON.stringify(backupData, null, 2);
+            const blob = new Blob([jsonString], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `gopon_jogot_backup_${new Date().toISOString().slice(0,10)}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('✅ ব্যাকআপ ডাউনলোড হচ্ছে!');
+        }
+
+        // ===== ব্যাকআপ রিস্টোর =====
+        function restoreBackup(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                try {
+                    const backupData = JSON.parse(e.target.result);
+                    
+                    if (backupData.moodMessages && backupData.rouletteActions && backupData.characters && backupData.imageLinks) {
+                        
+                        if (confirm('ব্যাকআপ রিস্টোর করলে বর্তমান সব ডাটা মুছে যাবে। নিশ্চিত?')) {
+                            
+                            moodMessages = backupData.moodMessages;
+                            rouletteActions = backupData.rouletteActions;
+                            characters = backupData.characters;
+                            imageLinks = backupData.imageLinks;
+                            videoLinks = backupData.videoLinks || videoLinks;
+                            storyList = backupData.storyList || storyList;
+                            tipList = backupData.tipList || tipList;
+                            
+                            saveToLocalStorage();
+                            loadAllData();
+                            loadSettingsData();
+                            
+                            alert('✅ ব্যাকআপ সফলভাবে রিস্টোর হয়েছে!');
+                            toggleSettings();
+                        }
+                    } else {
+                        alert('❌ ভ্যালিড ব্যাকআপ ফাইল নয়!');
+                    }
+                } catch (error) {
+                    alert('❌ ফাইল লোড করতে সমস্যা হয়েছে!');
+                    console.error(error);
+                }
+                
+                event.target.value = '';
+            };
+            
+            reader.readAsText(file);
+        }
+
+        // ===== ক্যারেক্টর ফাংশন =====
+        function loadCharacters() {
+            const listDiv = document.getElementById('character-list');
+            const categoryChars = characters[currentCategory] || [];
+            
+            let html = '';
+            categoryChars.forEach((char, index) => {
+                html += `
+                    <div class="character-item">
+                        <div class="character-info">
+                            <div class="character-name">${char.name}</div>
+                            <div class="character-desc">${char.desc}</div>
+                        </div>
+                        <button class="play-btn" onclick="selectCharacter('${char.name}', '${char.desc}')">এক্টিং শুরু</button>
+                    </div>
+                `;
+            });
+            
+            if(categoryChars.length === 0) {
+                html = '<p style="color: #a37c43;">এখনো কোনো ক্যারেক্টর যোগ করা হয়নি</p>';
+            }
+            
+            listDiv.innerHTML = html;
+        }
+
+        function switchCategory(tab, category) {
+            document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            currentCategory = category;
+            loadCharacters();
+            document.getElementById('active-character').innerHTML = '';
+        }
+
+        function selectCharacter(name, desc) {
+            const activeDiv = document.getElementById('active-character');
+            activeDiv.innerHTML = `🎭 আজ রাতে ${name} এক্টিং করবে... <br><span style="color: #ff6b81;">"${desc}"</span>`;
+            if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
+        }
+
+        // ===== এলোমেলো ক্যারেক্টার সিলেক্ট =====
+        function selectRandomCharacter() {
+            let allCharacters = [];
+            
+            characters.ma.forEach(char => {
+                allCharacters.push({ ...char, category: 'ma', categoryName: 'মা' });
+            });
+            characters.bhabi.forEach(char => {
+                allCharacters.push({ ...char, category: 'bhabi', categoryName: 'ভাবি' });
+            });
+            characters.bon.forEach(char => {
+                allCharacters.push({ ...char, category: 'bon', categoryName: 'বোন' });
+            });
+
+            if(allCharacters.length === 0) {
+                alert('কোনো ক্যারেক্টর নেই! প্রথমে ক্যারেক্টর যোগ করুন।');
+                return;
+            }
+
+            const randomIndex = Math.floor(Math.random() * allCharacters.length);
+            const randomChar = allCharacters[randomIndex];
+
+            let count = 0;
+            let speed = 50;
+            const activeDiv = document.getElementById('active-character');
+            
+            let spinInterval = setInterval(() => {
+                const tempIndex = Math.floor(Math.random() * allCharacters.length);
+                const tempChar = allCharacters[tempIndex];
+                activeDiv.innerHTML = `🎭 খুঁজছে... ${tempChar.categoryName} - ${tempChar.name}...`;
+                count++;
+                
+                if(count > 15) {
+                    clearInterval(spinInterval);
+                    activeDiv.innerHTML = `🎭 আজ রাতে <span style="color: #ff6b81; font-size: 20px;">${randomChar.categoryName} - ${randomChar.name}</span> এক্টিং করবে... <br><span style="color: #ffb84d;">"${randomChar.desc}"</span>`;
+                    
+                    if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+                    
+                    document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                    if(randomChar.category === 'ma') {
+                        document.querySelectorAll('.category-tab')[0].classList.add('active');
+                        currentCategory = 'ma';
+                    } else if(randomChar.category === 'bhabi') {
+                        document.querySelectorAll('.category-tab')[1].classList.add('active');
+                        currentCategory = 'bhabi';
+                    } else if(randomChar.category === 'bon') {
+                        document.querySelectorAll('.category-tab')[2].classList.add('active');
+                        currentCategory = 'bon';
+                    }
+                    
+                    loadCharacters();
+                }
+            }, speed);
+        }
+
+        // ===== সেটিংস ফাংশন =====
+        function toggleSettings() {
+            document.getElementById('settings-panel').classList.toggle('active');
+            document.getElementById('overlay').classList.toggle('active');
+            if(document.getElementById('settings-panel').classList.contains('active')) {
+                loadSettingsData();
+                loadImageList();
+                loadVideoList();
+                loadStoryList();
+                loadTipList();
+            }
+        }
+
+        function loadSettingsData() {
+            // মুড সেটিংস লোড
+            const moodDiv = document.getElementById('mood-settings');
+            let moodHtml = '';
+            moodMessages.forEach((mood, index) => {
+                moodHtml += `
+                    <div class="settings-item">
+                        <span>${mood.name}</span>
+                        <div class="settings-item-actions">
+                            <button onclick="editMood(${index})">এডিট</button>
+                            <button onclick="deleteMood(${index})">ডিলিট</button>
+                        </div>
+                    </div>
+                `;
+            });
+            moodDiv.innerHTML = moodHtml;
+
+            // রুলেট সেটিংস লোড
+            const rouletteDiv = document.getElementById('roulette-settings');
+            let rouletteHtml = '';
+            rouletteActions.forEach((action, index) => {
+                rouletteHtml += `
+                    <div class="settings-item">
+                        <span>${action.substring(0, 30)}...</span>
+                        <div class="settings-item-actions">
+                            <button onclick="editRouletteAction(${index})">এডিট</button>
+                            <button onclick="deleteRouletteAction(${index})">ডিলিট</button>
+                        </div>
+                    </div>
+                `;
+            });
+            rouletteDiv.innerHTML = rouletteHtml;
+
+            // ক্যারেক্টর সেটিংস লোড
+            loadCharacterSettings();
+        }
+
+        function loadCharacterSettings() {
+            const category = document.getElementById('character-category-select').value;
+            const charDiv = document.getElementById('character-settings');
+            let charHtml = '';
+            characters[category].forEach((char, index) => {
+                charHtml += `
+                    <div class="settings-item">
+                        <span>${char.name}</span>
+                        <div class="settings-item-actions">
+                            <button onclick="editCharacter('${category}', ${index})">এডিট</button>
+                            <button onclick="deleteCharacter('${category}', ${index})">ডিলিট</button>
+                        </div>
+                    </div>
+                `;
+            });
+            charDiv.innerHTML = charHtml;
+        }
+
+        // ===== মুড ম্যানেজমেন্ট =====
+        function addMood() {
+            const name = document.getElementById('new-mood-name').value.trim();
+            const message = document.getElementById('new-mood-message').value.trim();
+            if(name && message) {
+                moodMessages.push({ name: name, message: message });
+                document.getElementById('new-mood-name').value = '';
+                document.getElementById('new-mood-message').value = '';
+                loadSettingsData();
+                loadMoodButtons();
+                saveToLocalStorage();
+            } else {
+                alert('নাম এবং মেসেজ দুটোই দিন');
+            }
+        }
+
+        function editMood(index) {
+            const newName = prompt('নতুন নাম দিন:', moodMessages[index].name);
+            const newMessage = prompt('নতুন মেসেজ দিন:', moodMessages[index].message);
+            if(newName && newMessage) {
+                moodMessages[index] = { name: newName, message: newMessage };
+                loadSettingsData();
+                loadMoodButtons();
+                saveToLocalStorage();
+            }
+        }
+
+        function deleteMood(index) {
+            if(confirm('এই মুড ডিলিট করবেন?') && moodMessages.length > 1) {
+                moodMessages.splice(index, 1);
+                loadSettingsData();
+                loadMoodButtons();
+                document.getElementById('mood-msg').innerText = '';
+                saveToLocalStorage();
+            } else {
+                alert('কমপক্ষে ১টি মুড থাকতে হবে');
+            }
+        }
+
+        // ===== রুলেট অ্যাকশন ম্যানেজমেন্ট =====
+        function addRouletteAction() {
+            const action = document.getElementById('new-action').value.trim();
+            if(action) {
+                rouletteActions.push(action);
+                document.getElementById('new-action').value = '';
+                loadSettingsData();
+                saveToLocalStorage();
+            }
+        }
+
+        function editRouletteAction(index) {
+            const newAction = prompt('নতুন অ্যাকশন দিন:', rouletteActions[index]);
+            if(newAction) {
+                rouletteActions[index] = newAction;
+                loadSettingsData();
+                saveToLocalStorage();
+            }
+        }
+
+        function deleteRouletteAction(index) {
+            if(confirm('এই অ্যাকশন ডিলিট করবেন?') && rouletteActions.length > 1) {
+                rouletteActions.splice(index, 1);
+                loadSettingsData();
+                saveToLocalStorage();
+            } else {
+                alert('কমপক্ষে ১টি অ্যাকশন থাকতে হবে');
+            }
+        }
+
+        // ===== ক্যারেক্টর ম্যানেজমেন্ট =====
+        function addCharacterFromSettings() {
+            const category = document.getElementById('character-category-select').value;
+            const name = document.getElementById('new-character-name').value.trim();
+            const desc = document.getElementById('new-character-desc').value.trim();
+            
+            if(name && desc) {
+                characters[category].push({ name: name, desc: desc });
+                document.getElementById('new-character-name').value = '';
+                document.getElementById('new-character-desc').value = '';
+                loadCharacterSettings();
+                if(currentCategory === category) loadCharacters();
+                saveToLocalStorage();
+            } else {
+                alert('নাম এবং ডেসক্রিপশন দিন');
+            }
+        }
+
+        function editCharacter(category, index) {
+            const newName = prompt('নতুন নাম দিন:', characters[category][index].name);
+            const newDesc = prompt('নতুন ডেসক্রিপশন দিন:', characters[category][index].desc);
+            if(newName && newDesc) {
+                characters[category][index] = { name: newName, desc: newDesc };
+                loadCharacterSettings();
+                if(currentCategory === category) loadCharacters();
+                saveToLocalStorage();
+            }
+        }
+
+        function deleteCharacter(category, index) {
+            if(confirm('এই ক্যারেক্টর ডিলিট করবেন?') && characters[category].length > 1) {
+                characters[category].splice(index, 1);
+                loadCharacterSettings();
+                if(currentCategory === category) loadCharacters();
+                document.getElementById('active-character').innerHTML = '';
+                saveToLocalStorage();
+            } else {
+                alert('প্রত্যেক ক্যাটাগরিতে কমপক্ষে ১টি ক্যারেক্টর থাকতে হবে');
+            }
+        }
+
+        // ===== নতুন ফাংশন: আলাদা পেইজ খোলা =====
+        function openFeaturePage(type) {
+            // মূল ড্যাশবোর্ড লুকাও
+            document.getElementById('main-dashboard').style.display = 'none';
+            // সেটিংস বাটন লুকাও
+            document.querySelector('.settings-btn').style.display = 'none';
+            
+            // সব ফিচার পেইজ লুকাও
+            document.getElementById('video-page').style.display = 'none';
+            document.getElementById('story-page').style.display = 'none';
+            document.getElementById('tip-page').style.display = 'none';
+            
+            if(type === 'video') {
+                document.getElementById('video-page').style.display = 'block';
+                showRandomVideoOnPage();
+            } else if(type === 'story') {
+                document.getElementById('story-page').style.display = 'block';
+                showRandomStoryOnPage();
+            } else if(type === 'tip') {
+                document.getElementById('tip-page').style.display = 'block';
+                showRandomTipOnPage();
+            }
+        }
+
+        function goBackToDashboard() {
+            // ফিচার পেইজ লুকাও
+            document.getElementById('video-page').style.display = 'none';
+            document.getElementById('story-page').style.display = 'none';
+            document.getElementById('tip-page').style.display = 'none';
+            // মূল ড্যাশবোর্ড দেখাও
+            document.getElementById('main-dashboard').style.display = 'block';
+            // সেটিংস বাটন দেখাও
+            document.querySelector('.settings-btn').style.display = 'flex';
+        }
+
+        // ===== পেইজ অনুযায়ী এলোমেলো কন্টেন্ট দেখানো (Google Drive সাপোর্ট সহ) =====
+function showRandomVideoOnPage() {
+    const container = document.getElementById('video-container');
+    if(videoLinks.length === 0) {
+        container.innerHTML = '<p style="color: #ff6b81;">কোনো ভিডিও নেই! প্রথমে সেটিংস থেকে ভিডিও যোগ করুন।</p>';
+        return;
+    }
+    const randomIndex = Math.floor(Math.random() * videoLinks.length);
+    const randomVideo = videoLinks[randomIndex];
+
+    // আপডেট: একটি ডামি প্যারামিটার যোগ করে ক্যাশ ফোর্স করা হয়েছে
+    const videoUrl = randomVideo.includes('?') ? `${randomVideo}&force=1` : `${randomVideo}?force=1`;
+
+    container.innerHTML = `
+        <iframe 
+            src="${videoUrl}" 
+            width="100%" 
+            height="350" 
+            frameborder="0" 
+            scrolling="no" 
+            allowfullscreen="true"
+            allow="autoplay; encrypted-media">
+        </iframe>
+    `;
+}
+
+        function showRandomStoryOnPage() {
+            const container = document.getElementById('story-container');
+            if(storyList.length === 0) {
+                container.innerHTML = '<p style="color: #ff6b81;">কোনো গল্প নেই! প্রথমে সেটিংস থেকে গল্প যোগ করুন।</p>';
+                return;
+            }
+            const randomIndex = Math.floor(Math.random() * storyList.length);
+            container.innerHTML = storyList[randomIndex];
+        }
+
+        function showRandomTipOnPage() {
+            const container = document.getElementById('tip-container');
+            if(tipList.length === 0) {
+                container.innerHTML = '<p style="color: #ff6b81;">কোনো টিপস নেই! প্রথমে সেটিংস থেকে টিপস যোগ করুন।</p>';
+                return;
+            }
+            const randomIndex = Math.floor(Math.random() * tipList.length);
+            container.innerHTML = tipList[randomIndex];
+        }
+
+        // ===== রিফ্রেশ বাটন (Google Drive সাপোর্ট সহ) =====
+function refreshRandomVideo() {
+    if(videoLinks.length === 0) {
+        document.getElementById('video-container').innerHTML = '<p style="color: #ff6b81;">কোনো ভিডিও নেই! প্রথমে সেটিংস থেকে ভিডিও যোগ করুন।</p>';
+        return;
+    }
+    const randomIndex = Math.floor(Math.random() * videoLinks.length);
+    const randomVideo = videoLinks[randomIndex];
+
+    // আপডেট: রিফ্রেশ করার সময়েও ক্যাশ ফোর্স করা হয়েছে
+    const videoUrl = randomVideo.includes('?') ? `${randomVideo}&force=${Date.now()}` : `${randomVideo}?force=${Date.now()}`;
+
+    document.getElementById('video-container').innerHTML = `
+        <iframe 
+            src="${videoUrl}" 
+            width="100%" 
+            height="350" 
+            frameborder="0" 
+            scrolling="no" 
+            allowfullscreen="true"
+            allow="autoplay; encrypted-media">
+        </iframe>
+    `;
+}
+
+        function refreshRandomStory() {
+            if(storyList.length === 0) {
+                document.getElementById('story-container').innerHTML = '<p style="color: #ff6b81;">কোনো গল্প নেই! প্রথমে সেটিংস থেকে গল্প যোগ করুন।</p>';
+                return;
+            }
+            const randomIndex = Math.floor(Math.random() * storyList.length);
+            document.getElementById('story-container').innerHTML = storyList[randomIndex];
+            document.getElementById('story-container').scrollTop = 0;
+        }
+
+        function refreshRandomTip() {
+            if(tipList.length === 0) {
+                document.getElementById('tip-container').innerHTML = '<p style="color: #ff6b81;">কোনো টিপস নেই! প্রথমে সেটিংস থেকে টিপস যোগ করুন।</p>';
+                return;
+            }
+            const randomIndex = Math.floor(Math.random() * tipList.length);
+            document.getElementById('tip-container').innerHTML = tipList[randomIndex];
+        }
+
+        // পেজ লোড হওয়ার সময় লোকাল স্টোরেজ থেকে ডাটা লোড হবে
+        window.addEventListener('load', function() {
+            loadFromLocalStorage();
+        });
+    </script>
+
+</body>
+</html>
